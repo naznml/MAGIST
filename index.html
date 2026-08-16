@@ -1,0 +1,6362 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAGIST</title>
+
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --white: #ffffff;
+      --text: #15171c;
+      --muted: #6f7582;
+      --border: #e7e9ee;
+      --purple: #6758f5;
+      --purple-soft: #f0edff;
+      --green: #08845f;
+      --green-soft: #eaf8f2;
+      --shadow: 0 8px 28px rgba(20, 23, 32, 0.06);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: auto;
+    }
+
+
+    /* SAFE GLOBAL LANGUAGE SWITCH */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: #fff;
+    }
+
+    .lang-switch button {
+      border: 0;
+      background: transparent;
+      color: #7a808b;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .lang-switch button.active {
+      background: #15171c;
+      color: #fff;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(246, 247, 249, 0.95);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .logo-box {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: #15171c;
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+      color: #565d69;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    nav a:hover {
+      color: var(--purple);
+    }
+
+    .login-button {
+      border: none;
+      background: #15171c;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 800;
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: 70px 0 55px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 35px;
+      align-items: end;
+    }
+
+    .hero-small {
+      color: var(--purple);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      font-size: clamp(62px, 9vw, 100px);
+      line-height: 0.9;
+      letter-spacing: -5px;
+      margin-bottom: 22px;
+    }
+
+    .hero p {
+      max-width: 750px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      background: white;
+      padding: 12px 17px;
+      border-radius: 11px;
+      font-weight: 800;
+    }
+
+    .button-purple {
+      background: var(--purple);
+      color: white;
+      border-color: var(--purple);
+    }
+
+    .button-dark {
+      background: #15171c;
+      color: white;
+      border-color: #15171c;
+    }
+
+    /* QUICK */
+
+    .quick-section {
+      padding: 22px 0 8px;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+
+    .quick-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 17px;
+      min-height: 115px;
+      transition: 0.2s;
+    }
+
+    .quick-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .quick-number {
+      color: #a0a5af;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .quick-card h3 {
+      margin: 12px 0 5px;
+      font-size: 15px;
+    }
+
+    .quick-card p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    /* SECTIONS */
+
+    section.main-section {
+      padding: 55px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: 65px 1fr;
+      gap: 18px;
+      margin-bottom: 26px;
+    }
+
+    .section-number {
+      color: var(--purple);
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: 1px;
+      padding-top: 6px;
+    }
+
+    .section-header h2 {
+      font-size: 32px;
+      letter-spacing: -1px;
+      margin-bottom: 7px;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 800px;
+    }
+
+    /* TABS */
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .tab {
+      border: 1px solid var(--border);
+      background: white;
+      color: #565d69;
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .tab.active {
+      background: #15171c;
+      color: white;
+      border-color: #15171c;
+    }
+
+    /* TESTS */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 19px;
+      min-height: 210px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: #d9d6ff;
+      box-shadow: 0 14px 34px rgba(20, 23, 32, 0.09);
+    }
+
+    .card-topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .code-chip {
+      font-size: 10px;
+      font-weight: 900;
+      color: #777f8c;
+      letter-spacing: .45px;
+      background: #f5f6f8;
+      border-radius: 999px;
+      padding: 6px 9px;
+    }
+
+    .course-mini-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 12px;
+    }
+
+    .mini-chip {
+      font-size: 10px;
+      line-height: 1;
+      font-weight: 800;
+      color: #626a78;
+      background: #f5f6f8;
+      border-radius: 999px;
+      padding: 7px 9px;
+    }
+
+    .combo-note {
+      margin-top: 10px;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--purple);
+      line-height: 1.45;
+    }
+
+    .badge {
+      width: max-content;
+      padding: 6px 9px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-free {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .badge-paid {
+      background: var(--purple-soft);
+      color: var(--purple);
+    }
+
+    .card h3 {
+      font-size: 18px;
+      margin: 15px 0 8px;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 13px;
+    }
+
+    .card-footer {
+      margin-top: auto;
+      padding-top: 17px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .meta {
+      color: #9aa0aa;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .card-link {
+      border: none;
+      background: transparent;
+      color: var(--purple);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    /* PAID */
+
+    .sub-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 5px 0 15px;
+    }
+
+    .sub-title h3 {
+      font-size: 21px;
+    }
+
+    .sub-title span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .second-title {
+      margin-top: 32px;
+    }
+
+
+    /* COMPACT FREE TESTS */
+    #freeTests {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .free-test-card {
+      min-height: 145px;
+      padding: 14px;
+      border-radius: 14px;
+      box-shadow: 0 5px 18px rgba(20, 23, 32, 0.045);
+    }
+
+    .free-test-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 22px rgba(20, 23, 32, 0.07);
+    }
+
+    .free-test-card .badge {
+      padding: 5px 7px;
+      font-size: 9px;
+    }
+
+    .free-test-card .code-chip {
+      max-width: 55%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 5px 7px;
+      font-size: 9px;
+    }
+
+    .free-test-card h3 {
+      font-size: 15px;
+      line-height: 1.28;
+      margin: 11px 0 6px;
+    }
+
+    .free-test-card p {
+      font-size: 11px;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .free-test-card .card-footer {
+      padding-top: 11px;
+      gap: 7px;
+    }
+
+    .free-test-card .meta {
+      font-size: 9px;
+    }
+
+    .free-test-card .card-link {
+      font-size: 11px;
+    }
+
+    #free .free-group {
+      margin-top: 14px;
+      font-size: 16px;
+    }
+
+    @media (max-width: 1050px) {
+      #freeTests {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 760px) {
+      #freeTests {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .free-test-card {
+        min-height: 135px;
+        padding: 12px;
+      }
+
+      .free-test-card h3 {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 440px) {
+      #freeTests {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .free-test-card {
+        min-height: 118px;
+      }
+
+      .free-test-card p {
+        -webkit-line-clamp: 1;
+      }
+    }
+
+
+    /* CLEANER PAID COURSE CARDS */
+    #fullCourses .card,
+    #trialCourses .card {
+      min-height: 205px;
+    }
+
+    #fullCourses .card h3,
+    #trialCourses .card h3 {
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    #fullCourses .card > p,
+    #trialCourses .card > p {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 40px;
+    }
+
+    #fullCourses .course-mini-meta,
+    #trialCourses .course-mini-meta {
+      margin-top: 10px;
+    }
+
+    #fullCourses .course-mini-meta .mini-chip,
+    #trialCourses .course-mini-meta .mini-chip {
+      background: #f5f6f8;
+    }
+
+    #fullCourses .combo-note,
+    #trialCourses .combo-note {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+
+    /* COURSE PREVIEW + ACCESS */
+    .access-box{padding:30px}.access-box h2{font-size:28px;margin-bottom:8px}
+    .access-muted{color:var(--muted);font-size:13px;line-height:1.6}
+    .access-panel{margin-top:16px;padding:16px;border:1px solid var(--border);border-radius:14px;background:#fff}
+    .access-panel-title{font-size:12px;font-weight:900;margin-bottom:8px}
+    .access-price{font-size:16px;line-height:1.7;font-weight:900}
+    .access-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+    .access-action{border:1px solid var(--border);border-radius:12px;padding:13px 14px;font-weight:900;text-align:center;background:#fff}
+    .access-action.primary{background:#15171c;color:#fff;border-color:#15171c}
+    .access-input{width:100%;margin-top:12px;border:1px solid var(--border);border-radius:11px;padding:13px;outline:none}
+    .access-message{margin-top:10px;font-size:12px;line-height:1.5;color:var(--muted)}
+    @media(max-width:620px){.access-box{padding:22px}.access-actions{grid-template-columns:1fr}}
+
+
+
+    .material-open-button {
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      font-weight: 900;
+      padding: 0;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    /* STUDENT CABINET */
+    .cabinet-body { padding: 30px; }
+    .cabinet-head {
+      display:flex; align-items:flex-start; justify-content:space-between;
+      gap:18px; margin-bottom:22px;
+    }
+    .cabinet-head h2 { font-size:30px; margin-bottom:5px; }
+    .cabinet-sub { color:var(--muted); font-size:12px; }
+    .cabinet-tabs { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:20px; }
+    .cabinet-tab {
+      border:1px solid var(--border); background:#fff; border-radius:999px;
+      padding:9px 13px; font-size:11px; font-weight:900;
+    }
+    .cabinet-tab.active { background:#15171c; color:#fff; border-color:#15171c; }
+    .stats-grid {
+      display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px;
+    }
+    .stat-card {
+      border:1px solid var(--border); border-radius:14px; padding:15px; background:#fff;
+    }
+    .stat-label { color:var(--muted); font-size:11px; margin-bottom:7px; }
+    .stat-value { font-size:24px; font-weight:900; }
+    .dashboard-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .dashboard-panel {
+      border:1px solid var(--border); border-radius:14px; padding:16px; background:#fff;
+    }
+    .dashboard-panel h3 { font-size:16px; margin-bottom:12px; }
+    .dashboard-row {
+      display:flex; justify-content:space-between; gap:12px; padding:10px 0;
+      border-top:1px solid #f0f1f3; font-size:12px; line-height:1.45;
+    }
+    .dashboard-row:first-of-type { border-top:0; }
+    .weak { color:#bf4860; font-weight:900; }
+    .strong { color:#13835d; font-weight:900; }
+    .my-course-card {
+      border:1px solid var(--border); border-radius:14px; padding:15px;
+      display:flex; justify-content:space-between; gap:14px; align-items:center;
+      margin-bottom:9px; background:#fff;
+    }
+    .my-course-card h4 { font-size:14px; margin-bottom:5px; }
+    .my-course-code { color:var(--muted); font-size:10px; font-weight:900; }
+    .empty-state {
+      padding:22px; border:1px dashed var(--border); border-radius:14px;
+      color:var(--muted); text-align:center; font-size:12px;
+    }
+    .device-pill {
+      display:inline-flex; padding:7px 10px; border-radius:999px;
+      background:#f4f5f7; font-size:11px; font-weight:900;
+    }
+    .logout-mini {
+      border:1px solid var(--border); background:#fff; border-radius:10px;
+      padding:9px 12px; font-weight:900; font-size:11px;
+    }
+    .name-box { padding:30px; }
+    .name-box h2 { font-size:28px; margin-bottom:14px; }
+    .name-input {
+      width:100%; border:1px solid var(--border); border-radius:11px;
+      padding:13px; outline:none;
+    }
+    .name-message { margin-top:10px; min-height:18px; color:var(--muted); font-size:12px; }
+    @media(max-width:760px){
+      .stats-grid{grid-template-columns:repeat(2,1fr)}
+      .dashboard-grid{grid-template-columns:1fr}
+      .cabinet-body{padding:21px}
+      .my-course-card{align-items:flex-start;flex-direction:column}
+    }
+
+
+    /* POLISHED STUDENT CARDS */
+    .my-courses-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+    .my-course-card {
+      position:relative;
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:18px;
+      min-height:150px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:18px;
+      background:#fff;
+      transition:.18s ease;
+      margin:0;
+    }
+    .my-course-card:hover {
+      transform:translateY(-2px);
+      box-shadow:0 12px 30px rgba(20,24,40,.08);
+    }
+    .my-course-code {
+      display:inline-flex;
+      width:max-content;
+      padding:6px 9px;
+      border-radius:999px;
+      background:#f3f4f7;
+      color:#777e8b;
+      font-size:10px;
+      font-weight:900;
+      letter-spacing:.03em;
+    }
+    .my-course-card h4 {
+      font-size:18px;
+      line-height:1.25;
+      margin:10px 0 0;
+    }
+    .my-course-card .card-link {
+      width:max-content;
+      border:0;
+      background:transparent;
+      padding:0;
+      color:#6758f5;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    /* COURSE MATERIAL CARDS */
+    .material-section { margin-top:24px; }
+    .section-block-title {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:12px;
+      font-size:20px;
+    }
+    .section-count { display:none !important; }
+    .materials-card-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+    .material {
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:16px;
+      min-height:118px;
+      background:#fff;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:16px;
+      transition:.18s ease;
+    }
+    .material:hover {
+      transform:translateY(-2px);
+      box-shadow:0 10px 28px rgba(20,24,40,.07);
+    }
+    .material-title {
+      font-size:15px;
+      line-height:1.4;
+      font-weight:900;
+    }
+    .material-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      width:100%;
+    }
+    .material-open-button,
+    .material-actions a {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:9px 11px;
+      background:#fafafa;
+      font-size:11px;
+      font-weight:900;
+      color:#17191f;
+      text-decoration:none;
+      cursor:pointer;
+    }
+    .material-open-button {
+      background:#17191f;
+      color:#fff;
+      border-color:#17191f;
+    }
+
+    /* IMPROVED GRANT AREA */
+    .grant-box {
+      padding:24px;
+      border-radius:20px;
+      box-shadow:0 10px 30px rgba(20,24,40,.04);
+    }
+    .grant-form {
+      grid-template-columns:1.3fr .65fr 1fr auto;
+      align-items:center;
+    }
+    .grant-result {
+      margin-top:18px;
+      background:#fff;
+      padding:0;
+      border:0;
+    }
+    .grant-result-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+    }
+    .grant-result-card {
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:15px;
+      background:#fafafa;
+    }
+    .grant-result-label {
+      color:var(--muted);
+      font-size:11px;
+      margin-bottom:6px;
+    }
+    .grant-result-value {
+      font-size:20px;
+      font-weight:900;
+    }
+    .grant-result-note {
+      margin-top:10px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:14px;
+      line-height:1.55;
+      font-size:12px;
+      background:#fff;
+    }
+
+    @media(max-width:760px){
+      .my-courses-grid,
+      .materials-card-grid,
+      .grant-result-grid { grid-template-columns:1fr; }
+      .grant-form { grid-template-columns:1fr; }
+    }
+
+
+    /* GRANT CALCULATOR V2 */
+    .grant-calculator-v2{padding:22px;border:1px solid var(--border);border-radius:20px;background:#fff}
+    .grant-program-row{display:grid;grid-template-columns:1fr;gap:12px}
+    .grant-field label{display:block;font-size:11px;font-weight:900;color:var(--muted);margin-bottom:7px}
+    .grant-field select{width:100%;border:1px solid var(--border);border-radius:12px;padding:13px;background:#fff;font-weight:800}
+    .grant-score-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:14px}
+    .grant-score-card{border:1px solid var(--border);border-radius:15px;padding:14px;background:#fafafa}
+    .grant-score-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;font-size:11px;font-weight:900;min-height:34px}
+    .grant-score-max{color:var(--muted);white-space:nowrap}
+    .grant-score-card input{width:100%;margin-top:10px;border:1px solid var(--border);border-radius:10px;padding:11px;background:#fff;font-size:18px;font-weight:900}
+    .grant-threshold-line{font-size:10px;color:var(--muted);margin-top:7px}
+    .grant-calc-btn{margin-top:14px;width:100%}
+    .grant-result-v2{margin-top:16px}
+    .grant-result-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .grant-summary-card{border:1px solid var(--border);border-radius:14px;padding:14px;background:#fff}
+    .grant-summary-card .label{font-size:10px;color:var(--muted);margin-bottom:5px}
+    .grant-summary-card .value{font-size:22px;font-weight:900}
+    .grant-status-box{margin-top:10px;border:1px solid var(--border);border-radius:15px;padding:14px;line-height:1.5}
+    .grant-status-ok{background:#f2fbf6}
+    .grant-status-bad{background:#fff6f7}
+    .grant-fail-list{margin:8px 0 0;padding-left:18px;font-size:12px}
+    .grant-options-head{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-top:18px;margin-bottom:10px}
+    .grant-options-head h3{margin:0;font-size:18px}
+    .grant-options-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .grant-option-card{border:1px solid var(--border);border-radius:16px;padding:15px;background:#fff}
+    .grant-option-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+    .grant-option-name{font-weight:900;font-size:13px;line-height:1.35}
+    .grant-option-type{font-size:9px;font-weight:900;padding:5px 7px;border-radius:999px;background:#f2f3f7;white-space:nowrap}
+    .grant-option-score{display:flex;justify-content:space-between;gap:10px;margin-top:12px;font-size:11px}
+    .grant-option-score b{font-size:17px}
+    .grant-history-line{font-size:10px;color:var(--muted);margin-top:8px}
+    .grant-empty{border:1px dashed var(--border);border-radius:15px;padding:16px;color:var(--muted);font-size:12px;line-height:1.55}
+    .hidden{display:none!important}
+    @media(max-width:900px){.grant-score-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:600px){.grant-score-grid,.grant-result-summary,.grant-options-grid{grid-template-columns:1fr}}
+
+
+    .grant-total-option{margin-top:14px}
+    .grant-or-line{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:11px;font-weight:900;margin:8px 0}
+    .grant-or-line:before,.grant-or-line:after{content:"";height:1px;background:var(--border);flex:1}
+    .grant-total-card{display:flex;justify-content:space-between;align-items:center;gap:16px;border:1px solid var(--border);border-radius:15px;padding:14px;background:#fff}
+    .grant-total-title{font-size:13px;font-weight:900}
+    .grant-total-hint{font-size:10px;color:var(--muted);margin-top:5px;line-height:1.45}
+    .grant-total-input-wrap{display:flex;align-items:center;gap:7px;white-space:nowrap;font-weight:900}
+    .grant-total-input-wrap input{width:100px;border:1px solid var(--border);border-radius:10px;padding:10px;font-size:18px;font-weight:900}
+    .grant-year-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+    .grant-year-card{border:1px solid var(--border);border-radius:15px;padding:14px;background:#fff}
+    .grant-year-card .small{font-size:10px;color:var(--muted);margin-bottom:6px}
+    .grant-year-card .big{font-size:24px;font-weight:900}
+    .grant-year-card .sub{font-size:10px;color:var(--muted);margin-top:5px}
+    .grant-source-files{margin-top:22px;padding-top:18px;border-top:1px solid var(--border)}
+    .grant-source-head h3{font-size:17px;margin:0 0 5px}
+    .grant-source-head p{font-size:11px;color:var(--muted);margin:0 0 10px}
+    .grant-source-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+    .grant-source-card{display:flex;flex-direction:column;gap:5px;border:1px solid var(--border);border-radius:12px;padding:12px;background:#fafafa;color:inherit;text-decoration:none}
+    .grant-source-card b{font-size:15px}
+    .grant-source-card span{font-size:10px;color:var(--muted)}
+    @media(max-width:900px){.grant-source-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:600px){.grant-total-card{flex-direction:column;align-items:stretch}.grant-total-input-wrap input{width:100%}.grant-year-summary,.grant-source-grid{grid-template-columns:1fr}}
+
+    /* REVIEWS */
+
+    .reviews-grid {
+      columns: 4 230px;
+      column-gap: 13px;
+    }
+
+    .review {
+      display: block;
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 0;
+      background: white;
+      overflow: hidden;
+      margin-bottom: 13px;
+      break-inside: avoid;
+      cursor: zoom-in;
+      box-shadow: var(--shadow);
+    }
+
+    .review img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* KT */
+
+    .kt-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .info-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .info-box h3 {
+      padding: 19px;
+      font-size: 19px;
+    }
+
+    .kt-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 17px;
+      padding: 14px 19px;
+      border-top: 1px solid var(--border);
+      align-items: center;
+    }
+
+    .kt-row b {
+      font-size: 13px;
+    }
+
+    .kt-row span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .info-note {
+      padding: 15px 19px;
+      border-top: 1px solid var(--border);
+      background: #fafafa;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* GRANT */
+
+    .grant-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .grant-form {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr 1fr auto;
+      gap: 10px;
+    }
+
+    .field {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: white;
+      padding: 12px 13px;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    .grant-result {
+      margin-top: 15px;
+      background: #fafafa;
+      border: 1px solid var(--border);
+      padding: 15px;
+      border-radius: 12px;
+      color: #565d69;
+      line-height: 1.6;
+      font-size: 13px;
+    }
+
+    /* TELEGRAM */
+
+    .telegram-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .telegram-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+
+    .telegram-card h3 {
+      font-size: 20px;
+      margin-bottom: 9px;
+    }
+
+    .telegram-card p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 17px;
+      font-size: 13px;
+    }
+
+    /* MODALS */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(12, 14, 20, 0.88);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-content {
+      width: min(900px, 95vw);
+      max-height: 90vh;
+      overflow-y: auto;
+      background: white;
+      border-radius: 20px;
+      position: relative;
+    }
+
+    .close-modal {
+      position: sticky;
+      top: 12px;
+      float: right;
+      margin: 12px;
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 50%;
+      background: #15171c;
+      color: white;
+      font-size: 22px;
+      z-index: 10;
+    }
+
+    .review-modal-image {
+      max-width: 95vw;
+      max-height: 90vh;
+      border-radius: 15px;
+    }
+
+    .course-modal-body {
+      padding: 30px;
+    }
+
+    .course-modal-body h2 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .course-description {
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .language-buttons {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 25px;
+    }
+
+    .language-button {
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 999px;
+      padding: 9px 15px;
+      font-family: Arial, sans-serif;
+      font-weight: 800;
+    }
+
+    .language-button.active {
+      background: #15171c;
+      color: white;
+    }
+
+    .material-section {
+      margin-top: 24px;
+    }
+
+    .material-section h3 {
+      font-size: 19px;
+      margin-bottom: 12px;
+      text-transform: capitalize;
+    }
+
+    .material {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 9px;
+    }
+
+    .material-title {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.65;
+      white-space: pre-line;
+    }
+
+    .material-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .material a {
+      color: var(--purple);
+      font-size: 12px;
+      font-weight: 900;
+      border: 1px solid #dedbff;
+      background: #faf9ff;
+      border-radius: 9px;
+      padding: 8px 10px;
+      white-space: nowrap;
+    }
+
+    .material.bonus {
+      border-color: #f0d8a8;
+      background: #fffaf1;
+    }
+
+    .material.sliv {
+      border-color: #f2d7df;
+      background: #fff8fa;
+    }
+
+    .section-block-title {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .section-count {
+      font-size: 10px;
+      font-weight: 900;
+      color: #8a919d;
+      background: #f4f5f7;
+      border-radius: 999px;
+      padding: 5px 8px;
+    }
+
+    .free-group {
+      grid-column: 1 / -1;
+      margin: 8px 0 -2px;
+      font-size: 17px;
+      font-weight: 900;
+      color: #2f3440;
+    }
+
+    .preview-lock-note {
+      margin: 0 0 20px;
+      padding: 12px 14px;
+      border: 1px solid #e4e0ff;
+      border-radius: 12px;
+      background: #f8f7ff;
+      color: #5d55aa;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .loading {
+      grid-column: 1 / -1;
+      padding: 30px;
+      text-align: center;
+      background: white;
+      border: 1px dashed var(--border);
+      border-radius: 15px;
+      color: var(--muted);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 30px 0 50px;
+      color: #969ca8;
+      font-size: 12px;
+    }
+
+    @media (max-width: 950px) {
+      nav {
+        display: none;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .kt-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .grant-form {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .container {
+        width: 94%;
+      }
+
+      .hero {
+        padding-top: 45px;
+      }
+
+      .hero h1 {
+        font-size: 62px;
+        letter-spacing: -3px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .quick-grid,
+      .grid,
+      .telegram-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header {
+        grid-template-columns: 45px 1fr;
+      }
+
+      .section-header h2 {
+        font-size: 27px;
+      }
+
+      .grant-form {
+        grid-template-columns: 1fr;
+      }
+
+      .reviews-grid {
+        columns: 2 145px;
+      }
+
+      .header-inner {
+        height: 62px;
+      }
+    }
+  
+/* =========================================================
+   MAGIST 2026 — PREMIUM UI LAYER
+   Visual-only redesign. Existing IDs / Supabase logic preserved.
+========================================================= */
+:root{
+  --bg:#f5f6fb;
+  --surface:rgba(255,255,255,.78);
+  --surface-solid:#ffffff;
+  --ink:#101116;
+  --muted:#717784;
+  --border:rgba(16,17,22,.085);
+  --purple:#6c5cff;
+  --purple-2:#8f7cff;
+  --purple-soft:#f0edff;
+  --green:#0f9f6e;
+  --shadow-sm:0 8px 26px rgba(20,20,35,.055);
+  --shadow-md:0 22px 70px rgba(30,25,80,.10);
+  --shadow-lg:0 36px 100px rgba(40,30,110,.16);
+  --radius-xl:28px;
+  --radius-lg:22px;
+  --radius-md:16px;
+}
+
+html{scroll-behavior:smooth}
+body{
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 8% 2%, rgba(108,92,255,.10), transparent 26%),
+    radial-gradient(circle at 95% 13%, rgba(79,198,255,.08), transparent 24%),
+    linear-gradient(180deg,#f8f8fc 0%,#f5f6fa 60%,#f8f8fb 100%);
+  min-height:100vh;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.24;
+  z-index:-1;
+  background-image:
+    radial-gradient(rgba(108,92,255,.14) .7px, transparent .7px);
+  background-size:22px 22px;
+  mask-image:linear-gradient(to bottom,black,transparent 55%);
+}
+.container{width:min(1220px,92%);}
+
+/* HEADER */
+header{
+  position:sticky;
+  top:0;
+  z-index:80;
+  background:rgba(248,248,252,.76);
+  backdrop-filter:blur(22px) saturate(140%);
+  -webkit-backdrop-filter:blur(22px) saturate(140%);
+  border-bottom:1px solid rgba(16,17,22,.06);
+}
+.header-inner{height:76px;}
+.logo{
+  gap:11px;
+  font-size:22px;
+  letter-spacing:-.7px;
+}
+.logo-box{
+  width:39px;
+  height:39px;
+  border-radius:13px;
+  background:linear-gradient(145deg,#17181d,#292b35);
+  box-shadow:0 8px 22px rgba(17,18,24,.18);
+}
+nav{
+  background:rgba(255,255,255,.67);
+  border:1px solid rgba(16,17,22,.06);
+  border-radius:999px;
+  padding:5px;
+  gap:2px;
+  box-shadow:0 6px 20px rgba(20,20,30,.04);
+}
+nav a{
+  padding:9px 12px;
+  border-radius:999px;
+  font-size:12px;
+  transition:.2s ease;
+}
+nav a:hover{
+  color:var(--ink);
+  background:#fff;
+  transform:translateY(-1px);
+}
+.lang-switch{
+  background:rgba(255,255,255,.82);
+  box-shadow:0 6px 18px rgba(20,20,30,.05);
+}
+.login-button{
+  border-radius:13px;
+  padding:11px 18px;
+  box-shadow:0 8px 24px rgba(16,17,22,.14);
+  transition:.2s ease;
+}
+.login-button:hover{transform:translateY(-2px);}
+
+/* HERO */
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding:92px 0 76px;
+  border-bottom:0;
+}
+.hero:before{
+  content:"";
+  position:absolute;
+  width:460px;
+  height:460px;
+  border-radius:50%;
+  right:-120px;
+  top:-210px;
+  background:radial-gradient(circle,rgba(108,92,255,.24),rgba(108,92,255,0) 68%);
+  filter:blur(2px);
+}
+.hero:after{
+  content:"";
+  position:absolute;
+  width:270px;
+  height:270px;
+  border-radius:50%;
+  left:47%;
+  bottom:-220px;
+  background:radial-gradient(circle,rgba(55,180,255,.16),rgba(55,180,255,0) 70%);
+}
+.hero-inner{
+  grid-template-columns:minmax(0,1.25fr) minmax(330px,.75fr);
+  gap:52px;
+  align-items:center;
+}
+.hero-small{
+  display:inline-flex;
+  align-items:center;
+  width:max-content;
+  gap:8px;
+  padding:8px 12px;
+  border:1px solid rgba(108,92,255,.16);
+  border-radius:999px;
+  background:rgba(255,255,255,.68);
+  color:#6757f5;
+  font-size:11px;
+  box-shadow:0 8px 24px rgba(108,92,255,.06);
+}
+.hero-small:before{
+  content:"";
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#7568ff,#9e91ff);
+  box-shadow:0 0 0 5px rgba(108,92,255,.10);
+}
+.hero h1{
+  margin:18px 0 18px;
+  font-size:clamp(76px,10vw,138px);
+  line-height:.79;
+  letter-spacing:-8px;
+  background:linear-gradient(125deg,#0d0e12 8%,#282a33 54%,#7365ff 110%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  text-shadow:0 18px 55px rgba(22,22,35,.06);
+}
+.hero p{
+  max-width:690px;
+  font-size:18px;
+  line-height:1.65;
+  color:#69707d;
+}
+.hero-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  align-items:stretch;
+  padding:16px;
+  border:1px solid rgba(16,17,22,.075);
+  border-radius:24px;
+  background:rgba(255,255,255,.62);
+  backdrop-filter:blur(20px);
+  box-shadow:var(--shadow-md);
+  position:relative;
+}
+.hero-actions:before{
+  content:"150";
+  position:absolute;
+  right:20px;
+  top:-86px;
+  font-weight:950;
+  font-size:62px;
+  letter-spacing:-5px;
+  color:rgba(108,92,255,.11);
+}
+.hero-actions:after{
+  content:"KZ · RU";
+  position:absolute;
+  right:27px;
+  top:-26px;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.12em;
+  color:#8d93a0;
+}
+.button{
+  min-height:58px;
+  border-radius:16px;
+  font-size:13px;
+  transition:.2s ease;
+}
+.button:hover{transform:translateY(-2px)}
+.button-purple{
+  background:linear-gradient(135deg,#6554f6,#8172ff);
+  box-shadow:0 14px 30px rgba(108,92,255,.28);
+}
+
+/* QUICK BENTO */
+.quick-section{
+  border:0;
+  padding:0 0 36px;
+  margin-top:-10px;
+  background:transparent;
+}
+.quick-grid{
+  grid-template-columns:1.2fr 1fr 1fr 1fr 1.15fr;
+  gap:12px;
+}
+.quick-card{
+  min-height:158px;
+  padding:20px;
+  border:1px solid rgba(16,17,22,.075);
+  border-radius:22px;
+  background:rgba(255,255,255,.76);
+  backdrop-filter:blur(15px);
+  box-shadow:var(--shadow-sm);
+  transition:.22s cubic-bezier(.2,.8,.2,1);
+  overflow:hidden;
+}
+.quick-card:before{
+  content:"";
+  position:absolute;
+  inset:auto -34px -54px auto;
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(108,92,255,.15),transparent 70%);
+}
+.quick-card:hover{
+  transform:translateY(-6px);
+  border-color:rgba(108,92,255,.22);
+  box-shadow:0 20px 48px rgba(40,35,95,.10);
+}
+.quick-card h3{
+  font-size:16px;
+  margin-top:28px;
+}
+.quick-card p{font-size:11px;line-height:1.45}
+.quick-number{
+  color:#6c5cff;
+  background:#f0edff;
+  border-radius:999px;
+  padding:5px 8px;
+  font-size:9px;
+}
+
+/* SECTIONS */
+.main-section,.section{
+  padding:78px 0;
+  border-top:0;
+}
+.main-section:nth-of-type(even){background:rgba(255,255,255,.22)}
+.section-header{
+  grid-template-columns:54px 1fr;
+  align-items:start;
+  margin-bottom:30px;
+}
+.section-number{
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  background:linear-gradient(135deg,#eeeaff,#f7f5ff);
+  color:#6554f6;
+  font-size:11px;
+  box-shadow:inset 0 0 0 1px rgba(108,92,255,.10);
+}
+.section-header h2,.section-head h2{
+  font-size:clamp(30px,4vw,48px);
+  letter-spacing:-2.1px;
+  line-height:1.03;
+  margin-bottom:10px;
+}
+.section-header p,.section-text{
+  color:#747b88;
+  max-width:760px;
+  font-size:14px;
+  line-height:1.65;
+}
+.sub-title h3{font-size:22px;letter-spacing:-.8px}
+
+/* TABS */
+.tabs{
+  gap:7px;
+  padding:6px;
+  width:max-content;
+  max-width:100%;
+  overflow:auto;
+  border:1px solid rgba(16,17,22,.07);
+  border-radius:999px;
+  background:rgba(255,255,255,.70);
+  box-shadow:var(--shadow-sm);
+}
+.tab{
+  border:0;
+  background:transparent;
+  border-radius:999px;
+  padding:10px 15px;
+  font-size:11px;
+}
+.tab.active{
+  background:#17181d;
+  color:#fff;
+  box-shadow:0 8px 18px rgba(17,18,24,.14);
+}
+
+/* CONTENT CARDS */
+.grid{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+}
+.card,.course-card,.free-card{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(16,17,22,.075)!important;
+  border-radius:22px!important;
+  background:rgba(255,255,255,.86)!important;
+  box-shadow:var(--shadow-sm);
+  transition:.22s cubic-bezier(.2,.8,.2,1);
+}
+.card:hover,.course-card:hover,.free-card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(108,92,255,.20)!important;
+  box-shadow:0 24px 54px rgba(35,30,90,.11);
+}
+.card:after,.course-card:after,.free-card:after{
+  content:"";
+  position:absolute;
+  width:120px;
+  height:120px;
+  right:-58px;
+  top:-62px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(108,92,255,.10),transparent 68%);
+  pointer-events:none;
+}
+.card-tag,.badge,.type-badge{
+  border-radius:999px!important;
+  letter-spacing:.02em;
+}
+.price{
+  font-size:20px!important;
+  letter-spacing:-.7px;
+}
+
+/* REVIEWS */
+.reviews-grid{column-gap:14px}
+.review-card{
+  border:1px solid rgba(16,17,22,.075);
+  border-radius:20px;
+  box-shadow:var(--shadow-sm);
+  background:rgba(255,255,255,.86);
+  overflow:hidden;
+}
+
+/* KT */
+.kt-grid{gap:14px}
+.info-box{
+  border:1px solid rgba(16,17,22,.075);
+  border-radius:24px;
+  background:rgba(255,255,255,.84);
+  box-shadow:var(--shadow-sm);
+  overflow:hidden;
+}
+.info-box h3{font-size:19px;letter-spacing:-.5px}
+.kt-row{
+  border-color:rgba(16,17,22,.055)!important;
+  transition:.16s ease;
+}
+.kt-row:hover{background:#fbfaff!important}
+
+/* GRANT */
+#grant{
+  width:min(1220px,92%);
+  margin:0 auto 72px;
+  padding:0;
+}
+#grant .section-head{
+  padding-top:70px;
+  margin-bottom:24px;
+}
+.eyebrow{
+  display:inline-flex;
+  padding:6px 9px;
+  border-radius:999px;
+  background:#eeeaff;
+  color:#6554f6;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.1em;
+}
+.grant-calculator-v2{
+  position:relative;
+  overflow:hidden;
+  padding:26px!important;
+  border:1px solid rgba(108,92,255,.13)!important;
+  border-radius:28px!important;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.94),rgba(255,255,255,.80))!important;
+  backdrop-filter:blur(20px);
+  box-shadow:var(--shadow-lg);
+}
+.grant-calculator-v2:before{
+  content:"";
+  position:absolute;
+  width:320px;
+  height:320px;
+  right:-150px;
+  top:-170px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(108,92,255,.18),transparent 67%);
+  pointer-events:none;
+}
+.grant-field select{
+  min-height:56px;
+  border-radius:15px!important;
+  border-color:rgba(16,17,22,.09)!important;
+  background:#fbfbfd!important;
+}
+.grant-score-grid{gap:10px}
+.grant-score-card{
+  min-height:144px;
+  border-radius:18px!important;
+  background:#fafafd!important;
+}
+.grant-score-card:focus-within{
+  border-color:rgba(108,92,255,.35)!important;
+  box-shadow:0 0 0 4px rgba(108,92,255,.07);
+}
+.grant-score-card input{
+  border:0!important;
+  background:#fff!important;
+  box-shadow:inset 0 0 0 1px rgba(16,17,22,.07);
+}
+.grant-total-card{
+  border-radius:18px!important;
+  background:linear-gradient(135deg,#f8f7ff,#fff)!important;
+}
+.grant-calc-btn{
+  min-height:54px;
+  border-radius:15px!important;
+  background:linear-gradient(135deg,#6252f5,#7b6cff)!important;
+  box-shadow:0 14px 30px rgba(108,92,255,.24);
+}
+.grant-summary-card,.grant-year-card,.grant-option-card{
+  border-radius:18px!important;
+  box-shadow:0 8px 24px rgba(25,25,45,.045);
+}
+.grant-option-card{
+  transition:.2s ease;
+}
+.grant-option-card:hover{
+  transform:translateY(-3px);
+  border-color:rgba(108,92,255,.22);
+}
+.grant-source-files{
+  margin-top:26px!important;
+  padding:20px!important;
+  border:1px solid rgba(16,17,22,.07)!important;
+  border-radius:20px;
+  background:#fafafd;
+}
+.grant-source-card{
+  min-height:92px;
+  justify-content:space-between;
+  border-radius:15px!important;
+  background:#fff!important;
+  transition:.2s ease;
+}
+.grant-source-card:hover{
+  transform:translateY(-3px);
+  border-color:rgba(108,92,255,.22);
+  box-shadow:0 12px 28px rgba(35,30,90,.08);
+}
+
+/* MODALS / CABINET */
+.modal-overlay,.modal{
+  backdrop-filter:blur(12px);
+}
+.modal-card,.cabinet-modal,.course-modal,.access-modal{
+  border:1px solid rgba(255,255,255,.72)!important;
+  border-radius:30px!important;
+  box-shadow:0 36px 100px rgba(14,15,24,.28)!important;
+}
+.cabinet-tabs{
+  padding:5px;
+  background:#f5f5f8;
+  border-radius:999px;
+  width:max-content;
+}
+.cabinet-tab{border-radius:999px!important}
+.my-course-card{
+  border-radius:20px!important;
+  background:linear-gradient(180deg,#fff,#fbfbfd)!important;
+}
+
+/* BUTTONS / LOADING */
+.loading{
+  border-radius:20px!important;
+  background:rgba(255,255,255,.72)!important;
+  backdrop-filter:blur(10px);
+}
+.access-action,.material-open-button{
+  transition:.2s ease;
+}
+.access-action:hover,.material-open-button:hover{transform:translateY(-2px)}
+
+/* FOOTER */
+footer{
+  margin-top:30px;
+  padding:38px 0 56px;
+  background:rgba(255,255,255,.42);
+  backdrop-filter:blur(12px);
+}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .quick-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:950px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-actions{max-width:560px}
+  .hero-actions:before,.hero-actions:after{display:none}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:700px){
+  .header-inner{height:66px}
+  .hero{padding:64px 0 52px}
+  .hero h1{
+    font-size:clamp(68px,22vw,96px);
+    letter-spacing:-5px;
+  }
+  .hero p{font-size:15px}
+  .hero-actions{grid-template-columns:1fr}
+  .quick-grid{grid-template-columns:1fr 1fr}
+  .quick-card{min-height:136px}
+  .grid{grid-template-columns:1fr}
+  .main-section,.section{padding:58px 0}
+  #grant{width:94%}
+  #grant .section-head{padding-top:56px}
+  .grant-calculator-v2{padding:17px!important}
+}
+@media(max-width:480px){
+  .quick-grid{grid-template-columns:1fr}
+  .quick-card{min-height:116px}
+  .section-header{grid-template-columns:42px 1fr}
+  .section-header h2,.section-head h2{font-size:31px}
+  .header-actions{gap:6px}
+  .login-button{padding:10px 13px}
+}
+
+
+    /* PAID COURSE LIBRARY */
+    .material-section{
+      margin-top:26px;
+      padding:18px;
+      border:1px solid rgba(16,17,22,.07);
+      border-radius:22px;
+      background:rgba(250,250,253,.78);
+    }
+    .section-block-title{
+      margin:0 0 14px;
+      font-size:18px;
+      letter-spacing:-.5px;
+    }
+    .materials-card-grid{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+    .material{
+      position:relative;
+      min-height:132px;
+      border-radius:18px!important;
+      background:#fff!important;
+      box-shadow:0 8px 24px rgba(25,25,45,.045);
+    }
+    .material:after{
+      content:"";
+      position:absolute;
+      right:-32px;
+      top:-35px;
+      width:90px;
+      height:90px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(108,92,255,.10),transparent 70%);
+      pointer-events:none;
+    }
+    @media(max-width:700px){
+      .materials-card-grid{grid-template-columns:1fr}
+      .material-section{padding:13px}
+    }
+
+
+    /* GRANT 2025 PRIORITY RESULT */
+    .grant-2025-head{
+      display:flex;justify-content:space-between;align-items:end;gap:14px;
+      margin:20px 0 10px;
+    }
+    .grant-2025-head h3{margin:0;font-size:21px;letter-spacing:-.7px}
+    .grant-2025-head p{margin:4px 0 0;font-size:11px;color:var(--muted)}
+    .grant-priority-badge{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:6px 9px;border-radius:999px;
+      background:var(--purple-soft);color:var(--purple);
+      font-size:9px;font-weight:950;white-space:nowrap;
+    }
+    .grant-2025-grid{
+      display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;
+    }
+    .grant-2025-card{
+      position:relative;overflow:hidden;
+      min-height:155px;padding:18px;
+      border:1px solid rgba(16,17,22,.08);border-radius:20px;background:#fff;
+      box-shadow:0 10px 30px rgba(25,25,45,.05);
+    }
+    .grant-2025-card.general{
+      border-color:rgba(108,92,255,.25);
+      background:linear-gradient(145deg,#fff,#f6f3ff);
+    }
+    .grant-2025-card.special{
+      border-color:rgba(15,159,110,.18);
+      background:linear-gradient(145deg,#fff,#f4fbf8);
+    }
+    .grant-2025-card:after{
+      content:"2025";position:absolute;right:12px;bottom:-14px;
+      font-size:66px;font-weight:950;letter-spacing:-5px;
+      color:rgba(16,17,22,.035);pointer-events:none;
+    }
+    .grant-2025-label{font-size:11px;font-weight:950;letter-spacing:.02em}
+    .grant-2025-score{font-size:42px;line-height:1;font-weight:950;letter-spacing:-2px;margin-top:14px}
+    .grant-2025-caption{font-size:11px;color:var(--muted);margin-top:7px}
+    .grant-2025-status{
+      display:inline-flex;margin-top:12px;padding:6px 9px;border-radius:999px;
+      font-size:9px;font-weight:950;background:#f1f2f6;
+    }
+    .grant-2025-status.ok{background:#e9f8f2;color:#087753}
+    .grant-2025-status.no{background:#fff0f1;color:#b33a45}
+
+    .grant-opportunity-summary{
+      margin-top:14px;padding:18px;border:1px solid var(--border);
+      border-radius:20px;background:#fff;
+    }
+    .grant-opportunity-top{
+      display:flex;justify-content:space-between;align-items:flex-start;gap:16px;
+    }
+    .grant-opportunity-top h3{margin:0;font-size:19px;letter-spacing:-.5px}
+    .grant-opportunity-top p{margin:5px 0 0;font-size:11px;color:var(--muted);line-height:1.5}
+    .grant-opportunity-counts{
+      display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end;
+    }
+    .grant-count-pill{
+      padding:7px 10px;border-radius:999px;background:#f4f4f7;
+      font-size:10px;font-weight:900;white-space:nowrap;
+    }
+    .grant-general-option{
+      margin-top:12px;padding:15px;border:1px solid rgba(108,92,255,.18);
+      border-radius:17px;background:#faf9ff;
+    }
+    .grant-general-option-top{display:flex;justify-content:space-between;gap:12px;align-items:start}
+    .grant-general-option b{font-size:14px}
+    .grant-general-option p{font-size:10px;color:var(--muted);margin:6px 0 0;line-height:1.5}
+
+    .grant-section-actions{
+      display:flex;gap:8px;flex-wrap:wrap;margin-top:13px;
+    }
+    .grant-mini-btn{
+      border:1px solid var(--border);background:#fff;border-radius:11px;
+      padding:10px 13px;font-size:10px;font-weight:900;cursor:pointer;
+    }
+    .grant-mini-btn.primary{background:#17181d;color:#fff;border-color:#17181d}
+
+    .grant-history-compact{
+      margin-top:14px;padding:14px;border:1px solid var(--border);
+      border-radius:17px;background:#fafafd;
+    }
+    .grant-history-compact-title{font-size:11px;font-weight:950;margin-bottom:9px}
+    .grant-history-chips{display:flex;gap:8px;flex-wrap:wrap}
+    .grant-history-chip{
+      padding:9px 11px;border-radius:12px;background:#fff;border:1px solid var(--border);
+      font-size:10px;line-height:1.45;
+    }
+
+    .grant-dynamic-overlay{
+      position:fixed;inset:0;z-index:9999;padding:20px;
+      display:flex;align-items:center;justify-content:center;
+      background:rgba(12,13,18,.48);backdrop-filter:blur(12px);
+    }
+    .grant-dynamic-modal{
+      width:min(760px,100%);max-height:min(82vh,800px);overflow:auto;
+      background:#fff;border-radius:26px;padding:22px;
+      box-shadow:0 35px 100px rgba(15,15,25,.28);
+    }
+    .grant-dynamic-modal-head{
+      position:sticky;top:-22px;z-index:2;
+      display:flex;justify-content:space-between;align-items:start;gap:14px;
+      margin:-22px -22px 15px;padding:20px 22px 14px;
+      background:rgba(255,255,255,.95);backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border);
+    }
+    .grant-dynamic-modal-head h3{margin:0;font-size:20px}
+    .grant-modal-close{
+      width:34px;height:34px;border-radius:50%;border:1px solid var(--border);
+      background:#fff;font-size:18px;cursor:pointer;
+    }
+    .grant-directory-search{
+      width:100%;padding:13px 14px;border:1px solid var(--border);
+      border-radius:13px;font-size:13px;margin-bottom:12px;
+    }
+    .grant-directory-list{display:grid;gap:8px}
+    .grant-directory-row{
+      display:grid;grid-template-columns:62px 1fr auto;gap:10px;align-items:center;
+      padding:12px;border:1px solid var(--border);border-radius:13px;background:#fff;
+    }
+    .grant-directory-code{
+      display:inline-grid;place-items:center;padding:7px 5px;border-radius:9px;
+      background:#f2efff;color:var(--purple);font-size:11px;font-weight:950;
+    }
+    .grant-directory-name{font-size:12px;font-weight:850;line-height:1.4}
+    .grant-directory-city{font-size:9px;color:var(--muted);text-align:right}
+    .grant-all-options-list{display:grid;gap:9px}
+    .grant-all-option{
+      padding:14px;border:1px solid var(--border);border-radius:15px;background:#fff;
+    }
+    .grant-all-option-top{display:flex;justify-content:space-between;gap:10px}
+    .grant-all-option-name{font-size:12px;font-weight:900;line-height:1.4}
+    .grant-all-option-score{font-size:12px;font-weight:950;white-space:nowrap}
+    @media(max-width:650px){
+      .grant-2025-grid{grid-template-columns:1fr}
+      .grant-opportunity-top{flex-direction:column}
+      .grant-opportunity-counts{justify-content:flex-start}
+      .grant-directory-row{grid-template-columns:52px 1fr}
+      .grant-directory-city{grid-column:2;text-align:left}
+    }
+
+
+    .grant-directory-standalone{
+      margin-top:22px;
+      padding:20px;
+      border:1px solid rgba(108,92,255,.14);
+      border-radius:20px;
+      background:linear-gradient(135deg,#faf9ff,#fff);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      box-shadow:0 10px 28px rgba(35,30,90,.055);
+    }
+    .grant-directory-standalone h3{
+      margin:8px 0 5px;
+      font-size:18px;
+      letter-spacing:-.45px;
+    }
+    .grant-directory-standalone p{
+      margin:0;
+      font-size:11px;
+      color:var(--muted);
+    }
+    .kt-format-note{
+      margin:10px 0 0;
+      padding:11px 12px;
+      border:1px dashed rgba(108,92,255,.18);
+      border-radius:12px;
+      background:#faf9ff;
+      color:var(--muted);
+      font-size:10px;
+      line-height:1.5;
+    }
+    @media(max-width:650px){
+      .grant-directory-standalone{
+        flex-direction:column;
+        align-items:stretch;
+      }
+    }
+
+
+    .content-protection-notice,.cabinet-protection-notice{
+      display:flex;gap:12px;align-items:flex-start;padding:15px 16px;margin:14px 0 18px;
+      border:1px solid rgba(198,63,89,.16);border-radius:16px;background:linear-gradient(135deg,#fff8f9,#fff);
+    }
+    .content-protection-icon{
+      width:28px;height:28px;flex:0 0 28px;display:grid;place-items:center;border-radius:9px;
+      background:#fff0f2;color:#b83b53;font-weight:950;
+    }
+    .content-protection-notice b,.cabinet-protection-notice b{font-size:12px}
+    .content-protection-notice p,.cabinet-protection-notice p{margin:4px 0 0;color:var(--muted);font-size:10px;line-height:1.5}
+
+    .access-expiry-pill{background:#f0edff!important;color:#5f54d9!important}
+
+    /* AUTUMN MASTER 2026 INFO */
+    .autumn-master-wrap{padding:18px 0 8px}
+    .autumn-master-card{
+      position:relative;overflow:hidden;display:grid;
+      grid-template-columns:1.1fr 1.5fr;gap:18px;padding:22px;
+      border:1px solid rgba(108,92,255,.14);border-radius:24px;
+      background:radial-gradient(circle at 92% 12%,rgba(108,92,255,.11),transparent 28%),
+                 linear-gradient(135deg,rgba(255,255,255,.92),rgba(247,245,255,.92));
+      box-shadow:0 16px 42px rgba(45,35,110,.08)
+    }
+    .autumn-master-card:after{
+      content:"2026";position:absolute;right:18px;bottom:-23px;
+      font-size:82px;font-weight:950;letter-spacing:-6px;
+      color:rgba(108,92,255,.045);pointer-events:none
+    }
+    .autumn-master-kicker{
+      display:inline-flex;width:max-content;padding:7px 10px;border-radius:999px;
+      background:#f0edff;color:#6758f5;font-size:10px;font-weight:950;letter-spacing:.04em
+    }
+    .autumn-master-copy h2{margin:13px 0 8px;font-size:27px;letter-spacing:-1px}
+    .autumn-master-copy p{margin:0;color:var(--muted);font-size:12px;line-height:1.6;max-width:520px}
+    .autumn-master-dates{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .autumn-date-card{
+      position:relative;z-index:1;padding:15px;border:1px solid rgba(16,17,22,.07);
+      border-radius:17px;background:rgba(255,255,255,.86);min-height:118px
+    }
+    .autumn-date-value{font-size:18px;line-height:1.2;font-weight:950;letter-spacing:-.5px;margin-bottom:8px}
+    .autumn-date-label{font-size:10px;line-height:1.5;color:var(--muted);font-weight:800}
+    .autumn-master-site{
+      grid-column:1/-1;position:relative;z-index:1;display:flex;align-items:center;
+      justify-content:space-between;gap:12px;margin-top:2px;padding-top:14px;
+      border-top:1px solid rgba(16,17,22,.07);font-size:11px;color:var(--muted)
+    }
+    .autumn-master-site a{color:#6758f5;font-weight:950;text-decoration:underline;text-underline-offset:3px}
+    @media(max-width:850px){
+      .autumn-master-card{grid-template-columns:1fr}
+      .autumn-master-dates{grid-template-columns:1fr}
+      .autumn-master-site{align-items:flex-start;flex-direction:column}
+    }
+
+
+    /* COMPACT PAID ACCESS NOTICE */
+    .paid-access-note{
+      display:flex;
+      gap:11px;
+      align-items:flex-start;
+      margin:4px 0 16px;
+      padding:12px 14px;
+      border:1px solid rgba(108,92,255,.12);
+      border-radius:14px;
+      background:rgba(248,247,255,.78);
+    }
+    .paid-access-note-icon{
+      width:24px;height:24px;flex:0 0 24px;
+      display:grid;place-items:center;
+      border-radius:8px;
+      background:#f0edff;color:#6758f5;
+      font-size:11px;font-weight:950;
+    }
+    .paid-access-note b{
+      display:block;
+      font-size:11px;
+      line-height:1.35;
+    }
+    .paid-access-note p{
+      margin:3px 0 0;
+      color:var(--muted);
+      font-size:10px;
+      line-height:1.5;
+    }
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container header-inner">
+    <a href="#" class="logo">
+      <span class="logo-box">M</span>
+      MAGIST
+    </a>
+
+    <nav>
+      <a href="#free" id="navFree">Тегін</a>
+      <a href="#paid" id="navPaid">Ақылы</a>
+      <a href="#reviews" id="navReviews">Отзывы және нәтиже</a>
+      <a href="#kt" id="navKt">КТ құрылымы</a>
+      <a href="#grant" id="navGrant">Грант</a>
+    </nav>
+
+    <div class="header-actions">
+      <div class="lang-switch">
+        <button id="langKkBtn" class="active" onclick="setLanguage('kk')">ҚАЗ</button>
+        <button id="langRuBtn" onclick="setLanguage('ru')">РУС</button>
+      </div>
+      <button class="login-button" id="loginButton" onclick="openAccessModal()">Кіру</button>
+    </div>
+  </div>
+</header>
+
+
+<div class="hero">
+  <div class="container hero-inner">
+
+    <div>
+      <div class="hero-small" id="heroSmall">Магистратураға дайындық платформасы</div>
+
+      <h1>MAGIST</h1>
+
+      <p id="heroText">Тегін тесттер, ақылы дайындық, КТ құрылымы, грант мүмкіндігі және жеке кабинет.</p>
+    </div>
+
+    <div class="hero-actions">
+      <a href="#free" class="button button-purple" id="heroFreeBtn">Тегін дайындық</a>
+      <a href="#paid" class="button" id="heroPaidBtn">Ақылы дайындық</a>
+    </div>
+
+  </div>
+</div>
+
+<section class="autumn-master-wrap">
+  <div class="container">
+    <div class="autumn-master-card">
+      <div class="autumn-master-copy">
+        <span class="autumn-master-kicker" id="autumnMasterKicker">КҮЗГІ ҚАБЫЛДАУ · 2026</span>
+        <h2 id="autumnMasterTitle">Күзгі магистратура</h2>
+        <p id="autumnMasterText">Күзгі кешенді тестілеуге өтініш беру және қабылдау кезеңдерінің негізгі мерзімдері.</p>
+      </div>
+
+      <div class="autumn-master-dates">
+        <div class="autumn-date-card">
+          <div class="autumn-date-value" id="autumnApplicationDate">28 қазан – 10 қараша</div>
+          <div class="autumn-date-label" id="autumnApplicationLabel">КТ-ға өтініш қабылдау</div>
+        </div>
+        <div class="autumn-date-card">
+          <div class="autumn-date-value" id="autumnTestDate">18 қараша – 11 желтоқсан</div>
+          <div class="autumn-date-label" id="autumnTestLabel">Кешенді тестілеу</div>
+        </div>
+        <div class="autumn-date-card">
+          <div class="autumn-date-value" id="autumnAdmissionDate">26 желтоқсан – 10 қаңтар</div>
+          <div class="autumn-date-label" id="autumnAdmissionLabel">ЖОО-ға қабылдау</div>
+        </div>
+      </div>
+
+      <div class="autumn-master-site">
+        <span id="autumnSiteText">Өтінішті Ұлттық тестілеу орталығының сайтында бересіз:</span>
+        <a href="https://app.testcenter.kz/" target="_blank" rel="noopener noreferrer">app.testcenter.kz</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+<div class="quick-section">
+  <div class="container quick-grid">
+
+    <a href="#free" class="quick-card">
+      <span class="quick-number">01</span>
+      <h3 id="quickFreeTitle">Тегін дайындық</h3>
+      <p id="quickFreeText">Барлық ашық тесттер.</p>
+    </a>
+
+    <a href="#paid" class="quick-card">
+      <span class="quick-number">02</span>
+      <h3 id="quickPaidTitle">Ақылы дайындық</h3>
+      <p id="quickPaidText">Курстар және пробный тесттер.</p>
+    </a>
+
+    <a href="#reviews" class="quick-card">
+      <span class="quick-number">03</span>
+      <h3 id="quickReviewsTitle">Отзывы және нәтиже</h3>
+      <p id="quickReviewsText">Оқушылардың пікірлері мен баллдары.</p>
+    </a>
+
+    <a href="#kt" class="quick-card">
+      <span class="quick-number">04</span>
+      <h3 id="quickKtTitle">КТ құрылымы</h3>
+      <p id="quickKtText">Сұрақтар, балл және шекті балл.</p>
+    </a>
+
+    <a href="#grant" class="quick-card">
+      <span class="quick-number">05</span>
+      <h3 id="quickGrantTitle">Грант мүмкіндігі</h3>
+      <p id="quickGrantText">2025 нәтижелерімен салыстыру.</p>
+    </a>
+
+  </div>
+</div>
+
+
+<!-- FREE -->
+
+<section class="main-section" id="free">
+
+  <div class="container">
+
+    <div class="section-header">
+
+      <div class="section-number">01</div>
+
+      <div>
+        <h2 id="freeTitle">Тегін дайындық</h2>
+        <p>
+          <span id="freeDesc">Тіркелусіз бірден ашылатын тесттер.</span>
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="tabs" id="freeTabs">
+
+      <button class="tab active" id="tabAll" data-category="all">
+        Барлығы
+      </button>
+
+      <button class="tab" id="tabTgo" data-category="ТГО + Ағылшын тілі">
+        ТГО + Ағылшын тілі
+      </button>
+
+      <button class="tab" id="tabProfile" data-category="Бейіндік пәндер">
+        Бейіндік пәндер
+      </button>
+
+      <button class="tab" id="tabPed" data-category="Педагогика">
+        Педагогика
+      </button>
+
+    </div>
+
+
+    <div class="content-protection-notice">
+      <div class="content-protection-icon">!</div>
+      <div>
+        <b id="freeProtectionTitle">Материалдарды сатуға және таратуға болмайды.</b>
+        <p id="freeProtectionText">Ондай жағдайда заңмен жауап беруіңізге тура келеді.</p>
+      </div>
+    </div>
+
+    <div class="grid" id="freeTests">
+
+      <div class="loading">
+        Тесттер жүктелуде...
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- PAID -->
+
+<section class="main-section" id="paid">
+
+  <div class="container">
+
+    <div class="section-header">
+
+      <div class="section-number">02</div>
+
+      <div>
+        <h2 id="paidTitle">Ақылы дайындық</h2>
+
+        <p>
+          <span id="paidDesc">Толық курстар мен бөлек пробный тест пакеттері.</span>
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="sub-title">
+      <h3 id="fullCoursesTitle">Толық курстар</h3>
+    </div>
+
+
+    
+    <div class="paid-access-note">
+      <div class="paid-access-note-icon">!</div>
+      <div>
+        <b id="paidAccessNoteTitle">Ақылы материалдар жеке пайдалануға арналған.</b>
+        <p id="paidAccessNoteText">Қолжетімділік мерзімі — 18 ай (1,5 жыл). Материалдарды сатуға, таратуға және басқа тұлғаларға беруге болмайды.</p>
+      </div>
+    </div>
+
+<div class="grid" id="fullCourses">
+
+      <div class="loading">
+        Курстар жүктелуде...
+      </div>
+
+    </div>
+
+
+    <div class="sub-title second-title">
+      <h3 id="trialCoursesTitle">Пробный тесттер</h3>
+    </div>
+
+
+    <div class="grid" id="trialCourses">
+
+      <div class="loading">
+        Пробный тесттер жүктелуде...
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- REVIEWS -->
+
+<section class="main-section" id="reviews">
+
+  <div class="container">
+
+    <div class="section-header">
+
+      <div class="section-number">03</div>
+
+      <div>
+        <h2 id="reviewsTitle">Отзывы және нәтиже</h2>
+
+        <p>
+          <span id="reviewsDesc">Оқушылардың пікірлері, КТ баллдары және дайындық нәтижелері бір жерде.</span>
+        </p>
+      </div>
+
+    </div>
+
+
+    <div id="reviewsGrid" class="reviews-grid">
+
+      <div class="loading">
+        Пікірлер жүктелуде...
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- KT -->
+
+<section class="main-section" id="kt">
+
+  <div class="container">
+
+    <div class="section-header">
+
+      <div class="section-number">04</div>
+
+      <div>
+        <h2 id="ktTitle">КТ құрылымы</h2>
+
+        <p>
+          <span id="ktDesc">Ғылыми-педагогикалық магистратура.</span>
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="kt-grid">
+
+      <div class="info-box">
+
+        <h3 id="ktMainTitle">Негізгі құрылым</h3>
+
+        <div class="kt-row" style="grid-template-columns:1.4fr .7fr .7fr .9fr;font-weight:900;background:#fafafa;">
+          <b id="ktHeaderSection">Бөлім</b>
+          <span id="ktHeaderQuestions">Сұрақ саны</span>
+          <span id="ktHeaderPoints">Балл</span>
+          <span id="ktHeaderThreshold">Шекті балл</span>
+        </div>
+
+        <div class="kt-row" style="grid-template-columns:1.4fr .7fr .7fr .9fr;">
+          <b id="ktForeign">Шет тілі</b>
+          <span id="ktForeignQ">50</span>
+          <span id="ktForeignP">50</span>
+          <strong id="ktForeignT">25</strong>
+        </div>
+
+        <div class="kt-row" style="grid-template-columns:1.4fr .7fr .7fr .9fr;">
+          <b id="ktTgo">ТГО</b>
+          <span id="ktTgoQ">30</span>
+          <span id="ktTgoP">30</span>
+          <strong id="ktTgoT">7</strong>
+        </div>
+
+        <div class="kt-row" style="grid-template-columns:1.4fr .7fr .7fr .9fr;">
+          <b id="ktProfile1">1-бейіндік пән</b>
+          <span id="ktProfile1Q">30</span>
+          <span id="ktProfile1P">30</span>
+          <strong id="ktProfile1T">7</strong>
+        </div>
+
+        <div class="kt-row" style="grid-template-columns:1.4fr .7fr .7fr .9fr;">
+          <b id="ktProfile2">2-бейіндік пән</b>
+          <span id="ktProfile2Q">20</span>
+          <span id="ktProfile2P">40</span>
+          <strong id="ktProfile2T">7</strong>
+        </div>
+
+        <div class="kt-row" style="grid-template-columns:1.4fr .7fr .7fr .9fr;background:#fafafa;">
+          <b id="ktTotal">Барлығы</b>
+          <span id="ktTotalQ">130</span>
+          <strong id="ktTotalP">150</strong>
+          <strong id="ktTotalT">75</strong>
+        </div>
+
+      </div>
+
+
+      <div class="info-box">
+
+        <h3 id="ktSectionsTitle">Бөлімдер</h3>
+
+        <div class="kt-row">
+          <b>Listening</b>
+          <span id="ktListeningType">Шет тілі</span>
+          <span id="ktListeningQ">16 сұрақ</span>
+        </div>
+
+        <div class="kt-row">
+          <b>Lexico-Grammar</b>
+          <span id="ktGrammarType">Шет тілі</span>
+          <span id="ktGrammarQ">18 сұрақ</span>
+        </div>
+
+        <div class="kt-row">
+          <b>Reading</b>
+          <span id="ktReadingType">Шет тілі</span>
+          <span id="ktReadingQ">16 сұрақ</span>
+        </div>
+
+        <div class="kt-format-note" id="ktEnglishSplitNote">
+          Шет тілі: Listening — 16 сұрақ, Lexico-Grammar — 18 сұрақ, Reading — 16 сұрақ. Барлығы — 50 сұрақ.
+        </div>
+
+        <div class="kt-row">
+          <b id="ktCritical">Сыни ойлау</b><span id="ktCriticalQ">15 сұрақ</span>
+          <span>ТГО</span>
+        </div>
+
+        <div class="kt-row">
+          <b id="ktAnalytical">Аналитикалық ойлау</b><span id="ktAnalyticalQ">15 сұрақ</span>
+          <span>ТГО</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- GRANT -->
+
+
+<section id="grant" class="section">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow" id="grantEyebrow">ГРАНТ КАЛЬКУЛЯТОРЫ</span>
+      <h2 id="grantTitle">Грант мүмкіндігін бағалау</h2>
+      <p class="section-text" id="grantSubtitle">
+        Мамандықты таңдап, КТ нәтижелеріңізді енгізіңіз. Жүйе алдымен конкурсқа қатысу талаптарын тексереді, содан кейін 2023–2025 жылдардағы грант нәтижелерімен салыстырады.
+      </p>
+    </div>
+  </div>
+
+  <div class="grant-box grant-calculator-v2">
+    <div class="grant-program-row">
+      <div class="grant-field wide">
+        <label id="grantProgramLabel">Білім беру бағдарламалары тобы</label>
+        <select id="grantProgramSelect">
+          <option value="">M-кодты таңдаңыз</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="grantInputsWrap" class="grant-score-grid hidden">
+      <div class="grant-score-card">
+        <div class="grant-score-top">
+          <span id="grantEnglishLabel">Шет тілі</span>
+          <span class="grant-score-max">/ 50</span>
+        </div>
+        <input id="grantEnglish" type="number" min="0" max="50" inputmode="numeric">
+        <div class="grant-threshold-line"><span id="grantMinLabel1">Минимум</span>: 25</div>
+      </div>
+
+      <div class="grant-score-card">
+        <div class="grant-score-top">
+          <span id="grantCriticalLabel">Сыни ойлау</span>
+          <span class="grant-score-max">/ 15</span>
+        </div>
+        <input id="grantCritical" type="number" min="0" max="15" inputmode="numeric">
+        <div class="grant-threshold-line"><span id="grantMinLabel2">Минимум</span>: 7</div>
+      </div>
+
+      <div class="grant-score-card">
+        <div class="grant-score-top">
+          <span id="grantAnalyticalLabel">Аналитикалық ойлау</span>
+          <span class="grant-score-max">/ 15</span>
+        </div>
+        <input id="grantAnalytical" type="number" min="0" max="15" inputmode="numeric">
+        <div class="grant-threshold-line"><span id="grantMinLabel3">Минимум</span>: 7</div>
+      </div>
+
+      <div class="grant-score-card">
+        <div class="grant-score-top">
+          <span id="grantSubject1Label">1-бейіндік пән</span>
+          <span class="grant-score-max">/ 30</span>
+        </div>
+        <input id="grantSubject1" type="number" min="0" max="30" inputmode="numeric">
+        <div class="grant-threshold-line"><span id="grantMinLabel4">Минимум</span>: 7</div>
+      </div>
+
+      <div class="grant-score-card">
+        <div class="grant-score-top">
+          <span id="grantSubject2Label">2-бейіндік пән</span>
+          <span class="grant-score-max">/ 40</span>
+        </div>
+        <input id="grantSubject2" type="number" min="0" max="40" inputmode="numeric">
+        <div class="grant-threshold-line"><span id="grantMinLabel5">Минимум</span>: 7</div>
+      </div>
+    </div>
+
+    <div id="grantTotalOption" class="grant-total-option hidden">
+      <div class="grant-or-line">
+        <span id="grantOrText">Немесе жалпы КТ балыңызды жазыңыз</span>
+      </div>
+      <div class="grant-total-card">
+        <div>
+          <div class="grant-total-title" id="grantTotalLabel">Жалпы КТ балы</div>
+          <div class="grant-total-hint" id="grantTotalHint">Пәндер бойынша балдарды есіңізде сақтамасаңыз, жалпы нәтижені енгізуге болады.</div>
+        </div>
+        <div class="grant-total-input-wrap">
+          <input id="grantTotalScore" type="number" min="0" max="150" inputmode="numeric" placeholder="0–150">
+          <span>/ 150</span>
+        </div>
+      </div>
+    </div>
+
+    <button id="grantCalculateBtn" class="access-action primary grant-calc-btn" type="button" onclick="calculateGrantV2()" disabled>
+      Есептеу
+    </button>
+
+    <div id="grantResultV2" class="grant-result-v2"></div>
+
+
+    <div class="grant-directory-standalone">
+      <div>
+        <span class="eyebrow" id="grantDirectoryEyebrow">ЖОО АНЫҚТАМАЛЫҒЫ</span>
+        <h3 id="grantDirectoryTitle">ЖОО кодтары</h3>
+        <p id="grantDirectoryText">Университет кодын немесе атауын іздеп табыңыз.</p>
+      </div>
+      <button class="grant-mini-btn primary" type="button" onclick="openUniversityDirectory()" id="grantDirectoryBtn">
+        ЖОО кодтарын ашу
+      </button>
+    </div>
+
+    <div class="grant-source-files">
+      <div class="grant-source-head">
+        <div>
+          <h3 id="grantFilesTitle">Грант нәтижелерінің бастапқы файлдары</h3>
+          <p id="grantFilesSubtitle">2023–2025 жылдардағы қолданылған ресми тізімдерді ашып көруге болады.</p>
+        </div>
+      </div>
+      <div class="grant-source-grid">
+        <a class="grant-source-card" href="grant-files/2023 лето.pdf" target="_blank" rel="noopener">
+          <b>2023</b><span id="grantFile2023Summer">Жазғы конкурс</span>
+        </a>
+        <a class="grant-source-card" href="grant-files/2023 осень.pdf" target="_blank" rel="noopener">
+          <b>2023</b><span id="grantFile2023Autumn">Күзгі конкурс</span>
+        </a>
+        <a class="grant-source-card" href="grant-files/2024 осень.pdf" target="_blank" rel="noopener">
+          <b>2024</b><span id="grantFile2024Winter">Қысқы қабылдау</span>
+        </a>
+        <a class="grant-source-card" href="grant-files/2025 лето.pdf" target="_blank" rel="noopener">
+          <b>2025</b><span id="grantFile2025">Грант иегерлері</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- TELEGRAM -->
+
+<section class="main-section">
+
+  <div class="container">
+
+    <div class="section-header">
+
+      <div class="section-number">06</div>
+
+      <div>
+        <h2 id="contactTitle">Байланыс</h2>
+
+        <p>
+          <span id="contactDesc">Жаңалықтар мен жеке сұрақтар.</span>
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="telegram-grid">
+
+      <div class="telegram-card">
+
+        <h3 id="telegramTitle">Telegram-канал</h3>
+
+        <p id="telegramDesc">Магистратура, КТ, грант және жаңа материалдар туралы барлық жаңалықтарды Telegram-каналда жариялаймыз.</p>
+
+        <a
+          class="button button-purple"
+          href="https://t.me/+8SolEPgN4Is0MTMy"
+          target="_blank"
+        >
+          <span id="telegramBtnText">Telegram-каналға өту</span>
+        </a>
+
+      </div>
+
+
+      <div class="telegram-card">
+
+        <h3 id="contactQuestionTitle">Сұрақтарыңыз бар ма?</h3>
+
+        <p id="contactQuestionDesc">Курс, төлем немесе платформа бойынша сұрақтарыңыз болса, жеке Telegram-ға жазыңыз.</p>
+
+        <a
+          class="button button-dark"
+          href="https://t.me/elnazm_ln"
+          target="_blank"
+        >
+          <span id="contactBtnText">@elnazm_ln-ге жазу</span>
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<footer>
+
+  <div class="container">
+    <span id="footerText">© 2026 MAGIST · Магистратураға дайындық платформасы</span>
+  </div>
+
+
+      <div class="legal-footer-links">
+        <button type="button" onclick="openLegalModal('terms')" id="footerTerms">Қолдану шарттары</button>
+        <button type="button" onclick="openLegalModal('payment')" id="footerPayment">Төлем және қолжетімділік</button>
+        <button type="button" onclick="openLegalModal('privacy')" id="footerPrivacy">Құпиялық</button>
+      </div>
+</footer>
+
+
+<!-- REVIEW MODAL -->
+
+<div class="modal" id="reviewModal">
+
+  <button
+    class="close-modal"
+    onclick="closeReview()"
+  >
+    ×
+  </button>
+
+  <img
+    class="review-modal-image"
+    id="reviewModalImage"
+    alt=""
+  />
+
+</div>
+
+
+<!-- COURSE PREVIEW MODAL -->
+<div class="modal" id="coursePreviewModal"><div class="modal-content">
+<button class="close-modal" onclick="closeCoursePreview()">×</button><div id="coursePreviewBody"></div>
+</div></div>
+
+<!-- ACCESS MODAL -->
+<div class="modal" id="accessModal"><div class="modal-content">
+<button class="close-modal" onclick="closeAccessModal()">×</button>
+<div class="access-box"><h2>Кіру</h2>
+<div class="access-muted">Сатып алғаннан кейін берілген жеке MAG-кодыңызды енгізіңіз.</div>
+<input id="magAccessCode" class="access-input" placeholder="MAG-XXXX-XXXX" autocomplete="off">
+<button class="access-action primary" style="width:100%;margin-top:10px" onclick="submitAccessCode()">Кіру</button>
+<div id="accessMessage" class="access-message"></div></div>
+</div></div>
+
+<!-- NAME MODAL -->
+<div class="modal" id="nameModal">
+  <div class="modal-content" style="width:min(520px,95vw)">
+    <button class="close-modal" onclick="closeNameModal()">×</button>
+    <div class="name-box">
+      <h2 id="nameModalTitle">Қош келдіңіз! 👋</h2>
+      <input id="nameInput" class="name-input" placeholder="Есіміңіз" autocomplete="name">
+      <button id="nameContinueButton" class="access-action primary" style="width:100%;margin-top:10px" onclick="saveAccessName()">Жалғастыру</button>
+      <div id="nameMessage" class="name-message"></div>
+    </div>
+  </div>
+</div>
+
+<!-- STUDENT CABINET MODAL -->
+<div class="modal" id="cabinetModal">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeCabinet()">×</button>
+    <div class="cabinet-body" id="cabinetBody"></div>
+  </div>
+</div>
+
+<!-- COURSE MODAL -->
+
+<div class="modal" id="courseModal">
+
+  <div class="modal-content">
+
+    <button
+      class="close-modal"
+      onclick="closeCourse()"
+    >
+      ×
+    </button>
+
+    <div
+      class="course-modal-body"
+      id="courseModalBody"
+    ></div>
+
+  </div>
+
+</div>
+
+
+
+<script>
+  const LEGAL_TEXT = {
+    kk: {
+      terms: {
+        title: "Қолдану шарттары",
+        html: `
+          <p>MAGIST — магистратураға түсуге дайындалуға арналған білім беру платформасы.</p>
+          <p>Платформадағы ақылы материалдарға қолжетімділік пайдаланушыға жеке MAG-код арқылы беріледі. MAG-код тек бір пайдаланушыға арналған және оны басқа тұлғаларға беруге болмайды.</p>
+          <p>Пайдаланушы тек өзі сатып алған курстар мен материалдарға қол жеткізе алады. Платформадағы материалдар оқу және жеке дайындық мақсатында ұсынылады.</p>
+          <p><strong>Материалдарды сатуға, қайта таратуға, үшінші тұлғаларға беруге, ашық ресурстарда жариялауға немесе коммерциялық мақсатта пайдалануға тыйым салынады.</strong></p>
+          <p>Осы талаптар бұзылған жағдайда MAGIST пайдаланушының қолжетімділігін уақытша немесе толық бұғаттауға құқылы.</p>
+          <p>Платформадағы материалдар, тесттер, статистика және басқа ақпарат қажеттілікке қарай жаңартылуы, толықтырылуы немесе өзгертілуі мүмкін.</p>
+          <p>MAGIST платформасын пайдалану арқылы пайдаланушы осы шарттармен келісетінін растайды.</p>
+
+          <h3>Материалдарды пайдалану</h3>
+          <p>MAGIST материалдары тек жеке оқу және дайындық мақсатында пайдалануға арналған.</p>
+          <p><strong>Материалдарды сатуға және таратуға болмайды.</strong></p>
+          <p>Материалдарды басқа тұлғаларға жіберуге, ақылы материалдарға сілтемелерді таратуға, материалдарды өз атынан сатуға немесе ашық платформаларда жариялауға тыйым салынады.</p>
+          <p>Ереже бұзылған жағдайда пайдаланушының MAG-коды және ақылы курстарға қолжетімділігі бұғатталуы мүмкін. Қажет болған жағдайда мәселе қолданыстағы заңнамаға сәйкес қарастырылуы мүмкін.</p>
+        `
+      },
+      payment: {
+        title: "Төлем және қолжетімділік",
+        html: `
+          <p>Ақылы курс сатып алынғаннан кейін пайдаланушыға жеке MAG-код беріледі.</p>
+          <p>Қолжетімділік тек сатып алынған курстарға беріледі.</p>
+          <p><strong>Ақылы материалдарға қолжетімділік мерзімі — сатып алған күннен бастап 18 ай.</strong></p>
+          <p>Қолжетімділіктің аяқталу күні пайдаланушының жеке кабинетінде көрсетіледі. Мерзім аяқталғаннан кейін ақылы материалдарға қолжетімділік автоматты түрде тоқтатылады.</p>
+          <p>Қолжетімділік белгілі бір құрылғылар санымен шектелуі мүмкін. MAG-кодты басқа тұлғаларға беру немесе бірнеше адаммен бірге пайдалану анықталған жағдайда қолжетімділік бұғатталуы мүмкін.</p>
+          <p>Төлем жасалғанымен курс ашылмаса немесе басқа техникалық мәселе туындаса, пайдаланушы MAGIST әкімшілігіне хабарласа алады.</p>
+          <p>Қолжетімділікті ұзарту мүмкіндігі әр жағдайда жеке қарастырылады.</p>
+        `
+      },
+      privacy: {
+        title: "Құпиялық",
+        html: `
+          <p>MAGIST платформасының жұмыс істеуі үшін пайдаланушы туралы кейбір ақпарат сақталуы мүмкін.</p>
+          <p>Оларға пайдаланушының аты, MAG-коды, сатып алынған курстар, тіркелген құрылғылар, тест нәтижелері, платформадағы белсенділік және қолжетімділік мерзімі жатады.</p>
+          <p>Бұл ақпарат пайдаланушының аккаунтын басқару, сатып алынған материалдарға қолжетімділікті қамтамасыз ету, тест нәтижелерін сақтау, техникалық мәселелерді шешу және платформаның жұмысын жақсарту мақсатында пайдаланылады.</p>
+          <p>Пайдаланушының жеке ақпараты платформада ашық түрде жарияланбайды.</p>
+          <p>MAGIST пайдаланушы деректерін тек платформаның жұмыс істеуіне қажетті көлемде пайдалануға тырысады.</p>
+        `
+      }
+    },
+    ru: {
+      terms: {
+        title: "Условия использования",
+        html: `
+          <p>MAGIST — образовательная платформа для подготовки к поступлению в магистратуру.</p>
+          <p>Доступ к платным материалам предоставляется пользователю по персональному MAG-коду. MAG-код предназначен для одного пользователя и не должен передаваться другим лицам.</p>
+          <p>Пользователь получает доступ только к приобретённым им курсам и материалам. Материалы платформы предоставляются для обучения и личной подготовки.</p>
+          <p><strong>Запрещается продавать материалы, распространять их, передавать третьим лицам, публиковать в открытом доступе или использовать в коммерческих целях.</strong></p>
+          <p>При нарушении этих правил MAGIST вправе временно или полностью ограничить доступ пользователя к платформе.</p>
+          <p>Материалы, тесты, статистика и другая информация на платформе могут обновляться, дополняться или изменяться.</p>
+          <p>Используя платформу MAGIST, пользователь подтверждает согласие с настоящими условиями.</p>
+
+          <h3>Использование материалов</h3>
+          <p>Материалы MAGIST предназначены исключительно для личного обучения и подготовки.</p>
+          <p><strong>Материалы запрещено продавать и распространять.</strong></p>
+          <p>Также запрещается передавать материалы другим лицам, распространять ссылки на платные материалы, перепродавать материалы от своего имени или публиковать их в открытом доступе.</p>
+          <p>При нарушении правил MAG-код пользователя и доступ к платным курсам могут быть заблокированы. При необходимости ситуация может рассматриваться в соответствии с применимым законодательством.</p>
+        `
+      },
+      payment: {
+        title: "Оплата и доступ",
+        html: `
+          <p>После приобретения платного курса пользователю предоставляется персональный MAG-код.</p>
+          <p>Доступ предоставляется только к тем курсам, которые были приобретены пользователем.</p>
+          <p><strong>Срок доступа к платным материалам составляет 18 месяцев с даты покупки.</strong></p>
+          <p>Дата окончания доступа отображается в личном кабинете пользователя. После окончания установленного срока доступ к платным материалам автоматически прекращается.</p>
+          <p>Количество устройств, на которых может использоваться MAG-код, может быть ограничено. При выявлении передачи кода другим лицам или совместного использования одного доступа несколькими пользователями доступ может быть ограничен или заблокирован.</p>
+          <p>Если после оплаты курс не открывается или возникает другая техническая проблема, пользователь может обратиться к администрации MAGIST.</p>
+          <p>Возможность продления доступа рассматривается индивидуально.</p>
+        `
+      },
+      privacy: {
+        title: "Конфиденциальность",
+        html: `
+          <p>Для работы платформы MAGIST может храниться определённая информация о пользователе.</p>
+          <p>К такой информации могут относиться: имя пользователя, MAG-код, список приобретённых курсов, зарегистрированные устройства, результаты тестов, активность на платформе и срок действия доступа.</p>
+          <p>Эти данные используются для работы аккаунта, предоставления доступа к приобретённым материалам, сохранения результатов тестов, решения технических вопросов и улучшения работы платформы.</p>
+          <p>Личная информация пользователей не предназначена для публичного размещения на платформе.</p>
+          <p>MAGIST стремится использовать данные только в объёме, необходимом для работы сервиса.</p>
+        `
+      }
+    }
+  };
+
+  function closeLegalModal(){
+    document.getElementById("legalOverlay")?.remove();
+  }
+
+  function openLegalModal(type){
+    closeLegalModal();
+    const lang = CURRENT_UI_LANGUAGE === "ru" ? "ru" : "kk";
+    const data = LEGAL_TEXT[lang][type];
+    if(!data) return;
+
+    const overlay = document.createElement("div");
+    overlay.id = "legalOverlay";
+    overlay.className = "legal-overlay";
+    overlay.innerHTML = `
+      <div class="legal-modal" onclick="event.stopPropagation()">
+        <div class="legal-modal-head">
+          <h2>${data.title}</h2>
+          <button class="legal-modal-close" type="button" onclick="closeLegalModal()">×</button>
+        </div>
+        <div class="legal-content">${data.html}</div>
+      </div>
+    `;
+    overlay.onclick = closeLegalModal;
+    document.body.appendChild(overlay);
+  }
+
+
+
+  /* ====================================================
+     SUPABASE
+  ==================================================== */
+
+  const SUPABASE_URL =
+    "https://wbikkbndoaqjqrbolbuw.supabase.co";
+
+  const SUPABASE_KEY =
+    "sb_publishable_Z251FafeuejV3jgVgXZFow_W_PLAcTC";
+  const SUPABASE_ANON_KEY = SUPABASE_KEY;
+
+
+  let FREE_TESTS = [];
+  let PAID_COURSES = [];
+  let COURSE_MATERIALS = [];
+
+
+  /* ====================================================
+     SAFE TEXT
+  ==================================================== */
+
+  function escapeHTML(value = "") {
+
+    return String(value).replace(
+      /[&<>"']/g,
+      character =>
+        ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;"
+        }[character])
+    );
+
+  }
+
+
+  /* ====================================================
+     SUPABASE TABLE REQUEST
+  ==================================================== */
+
+  async function tableRequest(table) {
+
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/${table}?select=*`,
+      {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`
+        }
+      }
+    );
+
+    if (!response.ok) {
+
+      throw new Error(
+        `${table}: ${response.status}`
+      );
+
+    }
+
+    return await response.json();
+
+  }
+
+
+
+  /* ====================================================
+     SAFE UI LANGUAGE
+     Does not touch Supabase loading logic.
+  ==================================================== */
+
+  const UI_LANG = {
+    kk: {
+      login: "Кіру",
+      navFree: "Тегін",
+      navPaid: "Ақылы",
+      navReviews: "Отзывы және нәтиже",
+      navKt: "КТ құрылымы",
+      navGrant: "Грант",
+      heroSmall: "Магистратураға дайындық платформасы",
+      freeTitle: "Тегін дайындық",
+      paidTitle: "Ақылы дайындық",
+      fullCoursesTitle: "Толық курстар",
+      trialCoursesTitle: "Пробный тесттер",
+      reviewsTitle: "Отзывы және нәтиже",
+      ktTitle: "КТ құрылымы",
+      grantTitle: "Грант мүмкіндігін есептеу",
+      contactTitle: "Байланыс",
+      tabAll: "Барлығы",
+      tabTgo: "ТГО + Ағылшын тілі",
+      tabProfile: "Бейіндік пәндер",
+      tabPed: "Педагогика",
+      freeBadge: "ТЕГІН",
+      paidBadge: "ТОЛЫҚ КУРС",
+      trialBadge: "ПРОБНЫЙ",
+      startTest: "Тестті бастау →",
+      viewCourse: "Курсты көру →",
+      priceLater: "Баға кейін",
+      buy: "Сатып алу",
+      haveCode: "Менде код бар",
+      videoReview: "Видеообзор",
+      videoSoon: "Видеообзор жақында қосылады.",
+      watchVideo: "Видеообзорды көру →",
+      price: "Бағасы",
+      accessTitle: "Кіру",
+      accessDesc: "Сатып алғаннан кейін берілген жеке MAG-кодыңызды енгізіңіз.",
+      accessButton: "Кіру",
+      codeRequired: "MAG-кодты енгізіңіз.",
+      checking: "Тексерілуде...",
+      invalidCode: "Код жарамсыз немесе құрылғы лимиті толған.",
+      accessError: "Кіруді тексеру кезінде қате пайда болды.",
+      noCourse: "Бұл курс сіздің кодыңызға қосылмаған.",
+      courseError: "Курс материалдарын ашу кезінде қате пайда болды.",
+      nameTitle: "Қош келдіңіз! 👋",
+      namePlaceholder: "Есіміңіз",
+      continue: "Жалғастыру",
+      nameRequired: "Есіміңізді жазыңыз.",
+      cabinet: "Жеке кабинет",
+      paidProtectionTitle: "Сатуға және таратуға болмайды.",
+      paidProtectionText: "Ондай жағдайда заңмен жауап беруіңізге тура келеді.",
+      accessUntil: "Қолжетімділік мерзімі",
+      accessExpired: "Қолжетімділік мерзімі аяқталған. Жаңа қолжетімділік алу үшін әкімшіге хабарласыңыз.",
+      hello: "Сәлем",
+      myCourses: "Менің курстарым",
+      myResults: "Менің нәтижелерім",
+      overview: "Шолу",
+      totalAttempts: "Тапсырылған тесттер",
+      averageResult: "Орташа нәтиже",
+      bestResult: "Ең жоғары нәтиже",
+      worstResult: "Ең төмен нәтиже",
+      lastResult: "Соңғы нәтиже",
+      weakTopics: "Жиі қате жіберетін тақырыптар",
+      strongTopics: "Мықты тақырыптар",
+      attempts: "әрекет",
+      devices: "Құрылғылар",
+      logout: "Шығу",
+      openCourse: "Курсқа өту →",
+      noCourses: "Сіздің кодыңызға курс әлі қосылмаған.",
+      noResults: "Әзірге тест нәтижелері жоқ.",
+      noTopics: "Тақырыптар бойынша талдау үшін көбірек тест тапсырыңыз.",
+      accuracy: "дұрыс",
+      dashboardError: "Жеке кабинетті жүктеу кезінде қате пайда болды.",
+      openingMaterial: "Материал ашылуда...",
+      sessionError: "Материалды ашу кезінде қате пайда болды.",
+
+      ktHeaderSection: "Бөлім",
+      ktHeaderQuestions: "Сұрақ саны",
+      ktHeaderPoints: "Балл",
+      ktHeaderThreshold: "Шекті балл",
+      ktProfile1: "1-бейіндік пән",
+      ktProfile2: "2-бейіндік пән",
+      ktForeignT: "25",
+      ktTgoT: "7",
+      ktProfile1Q: "30",
+      ktProfile1P: "30",
+      ktProfile1T: "7",
+      ktProfile2Q: "20",
+      ktProfile2P: "40",
+      ktProfile2T: "7",
+      ktTotalT: "75",
+      heroFreeBtn: "Тегін дайындық",
+      heroPaidBtn: "Ақылы дайындық",
+      ktForeign: "Шет тілі",
+      ktForeignQ: "50",
+      ktForeignP: "50",
+      ktTgo: "ТГО",
+      ktTgoQ: "30",
+      ktTgoP: "30",
+      ktProfile: "Бейіндік пәндер",
+      ktProfileQ: "50 сұрақ",
+      ktProfileP: "70 балл",
+      ktTotal: "Барлығы",
+      ktTotalQ: "130",
+      ktTotalP: "150",
+      ktListeningType: "Шет тілі",
+      ktReadingType: "Шет тілі",
+      ktGrammarType: "Шет тілі",
+      ktCritical: "Сыни ойлау",
+      ktCriticalQ: "15 сұрақ",
+      ktAnalytical: "Аналитикалық ойлау",
+      ktAnalyticalQ: "15 сұрақ",
+      ktThresholdNote: "Жалпы шекті балл — 75. Шет тілінен кемінде 25, ТГО-дан кемінде 7, әр бейіндік пәннен кемінде 7 балл.",
+      grantDesc: "2025 грант иегерлерінің нәтижелерімен салыстыру. 2026 статистикасы шыққаннан кейін екінші жыл қосылады.",
+      grantMajorPlaceholder: "Мамандықты таңдаңыз",
+      grantScorePlaceholder: "КТ балы",
+      grantAllUni: "Барлық ЖОО",
+      grantAlmaty: "Алматы",
+      grantAstana: "Астана",
+      grantOtherCity: "Басқа қала",
+      grantCalcBtn: "Есептеу",
+      grantInitial: "2025 статистикасын базаға енгізгеннен кейін бұл жерде ең төмен грант балы, сіздің айырмашылығыңыз және сәйкес ЖОО көрсетіледі.",
+      telegramTitle: "Telegram-канал",
+      telegramDesc: "Магистратура, КТ, грант және жаңа материалдар туралы барлық жаңалықтарды Telegram-каналда жариялаймыз.",
+      telegramBtnText: "Telegram-каналға өту",
+      contactQuestionTitle: "Сұрақтарыңыз бар ма?",
+      contactQuestionDesc: "Курс, төлем немесе платформа бойынша сұрақтарыңыз болса, жеке Telegram-ға жазыңыз.",
+      contactBtnText: "@elnazm_ln-ге жазу",
+      footerText: "© 2026 MAGIST · Магистратураға дайындық платформасы",
+      courseLangKK: "Қазақша",
+      courseLangRU: "Орысша",
+      courseLangBoth: "Қазақша / Орысша",
+      heroText: "Тегін тесттер, ақылы дайындық, КТ құрылымы, грант мүмкіндігі және жеке кабинет.",
+      quickFreeTitle: "Тегін дайындық",
+      quickFreeText: "Барлық ашық тесттер.",
+      quickPaidTitle: "Ақылы дайындық",
+      quickPaidText: "Курстар және пробный тесттер.",
+      quickReviewsTitle: "Отзывы және нәтиже",
+      quickReviewsText: "Оқушылардың пікірлері мен баллдары.",
+      quickKtTitle: "КТ құрылымы",
+      quickKtText: "Сұрақтар, балл және шекті балл.",
+      quickGrantTitle: "Грант мүмкіндігі",
+      quickGrantText: "2025 нәтижелерімен салыстыру.",
+      freeDesc: "Тіркелусіз бірден ашылатын тесттер.",
+      freeProtectionTitle: "Материалдарды сатуға және таратуға болмайды.",
+      freeProtectionText: "Ондай жағдайда заңмен жауап беруіңізге тура келеді.",
+      paidDesc: "Толық курстар мен бөлек пробный тест пакеттері.",
+      reviewsDesc: "Оқушылардың пікірлері, КТ баллдары және дайындық нәтижелері бір жерде.",
+      ktDesc: "Ғылыми-педагогикалық магистратура.",
+      ktMainTitle: "Негізгі құрылым",
+      ktSectionsTitle: "Бөлімдер",
+      contactDesc: "Жаңалықтар мен жеке сұрақтар.",
+    },
+    ru: {
+      login: "Войти",
+      navFree: "Бесплатно",
+      navPaid: "Платно",
+      navReviews: "Отзывы и результаты",
+      navKt: "Структура КТ",
+      navGrant: "Грант",
+      heroSmall: "Платформа подготовки к магистратуре",
+      freeTitle: "Бесплатная подготовка",
+      paidTitle: "Платная подготовка",
+      fullCoursesTitle: "Полные курсы",
+      trialCoursesTitle: "Пробные тесты",
+      reviewsTitle: "Отзывы и результаты",
+      ktTitle: "Структура КТ",
+      grantTitle: "Рассчитать шанс на грант",
+      contactTitle: "Контакты",
+      tabAll: "Все",
+      tabTgo: "ТГО + Английский язык",
+      tabProfile: "Профильные предметы",
+      tabPed: "Педагогика",
+      freeBadge: "БЕСПЛАТНО",
+      paidBadge: "ПОЛНЫЙ КУРС",
+      trialBadge: "ПРОБНЫЙ",
+      startTest: "Начать тест →",
+      viewCourse: "Посмотреть курс →",
+      priceLater: "Цена позже",
+      buy: "Купить",
+      haveCode: "У меня есть код",
+      videoReview: "Видеообзор",
+      videoSoon: "Видеообзор скоро будет добавлен.",
+      watchVideo: "Посмотреть видеообзор →",
+      price: "Цена",
+      accessTitle: "Войти",
+      accessDesc: "Введите личный MAG-код, который вы получили после покупки.",
+      accessButton: "Войти",
+      codeRequired: "Введите MAG-код.",
+      checking: "Проверяем...",
+      invalidCode: "Код недействителен или лимит устройств исчерпан.",
+      accessError: "Произошла ошибка при проверке доступа.",
+      noCourse: "Этот курс не привязан к вашему коду.",
+      courseError: "Произошла ошибка при открытии материалов курса.",
+      nameTitle: "Добро пожаловать! 👋",
+      namePlaceholder: "Ваше имя",
+      continue: "Продолжить",
+      nameRequired: "Напишите ваше имя.",
+      cabinet: "Личный кабинет",
+      paidProtectionTitle: "Запрещено продавать и распространять материалы.",
+      paidProtectionText: "В таких случаях может наступить ответственность в соответствии с законом.",
+      accessUntil: "Доступ до",
+      accessExpired: "Срок доступа истёк. Для продления обратитесь к администратору.",
+      hello: "Здравствуйте",
+      myCourses: "Мои курсы",
+      myResults: "Мои результаты",
+      overview: "Обзор",
+      totalAttempts: "Пройдено тестов",
+      averageResult: "Средний результат",
+      bestResult: "Лучший результат",
+      worstResult: "Самый низкий результат",
+      lastResult: "Последний результат",
+      weakTopics: "Темы, где вы чаще ошибаетесь",
+      strongTopics: "Сильные темы",
+      attempts: "попыток",
+      devices: "Устройства",
+      logout: "Выйти",
+      openCourse: "Перейти к курсу →",
+      noCourses: "К вашему коду пока не добавлены курсы.",
+      noResults: "Результатов тестов пока нет.",
+      noTopics: "Пройдите больше тестов, чтобы появился анализ по темам.",
+      accuracy: "верно",
+      dashboardError: "Произошла ошибка при загрузке личного кабинета.",
+      openingMaterial: "Открываем материал...",
+      sessionError: "Произошла ошибка при открытии материала.",
+
+      ktHeaderSection: "Раздел",
+      ktHeaderQuestions: "Вопросы",
+      ktHeaderPoints: "Баллы",
+      ktHeaderThreshold: "Пороговый балл",
+      ktProfile1: "1-й профильный предмет",
+      ktProfile2: "2-й профильный предмет",
+      ktForeignT: "25",
+      ktTgoT: "7",
+      ktProfile1Q: "30",
+      ktProfile1P: "30",
+      ktProfile1T: "7",
+      ktProfile2Q: "20",
+      ktProfile2P: "40",
+      ktProfile2T: "7",
+      ktTotalT: "75",
+      heroFreeBtn: "Бесплатная подготовка",
+      heroPaidBtn: "Платная подготовка",
+      ktForeign: "Иностранный язык",
+      ktForeignQ: "50",
+      ktForeignP: "50",
+      ktTgo: "ТГО",
+      ktTgoQ: "30",
+      ktTgoP: "30",
+      ktProfile: "Профильные предметы",
+      ktProfileQ: "50 вопросов",
+      ktProfileP: "70 баллов",
+      ktTotal: "Всего",
+      ktTotalQ: "130",
+      ktTotalP: "150",
+      ktListeningType: "Иностранный язык",
+      ktReadingType: "Иностранный язык",
+      ktGrammarType: "Иностранный язык",
+      ktCritical: "Критическое мышление",
+      ktCriticalQ: "15 вопросов",
+      ktAnalytical: "Аналитическое мышление",
+      ktAnalyticalQ: "15 вопросов",
+      ktThresholdNote: "Общий пороговый балл — 75. По иностранному языку — не менее 25, по ТГО — не менее 7, по каждому профильному предмету — не менее 7 баллов.",
+      grantDesc: "Сравнение с результатами обладателей грантов 2025 года. После выхода статистики 2026 года будет добавлен второй год.",
+      grantMajorPlaceholder: "Выберите специальность",
+      grantScorePlaceholder: "Балл КТ",
+      grantAllUni: "Все вузы",
+      grantAlmaty: "Алматы",
+      grantAstana: "Астана",
+      grantOtherCity: "Другой город",
+      grantCalcBtn: "Рассчитать",
+      grantInitial: "После добавления статистики 2025 года здесь будут показаны минимальный балл на грант, разница с вашим баллом и подходящие вузы.",
+      telegramTitle: "Telegram-канал",
+      telegramDesc: "Все новости о магистратуре, КТ, грантах и новых материалах публикуются в Telegram-канале.",
+      telegramBtnText: "Перейти в Telegram-канал",
+      contactQuestionTitle: "Есть вопросы?",
+      contactQuestionDesc: "Если у вас есть вопросы по курсам, оплате или платформе, напишите в личный Telegram.",
+      contactBtnText: "Написать @elnazm_ln",
+      footerText: "© 2026 MAGIST · Платформа подготовки к магистратуре",
+      courseLangKK: "Казахский",
+      courseLangRU: "Русский",
+      courseLangBoth: "Казахский / Русский",
+      heroText: "Бесплатные тесты, платная подготовка, структура КТ, шанс на грант и личный кабинет.",
+      quickFreeTitle: "Бесплатная подготовка",
+      quickFreeText: "Все открытые тесты.",
+      quickPaidTitle: "Платная подготовка",
+      quickPaidText: "Курсы и пробные тесты.",
+      quickReviewsTitle: "Отзывы и результаты",
+      quickReviewsText: "Отзывы учеников и их результаты.",
+      quickKtTitle: "Структура КТ",
+      quickKtText: "Вопросы, баллы и пороговый балл.",
+      quickGrantTitle: "Шанс на грант",
+      quickGrantText: "Сравнение с результатами 2025 года.",
+      freeDesc: "Тесты, которые открываются сразу без регистрации.",
+      freeProtectionTitle: "Материалы запрещено продавать и распространять.",
+      freeProtectionText: "В таких случаях может наступить ответственность в соответствии с законом.",
+      paidDesc: "Полные курсы и отдельные пакеты пробных тестов.",
+      reviewsDesc: "Отзывы учеников, баллы КТ и результаты подготовки в одном месте.",
+      ktDesc: "Научно-педагогическая магистратура.",
+      ktMainTitle: "Основная структура",
+      ktSectionsTitle: "Разделы",
+      contactDesc: "Новости и личные вопросы.",
+    }
+  };
+
+  let CURRENT_UI_LANGUAGE =
+    localStorage.getItem("magist_ui_language") === "ru"
+      ? "ru"
+      : "kk";
+
+  function tr(key) {
+    return UI_LANG[CURRENT_UI_LANGUAGE][key] || key;
+  }
+
+  function setText(id, key) {
+    const element = document.getElementById(id);
+    if (element) element.textContent = tr(key);
+  }
+
+  function applyLanguage() {
+    document.documentElement.lang =
+      CURRENT_UI_LANGUAGE === "ru" ? "ru" : "kk";
+
+    document.getElementById("langKkBtn")?.classList.toggle(
+      "active",
+      CURRENT_UI_LANGUAGE === "kk"
+    );
+
+    document.getElementById("langRuBtn")?.classList.toggle(
+      "active",
+      CURRENT_UI_LANGUAGE === "ru"
+    );
+
+    [
+      "navFree","navPaid","navReviews","navKt","navGrant",
+      "heroSmall","heroText","freeTitle","paidTitle","fullCoursesTitle",
+      "trialCoursesTitle","reviewsTitle","ktTitle","grantTitle",
+      "contactTitle","tabAll","tabTgo","tabProfile","tabPed",
+      "quickFreeTitle","quickFreeText","quickPaidTitle","quickPaidText",
+      "quickReviewsTitle","quickReviewsText","quickKtTitle","quickKtText",
+      "quickGrantTitle","quickGrantText","freeDesc","paidDesc","freeProtectionTitle","freeProtectionText","reviewsDesc",
+      "ktDesc","ktMainTitle","ktSectionsTitle","contactDesc"
+    ].forEach(id => setText(id, id));
+
+    updateAccountButton();
+
+    [
+      "heroFreeBtn","heroPaidBtn",
+      "ktHeaderSection","ktHeaderQuestions","ktHeaderPoints","ktHeaderThreshold",
+      "ktForeign","ktForeignQ","ktForeignP","ktForeignT",
+      "ktTgo","ktTgoQ","ktTgoP","ktTgoT",
+      "ktProfile1","ktProfile1Q","ktProfile1P","ktProfile1T",
+      "ktProfile2","ktProfile2Q","ktProfile2P","ktProfile2T",
+      "ktTotal","ktTotalQ","ktTotalP","ktTotalT",
+      "ktListeningType","ktReadingType","ktGrammarType",
+      "ktCritical","ktCriticalQ","ktAnalytical","ktAnalyticalQ",
+      "grantAllUni","grantAlmaty","grantAstana","grantOtherCity",
+      "grantCalcBtn","telegramTitle","telegramDesc","telegramBtnText",
+      "contactQuestionTitle","contactQuestionDesc","contactBtnText","footerText"
+    ].forEach(id => setText(id,id));
+
+    const grantScore = document.getElementById("grantScore");
+    if (grantScore) grantScore.placeholder = tr("grantScorePlaceholder");
+
+    const grantDesc = document.getElementById("grantDesc");
+    if (grantDesc) grantDesc.textContent = tr("grantDesc");
+
+    const grantResult = document.getElementById("grantResult");
+    if (grantResult && !grantResult.dataset.calculated) {
+      grantResult.textContent = tr("grantInitial");
+    }
+
+    if (typeof updateGrantLanguage === 'function') updateGrantLanguage();
+  }
+
+
+  function applyExtraStaticLanguage() {
+    const ru = CURRENT_UI_LANGUAGE === "ru";
+
+    const pairs = [
+      ["Шет тілі", "Иностранный язык"],
+      ["Бейіндік пәндер", "Профильные предметы"],
+      ["Барлығы", "Всего"],
+      ["Сыни ойлау", "Критическое мышление"],
+      ["Аналитикалық ойлау", "Аналитическое мышление"],
+      ["сұрақ", "вопросов"],
+      ["балл", "баллов"]
+    ];
+
+    document.querySelectorAll(".kt-row b").forEach(el => {
+      pairs.forEach(([kk, rv]) => {
+        if (ru && el.textContent.trim() === kk) el.textContent = rv;
+        if (!ru && el.textContent.trim() === rv) el.textContent = kk;
+      });
+    });
+
+    document.querySelectorAll(".kt-row span").forEach(el => {
+      let value = el.textContent.trim();
+      if (ru) {
+        value = value.replace(" сұрақ", " вопросов");
+        value = value.replace(" балл", " баллов");
+        if (value === "Шет тілі") value = "Иностранный язык";
+        if (value === "ТГО") value = "ТГО";
+      } else {
+        value = value.replace(" вопросов", " сұрақ");
+        value = value.replace(" баллов", " балл");
+        if (value === "Иностранный язык") value = "Шет тілі";
+      }
+      el.textContent = value;
+    });
+  }
+
+
+  function setLanguage(language) {
+    CURRENT_UI_LANGUAGE =
+      language === "ru" ? "ru" : "kk";
+
+    localStorage.setItem(
+      "magist_ui_language",
+      CURRENT_UI_LANGUAGE
+    );
+
+    applyLanguage();
+    applyExtraStaticLanguage();
+
+    // Re-render already loaded dynamic data only.
+    if (FREE_TESTS.length) {
+      const active =
+        document.querySelector("#freeTabs .tab.active");
+      const category =
+        active?.dataset.category || "all";
+
+      renderFreeTests(
+        category === "all"
+          ? FREE_TESTS
+          : FREE_TESTS.filter(item => item.category === category)
+      );
+    }
+
+    if (PAID_COURSES.length) {
+      renderPaidCourses();
+      populateGrantPrograms();
+    }
+
+    if (
+      document.getElementById("coursePreviewModal")
+        ?.classList.contains("open") &&
+      PENDING_COURSE_CODE
+    ) {
+      openCoursePreview(PENDING_COURSE_CODE);
+    }
+
+    if (
+      document.getElementById("accessModal")
+        ?.classList.contains("open")
+    ) {
+      openAccessModal(PENDING_COURSE_CODE);
+    }
+
+    if (document.getElementById("nameModal")?.classList.contains("open")) {
+      renderNameModal();
+    }
+
+    if (document.getElementById("cabinetModal")?.classList.contains("open")) {
+      openCabinet();
+    }
+  }
+
+
+  /* ====================================================
+     FREE TESTS
+  ==================================================== */
+
+  async function loadFreeTests() {
+
+    const container =
+      document.getElementById("freeTests");
+
+    try {
+
+      FREE_TESTS =
+        await tableRequest("free_tests");
+
+
+      FREE_TESTS =
+        FREE_TESTS
+          .filter(item => item.is_active !== false)
+          .sort(
+            (a, b) =>
+              ((a.sort_order ?? a.id) || 0) -
+              ((b.sort_order ?? b.id) || 0)
+          );
+
+
+      renderFreeTests(FREE_TESTS);
+
+    }
+
+    catch (error) {
+
+      console.error(error);
+
+      container.innerHTML =
+        `<div class="loading">
+          Тегін тесттерді жүктеу кезінде қате пайда болды.
+        </div>`;
+
+    }
+
+  }
+
+
+
+  const FREE_RU = {
+    "ТГО + Ағылшын тілі": "ТГО + Английский язык",
+    "Бейіндік пәндер": "Профильные предметы",
+    "Педагогика": "Педагогика",
+    "Ағылшын тілі": "Английский язык",
+    "Сыни ойлау": "Критическое мышление",
+    "Оқу сауаттылығы": "Грамотность чтения",
+    "Қазақ тілі": "Казахский язык",
+    "Орыс тілі": "Русский язык",
+    "Математика": "Математика",
+    "Биология": "Биология",
+    "Тарих": "История",
+    "Арнайы педагогика": "Специальная педагогика",
+    "Пробный тест": "Пробный тест",
+    "Пробный тесттер": "Пробные тесты",
+    "Тегін тест": "Бесплатный тест",
+    "Тегін тесттер": "Бесплатные тесты",
+    "Ағылшын тілі бойынша": "По английскому языку",
+    "Педагогика бойынша": "По педагогике",
+    "Сыни ойлау бойынша": "По критическому мышлению",
+    "Бейіндік пән": "Профильный предмет",
+    "Бейіндік пәндер бойынша": "По профильным предметам",
+    "Математика оқыту әдістемесі": "Методика преподавания математики",
+    "Қазақ тілі мен әдебиеті": "Казахский язык и литература",
+    "Проф.Англ": "Профессиональный английский",
+    "Аналитикалық ойлау": "Аналитическое мышление",
+    "вариант": "вариант",
+    "Тест": "Тест"
+  };
+
+  function translateFreeValue(value) {
+    const original = String(value || "");
+    if (CURRENT_UI_LANGUAGE !== "ru") return original;
+
+    if (FREE_RU[original]) return FREE_RU[original];
+
+    let result = original;
+    Object.entries(FREE_RU)
+      .sort((a,b) => b[0].length - a[0].length)
+      .forEach(([kk, ru]) => {
+        result = result.split(kk).join(ru);
+      });
+
+    return result;
+  }
+
+  function getFreeDisplay(item) {
+    return {
+      title: translateFreeValue(item.title),
+      description: translateFreeValue(item.description),
+      category: translateFreeValue(item.category)
+    };
+  }
+
+
+  function renderFreeTests(list) {
+
+    const container =
+      document.getElementById("freeTests");
+
+    if (!list.length) {
+      container.innerHTML =
+        `<div class="loading">
+          Бұл бөлімде әзірге тест жоқ.
+        </div>`;
+      return;
+    }
+
+    const activeTab =
+      document.querySelector("#freeTabs .tab.active");
+
+    const isAll =
+      !activeTab ||
+      activeTab.dataset.category === "all";
+
+    const renderCard = test => {
+      const display = getFreeDisplay(test);
+
+      const language =
+        test.language === "both"
+          ? tr("courseLangBoth")
+          : test.language === "ru"
+            ? tr("courseLangRU")
+            : test.language === "kk"
+              ? tr("courseLangKK")
+              : translateFreeValue(test.language || "");
+
+      return `
+      <article class="card free-test-card">
+        <div class="card-topline">
+          <span class="badge badge-free">${tr("freeBadge")}</span>
+          ${
+            test.category
+              ? `<span class="code-chip">${escapeHTML(display.category)}</span>`
+              : ""
+          }
+        </div>
+
+        <h3>${escapeHTML(display.title)}</h3>
+        <p>${escapeHTML(display.description)}</p>
+
+        <div class="card-footer">
+          <span class="meta">${escapeHTML(language)}</span>
+          <a
+            class="card-link"
+            target="_blank"
+            rel="noopener"
+            href="${escapeHTML(test.url || "#")}"
+          >
+            ${tr("startTest")}
+          </a>
+        </div>
+      </article>
+    `;
+    };
+
+    if (!isAll) {
+      container.innerHTML =
+        list.map(renderCard).join("");
+      return;
+    }
+
+    const preferredOrder = [
+      "ТГО + Ағылшын тілі",
+      "Педагогика",
+      "Бейіндік пәндер"
+    ];
+
+    const groups = {};
+
+    list.forEach(test => {
+      const category =
+        test.category || "Басқа тесттер";
+
+      if (!groups[category]) {
+        groups[category] = [];
+      }
+
+      groups[category].push(test);
+    });
+
+    const categories = [
+      ...preferredOrder.filter(category => groups[category]),
+      ...Object.keys(groups).filter(
+        category => !preferredOrder.includes(category)
+      )
+    ];
+
+    container.innerHTML =
+      categories.map(category => `
+        <div class="free-group">${escapeHTML(translateFreeValue(category))}</div>
+        ${groups[category].map(renderCard).join("")}
+      `).join("");
+  }
+
+
+  document
+    .querySelectorAll("#freeTabs .tab")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          document
+            .querySelectorAll("#freeTabs .tab")
+            .forEach(item =>
+              item.classList.remove("active")
+            );
+
+
+          button.classList.add("active");
+
+
+          const category =
+            button.dataset.category;
+
+
+          if (category === "all") {
+
+            renderFreeTests(FREE_TESTS);
+
+          }
+
+          else {
+
+            renderFreeTests(
+
+              FREE_TESTS.filter(
+                test =>
+                  test.category === category
+              )
+
+            );
+
+          }
+
+        }
+      );
+
+    });
+
+
+  /* ====================================================
+     PAID COURSES
+  ==================================================== */
+
+  async function loadPaidCourses() {
+
+    try {
+
+      PAID_COURSES =
+        await tableRequest("paid_courses");
+
+
+      COURSE_MATERIALS = [];
+
+
+      PAID_COURSES =
+        PAID_COURSES
+          .filter(course =>
+            course.is_active !== false
+          )
+          .sort(
+            (a, b) =>
+              ((a.sort_order ?? a.id) || 0) -
+              ((b.sort_order ?? b.id) || 0)
+          );
+
+
+      renderPaidCourses();
+      populateGrantPrograms();
+
+    }
+
+    catch (error) {
+
+      console.error(error);
+
+      document.getElementById(
+        "fullCourses"
+      ).innerHTML =
+        `<div class="loading">
+          Ақылы курстарды жүктеу кезінде қате пайда болды.
+        </div>`;
+
+    }
+
+  }
+
+
+  function renderPaidCourses() {
+
+    const full =
+      PAID_COURSES.filter(
+        course =>
+          !String(course.code || "")
+            .includes("TRIAL")
+      );
+
+
+    const trials =
+      PAID_COURSES.filter(
+        course =>
+          String(course.code || "")
+            .includes("TRIAL")
+      );
+
+
+    renderCourseGroup(
+      full,
+      "fullCourses"
+    );
+
+
+    renderCourseGroup(
+      trials,
+      "trialCourses"
+    );
+
+  }
+
+
+  function getMaterialsForCourse(code) {
+    return COURSE_MATERIALS
+      .filter(material =>
+        material.course_code === code &&
+        material.is_active !== false
+      )
+      .sort((a, b) =>
+        ((a.sort_order ?? a.id) || 0) -
+        ((b.sort_order ?? b.id) || 0)
+      );
+  }
+
+
+  function getCourseLanguageInfo(materials) {
+
+    const languages =
+      new Set(
+        materials
+          .map(material => material.language)
+          .filter(Boolean)
+      );
+
+    const hasBoth = languages.has("both");
+    const hasKK = hasBoth || languages.has("kk");
+    const hasRU = hasBoth || languages.has("ru");
+
+    if (hasKK && hasRU) {
+      return {
+        mode: "both",
+        label: "Қазақша / Русский"
+      };
+    }
+
+    if (hasRU) {
+      return {
+        mode: "ru",
+        label: "Русский"
+      };
+    }
+
+    return {
+      mode: "kk",
+      label: "Қазақша"
+    };
+  }
+
+
+  function getComboNote(code) {
+    const normalized = String(code || "").toUpperCase();
+    if (["M001","M017","M019"].includes(normalized)) {
+      return "Жеке — 5 000 ₸ · Педагогикамен бірге — 9 000 ₸";
+    }
+    if (normalized === "M018") {
+      return "Отдельно — 5 000 ₸ · Вместе с Педагогикой — 9 000 ₸";
+    }
+    return "";
+  }
+
+
+
+  function getCourseLanguageMode(code) {
+    const value = String(code || "").toUpperCase();
+
+    const ruOnly = new Set([
+      "M018"
+    ]);
+
+    const both = new Set([
+      "PEDAGOGY",
+      "ENGLISH",
+      "CRITICAL_THINKING",
+      "M019",
+      "ENGLISH_TRIALS",
+      "PEDAGOGY_TRIALS",
+      "PED_TAUBAEVA_TRIALS"]);
+
+    if (ruOnly.has(value)) return "ru";
+    if (both.has(value)) return "both";
+    return "kk";
+  }
+
+  function getCourseLanguageLabel(code) {
+    const mode = getCourseLanguageMode(code);
+
+    if (mode === "ru") return tr("courseLangRU");
+    if (mode === "both") return tr("courseLangBoth");
+    return tr("courseLangKK");
+  }
+
+  const COURSE_RU = {
+    PEDAGOGY: {
+      title: "Педагогика",
+      description: "Сайты для подготовки по педагогике на казахском и русском языках."
+    },
+    ENGLISH: {
+      title: "Английский язык",
+      description: "Полный курс подготовки по английскому языку."
+    },
+    CRITICAL_THINKING: {
+      title: "Критическое мышление",
+      description: "Полный курс подготовки по критическому мышлению."
+    },
+    PSYCHOLOGY: {
+      title: "Психология",
+      description: "Сайты, созданные по книгам и темам, утверждённым Тестцентром."
+    },
+    M002: {
+      title: "M002 Подготовка педагогов дошкольного обучения и воспитания",
+      description: "Сайты, созданные по книгам и темам, утверждённым Тестцентром."
+    },
+    M003: {
+      title: "M003 Подготовка педагогов без предметной специализации",
+      description: "Сайты, созданные по книгам и темам, утверждённым Тестцентром."
+    },
+    M013: {
+      title: "M013 Подготовка педагогов химии",
+      description: "Сайты, созданные по книгам и темам, утверждённым Тестцентром."
+    },
+    M017: {
+      title: "M017 Подготовка педагогов казахского языка и литературы",
+      description: "Сайты, созданные по книгам и темам, утверждённым Тестцентром."
+    },
+    M018: {
+      title: "M018 Подготовка педагогов русского языка и литературы",
+      description: "Сайты, созданные по книгам и темам, утверждённым Тестцентром."
+    },
+    M019: {
+      title: "M019 Подготовка педагогов иностранных языков",
+      description: "Сайты, созданные по книгам и темам, утверждённым Тестцентром."
+    },
+    M072: {
+      title: "M072 Менеджмент",
+      description: "Сайты, созданные по книгам и темам, утверждённым Тестцентром."
+    },
+    M010_TRIALS: { title: "M010 Методика преподавания математики", description: "Пробные тесты." },
+    M014_TRIALS: { title: "M014 Биология", description: "Пробный тест." },
+    M016_TRIALS: { title: "M016 История", description: "Пробный тест." },
+    M017_TRIALS: { title: "M017 Казахский язык", description: "Пробный тест." },
+    M019_TRIALS: { title: "M019 Профессиональный английский", description: "5 вариантов пробных тестов." },
+    M021_TRIALS: { title: "M021 Специальная педагогика", description: "Пробный тест." },
+    PED_TAUBAEVA_TRIALS: { title: "Таубаева — Педагогика", description: "Пробный тест на казахском и русском языках." }
+  };
+
+  function getCourseDisplay(course) {
+    if (CURRENT_UI_LANGUAGE !== "ru") {
+      return {
+        title: course.title || "",
+        description: course.description || ""
+      };
+    }
+
+    const mapped =
+      COURSE_RU[String(course.code || "").toUpperCase()];
+
+    return {
+      title: mapped?.title || course.title || "",
+      description: mapped?.description || course.description || ""
+    };
+  }
+
+
+  function renderCourseGroup(
+    list,
+    containerID
+  ) {
+
+    const container =
+      document.getElementById(
+        containerID
+      );
+
+    if (!list.length) {
+      container.innerHTML =
+        `<div class="loading">
+          Әзірге курс жоқ.
+        </div>`;
+      return;
+    }
+
+    container.innerHTML =
+      list.map(course => {
+
+        const isTrial =
+          String(course.code || "")
+            .toUpperCase()
+            .includes("TRIAL");
+
+        const comboNote =
+          getComboNote(course.code);
+
+        const display =
+          getCourseDisplay(course);
+
+        const languageLabel =
+          getCourseLanguageLabel(course.code);
+
+        return `
+          <article class="card">
+
+            <div class="card-topline">
+              <span class="badge badge-paid">
+                ${isTrial ? tr("trialBadge") : tr("paidBadge")}
+              </span>
+
+              <span class="code-chip">
+                ${escapeHTML(course.code || "")}
+              </span>
+            </div>
+
+            <h3>
+              ${escapeHTML(display.title)}
+            </h3>
+
+            <p>
+              ${escapeHTML(display.description)}
+            </p>
+
+            <div class="course-mini-meta">
+              <span class="mini-chip">
+                ${escapeHTML(languageLabel)}
+              </span>
+            </div>
+
+            ${
+              comboNote
+                ? `<div class="combo-note">${escapeHTML(comboNote)}</div>`
+                : ""
+            }
+
+            <div class="card-footer">
+
+              <span class="meta">
+                ${
+                  course.price
+                    ? Number(course.price)
+                        .toLocaleString("ru-RU") + " ₸"
+                    : tr("priceLater")
+                }
+              </span>
+
+              <button
+                class="card-link"
+                onclick="openCoursePreview('${escapeHTML(course.code || "")}')"
+              >
+                ${tr("viewCourse")}
+              </button>
+
+            </div>
+
+          </article>
+        `;
+      }).join("");
+  }
+
+
+
+  /* COURSE PREVIEW + MAG ACCESS */
+  let ACCESS_SESSION = null;
+  let PENDING_COURSE_CODE = null;
+
+  function updateAccountButton() {
+    const button = document.getElementById("loginButton");
+    if (!button) return;
+    button.textContent = ACCESS_SESSION ? tr("cabinet") : tr("login");
+  }
+
+  function getDeviceID() {
+    let id = localStorage.getItem("magist_device_id");
+    if (!id) {
+      id =
+        "dev_" +
+        (
+          window.crypto &&
+          typeof window.crypto.randomUUID === "function"
+            ? window.crypto.randomUUID()
+            : Date.now() + "_" + Math.random().toString(36).slice(2)
+        );
+      localStorage.setItem("magist_device_id", id);
+    }
+    return id;
+  }
+
+  function getPreviewPrice(course) {
+    const code = String(course.code || "").toUpperCase();
+
+    if (["M001","M017","M019"].includes(code)) {
+      return CURRENT_UI_LANGUAGE === "ru"
+        ? `Отдельно — 5 000 ₸<br>Вместе с Педагогикой — 9 000 ₸`
+        : `Жеке — 5 000 ₸<br>Педагогикамен бірге — 9 000 ₸`;
+    }
+
+    if (code === "M018") {
+      return CURRENT_UI_LANGUAGE === "ru"
+        ? `Отдельно — 5 000 ₸<br>Вместе с Педагогикой — 9 000 ₸`
+        : `Жеке — 5 000 ₸<br>Педагогикамен бірге — 9 000 ₸`;
+    }
+
+    return course.price
+      ? `${Number(course.price).toLocaleString("ru-RU")} ₸`
+      : tr("priceLater");
+  }
+
+  function openCoursePreview(code) {
+    const course = PAID_COURSES.find(item => item.code === code);
+    if (!course) return;
+
+    const display = getCourseDisplay(course);
+    const languageLabel = getCourseLanguageLabel(course.code);
+
+    PENDING_COURSE_CODE = code;
+    document.getElementById("coursePreviewBody").innerHTML = `
+      <div class="access-box">
+        <span class="code-chip">${escapeHTML(course.code || "")}</span>
+        <h2 style="margin-top:14px">${escapeHTML(display.title)}</h2>
+        <div class="access-muted">${escapeHTML(display.description)}</div>
+        <div class="access-panel">
+          <div class="access-panel-title">${CURRENT_UI_LANGUAGE === "ru" ? "Язык материалов" : "Материал тілі"}</div>
+          <div class="access-muted">${escapeHTML(languageLabel)}</div>
+        </div>
+        <div class="access-panel"><div class="access-panel-title">${tr("videoReview")}</div>
+          ${course.video_url
+            ? `<a class="card-link" href="${escapeHTML(course.video_url)}" target="_blank" rel="noopener">${tr("watchVideo")}</a>`
+            : `<div class="access-muted">${tr("videoSoon")}</div>`}
+        </div>
+        <div class="access-panel"><div class="access-panel-title">${tr("price")}</div>
+          <div class="access-price">${getPreviewPrice(course)}</div>
+        </div>
+        <div class="access-actions">
+          <a class="access-action primary" href="https://t.me/elnazm_ln" target="_blank" rel="noopener">${tr("buy")}</a>
+          <button class="access-action" onclick="closeCoursePreview();openAccessModal('${escapeHTML(code)}')">${tr("haveCode")}</button>
+        </div>
+      </div>`;
+    document.getElementById("coursePreviewModal").classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeCoursePreview() {
+    document.getElementById("coursePreviewModal").classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  function openAccessModal(courseCode=null) {
+    if (ACCESS_SESSION && !courseCode) {
+      openCabinet();
+      return;
+    }
+
+    if (courseCode) PENDING_COURSE_CODE = courseCode;
+
+    const modal =
+      document.getElementById("accessModal");
+
+    document.getElementById("accessMessage").textContent = "";
+
+    const box = modal.querySelector(".access-box");
+    if (box) {
+      const title = box.querySelector("h2");
+      const desc = box.querySelector(".access-muted");
+      const button = box.querySelector(".access-action.primary");
+
+      if (title) title.textContent = tr("accessTitle");
+      if (desc) desc.textContent = tr("accessDesc");
+      if (button) button.textContent = tr("accessButton");
+    }
+
+    modal.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeAccessModal() {
+    document.getElementById("accessModal").classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  async function rpcRequest(functionName,payload) {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${functionName}`,{
+      method:"POST",
+      headers:{apikey:SUPABASE_KEY,Authorization:`Bearer ${SUPABASE_KEY}`,"Content-Type":"application/json"},
+      body:JSON.stringify(payload)
+    });
+    if(!response.ok) throw new Error(await response.text());
+    return await response.json();
+  }
+
+  function formatAccessDate(value) {
+    if (!value) return "—";
+    try {
+      return new Intl.DateTimeFormat(
+        CURRENT_UI_LANGUAGE === "ru" ? "ru-RU" : "kk-KZ",
+        { day:"2-digit", month:"2-digit", year:"numeric" }
+      ).format(new Date(value));
+    }
+    catch {
+      return value;
+    }
+  }
+
+  async function getAccessExpiryStatus(code, deviceID) {
+    return await rpcRequest(
+      "get_access_expiry_status",
+      {
+        p_code: code,
+        p_device_id: deviceID
+      }
+    );
+  }
+
+
+  async function submitAccessCode() {
+    const input =
+      document.getElementById("magAccessCode");
+
+    const message =
+      document.getElementById("accessMessage");
+
+    const code =
+      String(input.value || "")
+        .trim()
+        .toUpperCase();
+
+    if (!code) {
+      message.textContent = tr("codeRequired");
+      return;
+    }
+
+    message.textContent = tr("checking");
+
+    try {
+      const deviceID = getDeviceID();
+
+      const loginResult =
+        await rpcRequest(
+          "login_with_access_code",
+          {
+            p_code: code,
+            p_device_id: deviceID
+          }
+        );
+
+      if (
+        !loginResult ||
+        loginResult.success !== true
+      ) {
+        message.textContent =
+          loginResult?.message ||
+          tr("invalidCode");
+        return;
+      }
+
+      const expiryStatus =
+        await getAccessExpiryStatus(
+          code,
+          deviceID
+        );
+
+      if (
+        !expiryStatus ||
+        expiryStatus.success !== true
+      ) {
+        message.textContent =
+          expiryStatus?.expired
+            ? tr("accessExpired")
+            : (expiryStatus?.message || tr("invalidCode"));
+        return;
+      }
+
+      const courseRows =
+        await rpcRequest(
+          "get_access_courses",
+          {
+            p_code: code,
+            p_device_id: deviceID
+          }
+        );
+
+      ACCESS_SESSION = {
+        code,
+        device_id: deviceID,
+        courses:
+          (courseRows || [])
+            .map(row => row.course_code),
+        customer_name:
+          loginResult.customer_name || "",
+        expires_at:
+          expiryStatus.expires_at || null
+      };
+
+      sessionStorage.setItem(
+        "magist_access_code",
+        code
+      );
+
+      closeAccessModal();
+      updateAccountButton();
+
+      if (!ACCESS_SESSION.customer_name) {
+        openNameModal();
+        return;
+      }
+
+      if (PENDING_COURSE_CODE) {
+        await openProtectedCourse(PENDING_COURSE_CODE);
+      }
+      else {
+        await openCabinet();
+      }
+    }
+    catch (error) {
+      console.error(error);
+      message.textContent =
+        tr("accessError");
+    }
+  }
+
+
+  function renderNameModal() {
+    document.getElementById("nameModalTitle").textContent = tr("nameTitle");
+    document.getElementById("nameInput").placeholder = tr("namePlaceholder");
+    document.getElementById("nameContinueButton").textContent = tr("continue");
+  }
+
+  function openNameModal() {
+    renderNameModal();
+    document.getElementById("nameInput").value = "";
+    document.getElementById("nameMessage").textContent = "";
+    document.getElementById("nameModal").classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeNameModal() {
+    document.getElementById("nameModal").classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  async function saveAccessName() {
+    const input = document.getElementById("nameInput");
+    const message = document.getElementById("nameMessage");
+    const name = String(input.value || "").trim();
+
+    if (!name) {
+      message.textContent = tr("nameRequired");
+      return;
+    }
+
+    try {
+      const result = await rpcRequest("set_access_name", {
+        p_code: ACCESS_SESSION.code,
+        p_device_id: ACCESS_SESSION.device_id,
+        p_name: name
+      });
+
+      if (!result || result.success === false) {
+        message.textContent = result?.message || tr("nameRequired");
+        return;
+      }
+
+      ACCESS_SESSION.customer_name = result.name || name;
+      closeNameModal();
+      updateAccountButton();
+
+      if (PENDING_COURSE_CODE) {
+        await openProtectedCourse(PENDING_COURSE_CODE);
+      }
+      else {
+        await openCabinet();
+      }
+    }
+    catch (error) {
+      console.error(error);
+      message.textContent = tr("accessError");
+    }
+  }
+
+  function closeCabinet() {
+    document.getElementById("cabinetModal").classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  function percent(value) {
+    const number = Number(value || 0);
+    return Number.isFinite(number) ? `${Math.round(number)}%` : "0%";
+  }
+
+  function renderMyCourses() {
+    const courses = (ACCESS_SESSION?.courses || [])
+      .map(code => PAID_COURSES.find(course => course.code === code))
+      .filter(Boolean);
+
+    if (!courses.length) {
+      return `<div class="empty-state">${tr("noCourses")}</div>`;
+    }
+
+    return `
+      <div class="cabinet-protection-notice">
+        <div class="content-protection-icon">!</div>
+        <div>
+          <b>${tr("paidProtectionTitle")}</b>
+          <p>${tr("paidProtectionText")}</p>
+        </div>
+      </div>
+      <div class="my-courses-grid">
+        ${courses.map(course => {
+          const display = getCourseDisplay(course);
+          return `
+            <div class="my-course-card">
+              <div>
+                <div class="my-course-code">${escapeHTML(course.code || "")}</div>
+                <h4>${escapeHTML(display.title)}</h4>
+              </div>
+              <button class="card-link" onclick="closeCabinet();openProtectedCourse('${escapeHTML(course.code)}')">
+                ${tr("openCourse")}
+              </button>
+            </div>
+          `;
+        }).join("")}
+      </div>
+    `;
+  }
+
+  function renderTestResults(tests) {
+    if (!tests || !tests.length) {
+      return `<div class="empty-state">${tr("noResults")}</div>`;
+    }
+
+    return tests.map(item => `
+      <div class="dashboard-row">
+        <div>
+          <b>${escapeHTML(item.test_title || item.test_code || "Test")}</b>
+          ${
+            item.book_title
+              ? `<div class="cabinet-sub">${escapeHTML(item.book_title)}${item.section_title ? " · " + escapeHTML(item.section_title) : ""}</div>`
+              : ""
+          }
+        </div>
+        <div style="text-align:right">
+          <b>${percent(item.best_percentage)}</b>
+          <div class="cabinet-sub">${item.attempts || 0} ${tr("attempts")}</div>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  function renderTopics(items, type) {
+    if (!items || !items.length) {
+      return `<div class="empty-state">${tr("noTopics")}</div>`;
+    }
+
+    return items.map(item => `
+      <div class="dashboard-row">
+        <span>${escapeHTML(item.topic_title || "")}</span>
+        <span class="${type === "weak" ? "weak" : "strong"}">
+          ${percent(item.accuracy)}
+        </span>
+      </div>
+    `).join("");
+  }
+
+  async function openCabinet(tab = "overview") {
+    if (!ACCESS_SESSION) {
+      openAccessModal();
+      return;
+    }
+
+    const modal = document.getElementById("cabinetModal");
+    const body = document.getElementById("cabinetBody");
+
+    body.innerHTML = `<div class="loading">${tr("checking")}</div>`;
+    modal.classList.add("open");
+    document.body.style.overflow = "hidden";
+
+    try {
+      const data = await rpcRequest("get_student_dashboard", {
+        p_code: ACCESS_SESSION.code,
+        p_device_id: ACCESS_SESSION.device_id
+      });
+
+      if (!data || data.success === false) {
+        body.innerHTML = `<div class="empty-state">${tr("dashboardError")}</div>`;
+        return;
+      }
+
+      ACCESS_SESSION.customer_name = data.name || ACCESS_SESSION.customer_name || "";
+
+      const last = data.last_result;
+
+      body.innerHTML = `
+        <div class="cabinet-head">
+          <div>
+            <h2>${tr("hello")}, ${escapeHTML(ACCESS_SESSION.customer_name || "")}! 👋</h2>
+            <div class="cabinet-sub">
+              <span class="device-pill">${tr("devices")}: ${data.devices_used || 0}/${data.max_devices || 2}</span>
+              <span class="device-pill access-expiry-pill">${tr("accessUntil")}: ${formatAccessDate(ACCESS_SESSION.expires_at)}</span>
+            </div>
+          </div>
+          <button class="logout-mini" onclick="logoutStudent()">${tr("logout")}</button>
+        </div>
+
+        <div class="cabinet-tabs">
+          <button class="cabinet-tab ${tab === "overview" ? "active" : ""}" onclick="openCabinet('overview')">${tr("overview")}</button>
+          <button class="cabinet-tab ${tab === "courses" ? "active" : ""}" onclick="openCabinet('courses')">${tr("myCourses")}</button>
+          <button class="cabinet-tab ${tab === "results" ? "active" : ""}" onclick="openCabinet('results')">${tr("myResults")}</button>
+        </div>
+
+        ${
+          tab === "courses"
+            ? `
+              <div class="dashboard-panel">
+                <h3>${tr("myCourses")}</h3>
+                ${renderMyCourses()}
+              </div>
+            `
+            : tab === "results"
+              ? `
+                <div class="dashboard-grid">
+                  <div class="dashboard-panel">
+                    <h3>${tr("myResults")}</h3>
+                    ${renderTestResults(data.tests)}
+                  </div>
+                  <div>
+                    <div class="dashboard-panel" style="margin-bottom:12px">
+                      <h3>${tr("weakTopics")}</h3>
+                      ${renderTopics(data.weak_topics, "weak")}
+                    </div>
+                    <div class="dashboard-panel">
+                      <h3>${tr("strongTopics")}</h3>
+                      ${renderTopics(data.strong_topics, "strong")}
+                    </div>
+                  </div>
+                </div>
+              `
+              : `
+                <div class="stats-grid">
+                  <div class="stat-card">
+                    <div class="stat-label">${tr("totalAttempts")}</div>
+                    <div class="stat-value">${data.total_attempts || 0}</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-label">${tr("averageResult")}</div>
+                    <div class="stat-value">${percent(data.average_percentage)}</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-label">${tr("bestResult")}</div>
+                    <div class="stat-value">${percent(data.best_percentage)}</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-label">${tr("worstResult")}</div>
+                    <div class="stat-value">${percent(data.worst_percentage)}</div>
+                  </div>
+                </div>
+
+                <div class="dashboard-grid">
+                  <div class="dashboard-panel">
+                    <h3>${tr("myCourses")}</h3>
+                    ${renderMyCourses()}
+                  </div>
+
+                  <div class="dashboard-panel">
+                    <h3>${tr("lastResult")}</h3>
+                    ${
+                      last
+                        ? `
+                          <div class="dashboard-row">
+                            <div>
+                              <b>${escapeHTML(last.test_title || last.test_code || "Test")}</b>
+                              <div class="cabinet-sub">${escapeHTML(last.course_code || "")}</div>
+                            </div>
+                            <div style="text-align:right">
+                              <b>${last.score}/${last.max_score}</b>
+                              <div class="cabinet-sub">${percent(last.percentage)}</div>
+                            </div>
+                          </div>
+                        `
+                        : `<div class="empty-state">${tr("noResults")}</div>`
+                    }
+                  </div>
+                </div>
+              `
+        }
+      `;
+    }
+    catch (error) {
+      console.error(error);
+      body.innerHTML = `<div class="empty-state">${tr("dashboardError")}</div>`;
+    }
+  }
+
+  function logoutStudent() {
+    sessionStorage.removeItem("magist_access_code");
+    ACCESS_SESSION = null;
+    PENDING_COURSE_CODE = null;
+    updateAccountButton();
+    closeCabinet();
+  }
+
+  async function restoreStudentSession() {
+    const savedCode = sessionStorage.getItem("magist_access_code");
+    if (!savedCode) {
+      updateAccountButton();
+      return;
+    }
+
+    try {
+      const deviceID = getDeviceID();
+
+      const loginResult = await rpcRequest("login_with_access_code", {
+        p_code: savedCode,
+        p_device_id: deviceID
+      });
+
+      if (!loginResult || loginResult.success !== true) {
+        sessionStorage.removeItem("magist_access_code");
+        updateAccountButton();
+        return;
+      }
+
+      const expiryStatus = await getAccessExpiryStatus(savedCode, deviceID);
+
+      if (!expiryStatus || expiryStatus.success !== true) {
+        sessionStorage.removeItem("magist_access_code");
+        ACCESS_SESSION = null;
+        updateAccountButton();
+        return;
+      }
+
+      const courseRows = await rpcRequest("get_access_courses", {
+        p_code: savedCode,
+        p_device_id: deviceID
+      });
+
+      ACCESS_SESSION = {
+        code: savedCode,
+        device_id: deviceID,
+        courses: (courseRows || []).map(row => row.course_code),
+        customer_name: loginResult.customer_name || "",
+        expires_at: expiryStatus.expires_at || null
+      };
+
+      updateAccountButton();
+    }
+    catch (error) {
+      console.error(error);
+      sessionStorage.removeItem("magist_access_code");
+      ACCESS_SESSION = null;
+      updateAccountButton();
+    }
+  }
+
+
+  async function openProtectedCourse(code) {
+    if (!ACCESS_SESSION) {
+      openAccessModal(code);
+      return;
+    }
+
+    try {
+      const result = await rpcRequest(
+        "get_paid_course_materials",
+        {
+          p_code: ACCESS_SESSION.code,
+          p_device_id: ACCESS_SESSION.device_id,
+          p_course_code: code
+        }
+      );
+
+      if (
+        !result ||
+        result.success !== true ||
+        !Array.isArray(result.materials) ||
+        !result.materials.length
+      ) {
+        alert(result?.message || tr("noCourse"));
+        return;
+      }
+
+      COURSE_MATERIALS = result.materials.map(material => ({
+        ...material,
+        course_code: code
+      }));
+
+      openCourse(code);
+    }
+    catch (error) {
+      console.error("get_paid_course_materials error:", error);
+      alert(tr("courseError"));
+    }
+  }
+
+
+  /* ====================================================
+     TRACKED MATERIAL OPENING
+     Creates a temporary test session and appends ?token=...
+  ==================================================== */
+
+  async function openTrackedMaterial(url, courseCode) {
+    if (!url) return;
+
+    if (!ACCESS_SESSION) {
+      openAccessModal(courseCode || null);
+      return;
+    }
+
+    // Open a blank tab immediately so browsers do not block it
+    // after the asynchronous Supabase request finishes.
+    const popup = window.open("", "_blank");
+
+    if (popup) {
+      popup.document.write(`
+        <!doctype html>
+        <html>
+          <head>
+            <meta charset="utf-8">
+            <title>MAGIST</title>
+          </head>
+          <body style="font-family:Arial,sans-serif;padding:30px">
+            ${escapeHTML(tr("openingMaterial"))}
+          </body>
+        </html>
+      `);
+    }
+
+    try {
+      const session =
+        await rpcRequest(
+          "create_test_session",
+          {
+            p_code: ACCESS_SESSION.code,
+            p_device_id: ACCESS_SESSION.device_id,
+            p_course_code: courseCode
+          }
+        );
+
+      if (!session || session.success !== true || !session.token) {
+        if (popup) popup.close();
+        alert(session?.message || tr("sessionError"));
+        return;
+      }
+
+      const trackedURL = new URL(url, window.location.href);
+
+      trackedURL.searchParams.set(
+        "token",
+        session.token
+      );
+
+      if (popup) {
+        popup.location.href = trackedURL.toString();
+      }
+      else {
+        window.location.href = trackedURL.toString();
+      }
+    }
+    catch (error) {
+      console.error("create_test_session error:", error);
+
+      if (popup) popup.close();
+
+      alert(tr("sessionError"));
+    }
+  }
+
+
+  /* ====================================================
+     COURSE MODAL
+  ==================================================== */
+
+  let CURRENT_COURSE = null;
+  let CURRENT_LANGUAGE = "kk";
+
+
+  function openCourse(code) {
+
+    CURRENT_COURSE =
+      PAID_COURSES.find(
+        course =>
+          course.code === code
+      );
+
+    if (!CURRENT_COURSE)
+      return;
+
+    const materials =
+      getMaterialsForCourse(code);
+
+    const languageInfo =
+      getCourseLanguageInfo(materials);
+
+    CURRENT_LANGUAGE =
+      languageInfo.mode === "ru"
+        ? "ru"
+        : "kk";
+
+    renderCourseModal();
+
+    document
+      .getElementById("courseModal")
+      .classList.add("open");
+
+    document.body.style.overflow =
+      "hidden";
+  }
+
+
+
+  function getPaidMaterialGroupTitle(courseCode, subjectGroup, materialType) {
+    const code = String(courseCode || "").toUpperCase();
+    const group = Number(subjectGroup || 1);
+    const isRu = CURRENT_UI_LANGUAGE === "ru";
+
+    if (materialType === "trial") {
+      return isRu ? "Пробные тесты" : "Пробный тесттер";
+    }
+
+    if (code === "ENGLISH") {
+      const enGroups = {
+        1: "Listening",
+        2: "Reading",
+        3: "Grammar",
+        4: isRu ? "Синонимы" : "Синонимдер"
+      };
+      return enGroups[group] || (isRu ? "Материалы" : "Материалдар");
+    }
+
+    if (code === "M002") {
+      if (group === 1) return isRu ? "1-й профильный предмет · Развитие речи дошкольников" : "1-бейіндік пән · Мектеп жасына дейінгі балалардың тілін дамыту";
+      if (group === 2) return isRu ? "2-й профильный предмет · Дошкольная педагогика" : "2-бейіндік пән · Мектепке дейінгі педагогика";
+    }
+
+    if (code === "M003") {
+      if (group === 1) return isRu ? "1-й профильный предмет · Педагогика" : "1-бейіндік пән · Педагогика";
+      if (group === 2) return isRu ? "2-й профильный предмет · Методика преподавания математики" : "2-бейіндік пән · Математиканы оқыту әдістемесі";
+    }
+
+    if (code === "M013") {
+      if (group === 1) return isRu ? "1-й профильный предмет · Методика преподавания химии" : "1-бейіндік пән · Химияны оқыту әдістемесі";
+      if (group === 2) return isRu ? "2-й профильный предмет · Химия" : "2-бейіндік пән · Химия";
+    }
+
+    if (code === "M072") {
+      if (group === 1) return isRu ? "1-й профильный предмет · Менеджмент" : "1-бейіндік пән · Менеджмент";
+      if (group === 2) return isRu ? "2-й профильный предмет · Организация бизнеса" : "2-бейіндік пән · Бизнесті ұйымдастыру";
+    }
+
+    if (code === "PEDAGOGY") {
+      return isRu ? "Материалы по педагогике" : "Педагогика материалдары";
+    }
+
+    if (code === "CRITICAL_THINKING") {
+      return isRu ? "Критическое мышление" : "Сыни ойлау";
+    }
+
+    if (code === "M019") {
+      return isRu ? "Профессиональный английский" : "Кәсіби ағылшын тілі";
+    }
+
+    if (code === "M017") {
+      return isRu ? "Казахский язык · материалы" : "Қазақ тілі · материалдар";
+    }
+
+    if (code === "M018") {
+      return isRu ? "Русский язык · материалы" : "Орыс тілі · материалдар";
+    }
+
+    if (group === 1) {
+      return isRu ? "1-й профильный предмет" : "1-бейіндік пән";
+    }
+
+    if (group === 2) {
+      return isRu ? "2-й профильный предмет" : "2-бейіндік пән";
+    }
+
+    return isRu ? "Материалы" : "Материалдар";
+  }
+
+
+  function renderCourseModal() {
+
+    const body =
+      document.getElementById(
+        "courseModalBody"
+      );
+
+    const allMaterials =
+      getMaterialsForCourse(
+        CURRENT_COURSE.code
+      );
+
+    const languageInfo =
+      getCourseLanguageInfo(
+        allMaterials
+      );
+
+    const bilingual =
+      languageInfo.mode === "both";
+
+    if (
+      languageInfo.mode === "ru" &&
+      CURRENT_LANGUAGE !== "ru"
+    ) {
+      CURRENT_LANGUAGE = "ru";
+    }
+
+    if (
+      languageInfo.mode === "kk" &&
+      CURRENT_LANGUAGE !== "kk"
+    ) {
+      CURRENT_LANGUAGE = "kk";
+    }
+
+    let materials =
+      allMaterials.filter(
+        material => {
+
+          if (
+            material.language === "both" ||
+            !material.language
+          ) {
+            return true;
+          }
+
+          return (
+            material.language ===
+            CURRENT_LANGUAGE
+          );
+        }
+      );
+
+    const grouped = {};
+
+    materials
+      .slice()
+      .sort((a, b) => {
+        const aTrial = (a.material_type || "material") === "trial" ? 1 : 0;
+        const bTrial = (b.material_type || "material") === "trial" ? 1 : 0;
+
+        if (aTrial !== bTrial) return aTrial - bTrial;
+
+        const groupDiff =
+          Number(a.subject_group || 1) -
+          Number(b.subject_group || 1);
+
+        if (groupDiff !== 0) return groupDiff;
+
+        return Number(a.sort_order || 0) - Number(b.sort_order || 0);
+      })
+      .forEach(material => {
+
+        const materialType =
+          material.material_type || "material";
+
+        const section =
+          getPaidMaterialGroupTitle(
+            CURRENT_COURSE.code,
+            material.subject_group,
+            materialType
+          );
+
+        if (!grouped[section]) {
+          grouped[section] = [];
+        }
+
+        grouped[section].push(material);
+      });
+
+    const openLabel =
+      CURRENT_LANGUAGE === "ru"
+        ? "Открыть →"
+        : "Ашу →";
+
+    let sectionsHTML = "";
+
+    Object.keys(grouped)
+      .forEach(section => {
+
+        const sectionMaterials =
+          grouped[section];
+
+        sectionsHTML += `
+          <div class="material-section">
+
+            <h3 class="section-block-title">
+              <span>${escapeHTML(section)}</span>
+            </h3>
+
+            <div class="materials-card-grid">
+            ${
+              sectionMaterials
+                .map(material => {
+
+                  const lowerTitle =
+                    String(material.title || "")
+                      .toLowerCase();
+
+                  const specialClass =
+                    lowerTitle.includes("бонус")
+                      ? "bonus"
+                      : (
+                          lowerTitle.includes("слив")
+                          ? "sliv"
+                          : ""
+                        );
+
+                  return `
+                    <div class="material ${specialClass}">
+
+                      <div>
+                        ${
+                          (material.material_type || "material") === "trial"
+                            ? `<div class="my-course-code" style="margin-bottom:8px">${CURRENT_UI_LANGUAGE === "ru" ? "ПРОБНЫЙ ТЕСТ" : "ПРОБНЫЙ ТЕСТ"}</div>`
+                            : ""
+                        }
+
+                        <div class="material-title">
+                          ${escapeHTML(
+                            material.title ||
+                            (CURRENT_LANGUAGE === "ru"
+                              ? "Материал"
+                              : "Материал")
+                          )}
+                        </div>
+                      </div>
+
+                      <div class="material-actions">
+
+                        ${
+                          material.url
+                            ? `
+                              <button
+                                type="button"
+                                class="material-open-button"
+                                onclick="openTrackedMaterial(
+                                  '${escapeHTML(material.url)}',
+                                  '${escapeHTML(CURRENT_COURSE.code)}'
+                                )"
+                              >
+                                ${openLabel}
+                              </button>
+                            `
+                            : ""
+                        }
+
+                        ${
+                          material.file_url
+                            ? `
+                              <a
+                                href="${escapeHTML(material.file_url)}"
+                                target="_blank"
+                                rel="noopener"
+                              >
+                                PDF / Must-Know Terms →
+                              </a>
+                            `
+                            : ""
+                        }
+
+                      </div>
+                    </div>
+                  `;
+                })
+                .join("")
+            }
+            </div>
+
+          </div>
+        `;
+      });
+
+    body.innerHTML = `
+
+      <h2>
+        ${escapeHTML(
+          CURRENT_COURSE.title ||
+          ""
+        )}
+      </h2>
+
+      <div class="course-description">
+        ${escapeHTML(
+          CURRENT_COURSE.description ||
+          ""
+        )}
+      </div>
+
+      ${
+        bilingual
+          ? `
+            <div class="language-buttons">
+
+              <button
+                class="language-button ${
+                  CURRENT_LANGUAGE === "kk"
+                    ? "active"
+                    : ""
+                }"
+                onclick="changeLanguage('kk')"
+              >
+                Қазақша
+              </button>
+
+              <button
+                class="language-button ${
+                  CURRENT_LANGUAGE === "ru"
+                    ? "active"
+                    : ""
+                }"
+                onclick="changeLanguage('ru')"
+              >
+                Русский
+              </button>
+
+            </div>
+          `
+          : ""
+      }
+
+      ${
+        CURRENT_COURSE.video_url
+          ? `
+            <div style="
+              margin-bottom:25px;
+              padding:18px;
+              border:1px solid #e7e9ee;
+              border-radius:14px;
+            ">
+
+              <b>
+                ${
+                  CURRENT_LANGUAGE === "ru"
+                    ? "Видеообзор"
+                    : "Видеообзор"
+                }
+              </b>
+
+              <br><br>
+
+              <a
+                href="${escapeHTML(
+                  CURRENT_COURSE.video_url
+                )}"
+                target="_blank"
+                rel="noopener"
+                style="
+                  color:#6758f5;
+                  font-weight:800;
+                "
+              >
+                ${
+                  CURRENT_LANGUAGE === "ru"
+                    ? "Открыть видеообзор →"
+                    : "Видеообзорды ашу →"
+                }
+              </a>
+
+            </div>
+          `
+          : ""
+      }
+
+      ${
+        sectionsHTML ||
+        `<div class="loading">
+          ${
+            CURRENT_LANGUAGE === "ru"
+              ? "Материалы для этого курса пока не добавлены."
+              : "Бұл курсқа материалдар әлі қосылмаған."
+          }
+        </div>`
+      }
+
+    `;
+  }
+
+  function changeLanguage(language) {
+
+    CURRENT_LANGUAGE =
+      language;
+
+
+    renderCourseModal();
+
+  }
+
+
+  function closeCourse() {
+
+    document
+      .getElementById("courseModal")
+      .classList.remove("open");
+
+
+    document.body.style.overflow =
+      "";
+
+  }
+
+
+  /* ====================================================
+     REVIEWS STORAGE
+  ==================================================== */
+
+  async function loadReviews() {
+
+    const container =
+      document.getElementById(
+        "reviewsGrid"
+      );
+
+
+    try {
+
+      const response =
+        await fetch(
+
+          `${SUPABASE_URL}/storage/v1/object/list/review`,
+
+          {
+
+            method: "POST",
+
+            headers: {
+
+              apikey:
+                SUPABASE_KEY,
+
+              Authorization:
+                `Bearer ${SUPABASE_KEY}`,
+
+              "Content-Type":
+                "application/json"
+
+            },
+
+
+            body:
+              JSON.stringify({
+
+                prefix: "",
+
+                limit: 100,
+
+                offset: 0,
+
+                sortBy: {
+
+                  column: "created_at",
+
+                  order: "desc"
+
+                }
+
+              })
+
+          }
+
+        );
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          response.status
+        );
+
+      }
+
+
+      const files =
+        await response.json();
+
+
+      const images =
+        files.filter(file =>
+
+          file.name &&
+          !file.name.endsWith("/")
+
+        );
+
+
+      if (!images.length) {
+
+        container.innerHTML =
+          `<div class="loading">
+            Әзірге пікірлер жоқ.
+          </div>`;
+
+        return;
+
+      }
+
+
+      container.innerHTML =
+        images.map(file => {
+
+          const publicURL =
+
+            `${SUPABASE_URL}/storage/v1/object/public/review/${encodeURIComponent(file.name)}`;
+
+
+          return `
+
+            <button
+              class="review"
+              onclick="openReview('${publicURL}')"
+            >
+
+              <img
+                src="${publicURL}"
+                alt="Отзывы және нәтиже"
+                loading="lazy"
+              >
+
+            </button>
+
+          `;
+
+        }).join("");
+
+    }
+
+    catch (error) {
+
+      console.error(error);
+
+
+      container.innerHTML =
+        `<div class="loading">
+          Пікірлерді жүктеу кезінде қате пайда болды.
+        </div>`;
+
+    }
+
+  }
+
+
+  function openReview(url) {
+
+    document
+      .getElementById(
+        "reviewModalImage"
+      ).src = url;
+
+
+    document
+      .getElementById(
+        "reviewModal"
+      )
+      .classList.add("open");
+
+
+    document.body.style.overflow =
+      "hidden";
+
+  }
+
+
+  function closeReview() {
+
+    document
+      .getElementById(
+        "reviewModal"
+      )
+      .classList.remove("open");
+
+
+    document.body.style.overflow =
+      "";
+
+  }
+
+
+  /* ====================================================
+     GRANT
+  ==================================================== */
+
+  function populateGrantPrograms() {
+
+    const select =
+      document.getElementById("grantMajor");
+
+    if (!select)
+      return;
+
+    const current =
+      select.value;
+
+    const programs =
+      PAID_COURSES
+        .filter(course =>
+          !String(course.code || "")
+            .toUpperCase()
+            .includes("TRIAL")
+        )
+        .filter(course =>
+          /^M\d+/i.test(
+            String(course.code || "")
+          )
+        );
+
+    select.innerHTML =
+      `<option value="">
+        ${tr("grantMajorPlaceholder")}
+      </option>` +
+      programs.map(course => `
+        <option value="${escapeHTML(course.code || "")}">
+          ${escapeHTML(course.code || "")} — ${escapeHTML(getCourseDisplay(course).title)}
+        </option>
+      `).join("");
+
+    if (
+      current &&
+      [...select.options]
+        .some(option => option.value === current)
+    ) {
+      select.value = current;
+    }
+  }
+
+
+
+
+
+  /* ====================================================
+     GRANT CALCULATOR V2
+  ==================================================== */
+
+  let GRANT_PROGRAMS = [];
+  let CURRENT_GRANT_PROGRAM = null;
+
+  function grantText(kz, ru) {
+    return CURRENT_UI_LANGUAGE === "ru" ? ru : kz;
+  }
+
+  function grantProgramTitle(program) {
+    return CURRENT_UI_LANGUAGE === "ru"
+      ? (program.title_ru || program.title_kz || program.code)
+      : (program.title_kz || program.title_ru || program.code);
+  }
+
+  function grantSubjectTitle(program, index) {
+    if (index === 1) {
+      return CURRENT_UI_LANGUAGE === "ru"
+        ? (program.subject_1_ru || program.subject_1_kz || grantText("1-бейіндік пән","1-й профильный предмет"))
+        : (program.subject_1_kz || program.subject_1_ru || grantText("1-бейіндік пән","1-й профильный предмет"));
+    }
+    return CURRENT_UI_LANGUAGE === "ru"
+      ? (program.subject_2_ru || program.subject_2_kz || grantText("2-бейіндік пән","2-й профильный предмет"))
+      : (program.subject_2_kz || program.subject_2_ru || grantText("2-бейіндік пән","2-й профильный предмет"));
+  }
+
+  async function loadGrantPrograms() {
+    try {
+      const response = await fetch(
+        `${SUPABASE_URL}/rest/v1/grant_programs?select=code,title_kz,title_ru,subject_1_kz,subject_1_ru,subject_2_kz,subject_2_ru,subject_1_max,subject_2_max,subject_1_min,subject_2_min,english_min,critical_min,analytical_min,total_min,calculator_mode&is_active=eq.true&calculator_mode=eq.standard&order=code.asc`,
+        {
+          headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        }
+      );
+
+      if (!response.ok) throw new Error(await response.text());
+
+      GRANT_PROGRAMS = await response.json();
+      renderGrantProgramOptions();
+    }
+    catch (error) {
+      console.error("grant programs load error:", error);
+    }
+  }
+
+  function renderGrantProgramOptions() {
+    const select = document.getElementById("grantProgramSelect");
+    if (!select) return;
+
+    const currentValue = select.value;
+
+    select.innerHTML = `
+      <option value="">
+        ${grantText("M-кодты таңдаңыз","Выберите M-код")}
+      </option>
+      ${GRANT_PROGRAMS.map(program => `
+        <option value="${escapeHTML(program.code)}">
+          ${escapeHTML(program.code)} — ${escapeHTML(grantProgramTitle(program))}
+        </option>
+      `).join("")}
+    `;
+
+    if (currentValue && GRANT_PROGRAMS.some(p => p.code === currentValue)) {
+      select.value = currentValue;
+    }
+  }
+
+  function updateGrantLanguage() {
+    const byId = (id, kz, ru) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = grantText(kz, ru);
+    };
+
+    byId("grantEyebrow","ГРАНТ КАЛЬКУЛЯТОРЫ","КАЛЬКУЛЯТОР ГРАНТА");
+    byId("grantTitle","Грант мүмкіндігін бағалау","Оценить возможность получения гранта");
+    byId(
+      "grantSubtitle",
+      "Мамандықты таңдап, КТ нәтижелеріңізді енгізіңіз. Жүйе алдымен конкурсқа қатысу талаптарын тексереді, содан кейін 2023–2025 жылдардағы грант нәтижелерімен салыстырады.",
+      "Выберите группу образовательных программ и введите результаты КТ. Сначала система проверит допуск к конкурсу, затем сравнит ваш результат со статистикой грантов 2023–2025 годов."
+    );
+    byId("grantProgramLabel","Білім беру бағдарламалары тобы","Группа образовательных программ");
+    byId("grantEnglishLabel","Шет тілі","Иностранный язык");
+    byId("grantCriticalLabel","Сыни ойлау","Критическое мышление");
+    byId("grantAnalyticalLabel","Аналитикалық ойлау","Аналитическое мышление");
+    for (let i = 1; i <= 5; i++) byId(`grantMinLabel${i}`,"Минимум","Минимум");
+    byId("grantCalculateBtn","Есептеу","Рассчитать");
+    byId("grantOrText","Немесе жалпы КТ балыңызды жазыңыз","Или укажите общий балл КТ");
+    byId("grantTotalLabel","Жалпы КТ балы","Общий балл КТ");
+    byId(
+      "grantTotalHint",
+      "Пәндер бойынша балдарды есіңізде сақтамасаңыз, жалпы нәтижені енгізуге болады.",
+      "Если не помните баллы по отдельным предметам, можно указать только общий результат."
+    );
+    byId("grantFilesTitle","Грант нәтижелерінің бастапқы файлдары","Исходные файлы результатов гранта");
+    byId("grantFilesSubtitle","2023–2025 жылдардағы қолданылған ресми тізімдерді ашып көруге болады.","Можно открыть официальные списки, использованные для статистики 2023–2025.");
+    byId("grantFile2023Summer","Жазғы конкурс","Летний конкурс");
+    byId("grantFile2023Autumn","Күзгі конкурс","Осенний конкурс");
+    byId("grantFile2024Summer","Негізгі конкурс","Основной конкурс");
+    byId("grantFile2024Winter","Қысқы қабылдау","Зимний прием");
+    byId("grantFile2025","Грант иегерлері","Список грантников");
+
+    byId("autumnMasterKicker","КҮЗГІ ҚАБЫЛДАУ · 2026","ОСЕННИЙ ПРИЁМ · 2026");
+    byId("autumnMasterTitle","Күзгі магистратура","Осенняя магистратура");
+    byId("autumnMasterText","Күзгі кешенді тестілеуге өтініш беру және қабылдау кезеңдерінің негізгі мерзімдері.","Основные сроки подачи заявления, комплексного тестирования и зачисления на осенний приём.");
+    byId("autumnApplicationDate","28 қазан – 10 қараша","28 октября – 10 ноября");
+    byId("autumnApplicationLabel","КТ-ға өтініш қабылдау","Приём заявлений на КТ");
+    byId("autumnTestDate","18 қараша – 11 желтоқсан","18 ноября – 11 декабря");
+    byId("autumnTestLabel","Кешенді тестілеу","Комплексное тестирование");
+    byId("autumnAdmissionDate","26 желтоқсан – 10 қаңтар","26 декабря – 10 января");
+    byId("autumnAdmissionLabel","ЖОО-ға қабылдау","Зачисление в вуз");
+    byId("autumnSiteText","Өтінішті Ұлттық тестілеу орталығының сайтында бересіз:","Заявление подаётся на сайте Национального центра тестирования:");
+
+    byId("paidAccessNoteTitle","Ақылы материалдар жеке пайдалануға арналған.","Платные материалы предназначены для личного использования.");
+    byId(
+      "paidAccessNoteText",
+      "Қолжетімділік мерзімі — 18 ай (1,5 жыл). Материалдарды сатуға, таратуға және басқа тұлғаларға беруге болмайды.",
+      "Срок доступа — 18 месяцев (1,5 года). Материалы запрещено продавать, распространять и передавать другим лицам."
+    );
+
+    byId("footerTerms","Қолдану шарттары","Условия использования");
+    byId("footerPayment","Төлем және қолжетімділік","Оплата и доступ");
+    byId("footerPrivacy","Құпиялық","Конфиденциальность");
+
+
+    byId("grantDirectoryEyebrow","ЖОО АНЫҚТАМАЛЫҒЫ","СПРАВОЧНИК ВУЗОВ");
+    byId("grantDirectoryTitle","ЖОО кодтары","Коды вузов");
+    byId("grantDirectoryText","Университет кодын немесе атауын іздеп табыңыз.","Найдите университет по коду или названию.");
+    byId("grantDirectoryBtn","ЖОО кодтарын ашу","Открыть справочник вузов");
+    byId("ktListeningQ","16 сұрақ","16 вопросов");
+    byId("ktGrammarQ","18 сұрақ","18 вопросов");
+    byId("ktReadingQ","16 сұрақ","16 вопросов");
+    byId(
+      "ktEnglishSplitNote",
+      "Шет тілі: Listening — 16 сұрақ, Lexico-Grammar — 18 сұрақ, Reading — 16 сұрақ. Барлығы — 50 сұрақ.",
+      "Иностранный язык: Listening — 16 вопросов, Lexico-Grammar — 18 вопросов, Reading — 16 вопросов. Всего — 50 вопросов."
+    );
+
+    renderGrantProgramOptions();
+
+    if (CURRENT_GRANT_PROGRAM) {
+      const s1 = document.getElementById("grantSubject1Label");
+      const s2 = document.getElementById("grantSubject2Label");
+      if (s1) s1.textContent = grantSubjectTitle(CURRENT_GRANT_PROGRAM, 1);
+      if (s2) s2.textContent = grantSubjectTitle(CURRENT_GRANT_PROGRAM, 2);
+    }
+  }
+
+  function onGrantProgramChange() {
+    const code = document.getElementById("grantProgramSelect")?.value || "";
+    CURRENT_GRANT_PROGRAM = GRANT_PROGRAMS.find(program => program.code === code) || null;
+
+    const wrap = document.getElementById("grantInputsWrap");
+    const totalOption = document.getElementById("grantTotalOption");
+    const button = document.getElementById("grantCalculateBtn");
+    const result = document.getElementById("grantResultV2");
+
+    if (!CURRENT_GRANT_PROGRAM) {
+      wrap?.classList.add("hidden");
+      totalOption?.classList.add("hidden");
+      if (button) button.disabled = true;
+      if (result) result.innerHTML = "";
+      return;
+    }
+
+    wrap?.classList.remove("hidden");
+    totalOption?.classList.remove("hidden");
+    if (button) button.disabled = false;
+    if (result) result.innerHTML = "";
+
+    document.getElementById("grantSubject1Label").textContent =
+      grantSubjectTitle(CURRENT_GRANT_PROGRAM, 1);
+
+    document.getElementById("grantSubject2Label").textContent =
+      grantSubjectTitle(CURRENT_GRANT_PROGRAM, 2);
+  }
+
+  function readGrantScore(id) {
+    const raw = document.getElementById(id)?.value;
+    if (raw === "" || raw === null || raw === undefined) return null;
+    const value = Number(raw);
+    return Number.isFinite(value) ? value : null;
+  }
+
+  function validateGrantInputs(program, values) {
+    const checks = [
+      ["english", grantText("Шет тілі","Иностранный язык"), values.english, 0, 50, Number(program.english_min || 25)],
+      ["critical", grantText("Сыни ойлау","Критическое мышление"), values.critical, 0, 15, Number(program.critical_min || 7)],
+      ["analytical", grantText("Аналитикалық ойлау","Аналитическое мышление"), values.analytical, 0, 15, Number(program.analytical_min || 7)],
+      ["subject1", grantSubjectTitle(program,1), values.subject1, 0, Number(program.subject_1_max || 30), Number(program.subject_1_min || 7)],
+      ["subject2", grantSubjectTitle(program,2), values.subject2, 0, Number(program.subject_2_max || 40), Number(program.subject_2_min || 7)]
+    ];
+
+    const invalid = checks.filter(([, ,value,min,max]) => value === null || value < min || value > max);
+    const failedThresholds = checks.filter(([, ,value,,,threshold]) => value !== null && value < threshold);
+
+    return {checks, invalid, failedThresholds};
+  }
+
+
+  let LAST_GRANT_PROGRAM_CODE = null;
+  let LAST_GRANT_SCORE = null;
+  let UNIVERSITY_DIRECTORY_CACHE = null;
+
+  function closeGrantDynamicModal() {
+    document.getElementById("grantDynamicOverlay")?.remove();
+  }
+
+  function openGrantDynamicModal(title, innerHTML) {
+    closeGrantDynamicModal();
+
+    const overlay = document.createElement("div");
+    overlay.id = "grantDynamicOverlay";
+    overlay.className = "grant-dynamic-overlay";
+    overlay.innerHTML = `
+      <div class="grant-dynamic-modal" onclick="event.stopPropagation()">
+        <div class="grant-dynamic-modal-head">
+          <div>
+            <h3>${escapeHTML(title)}</h3>
+          </div>
+          <button class="grant-modal-close" type="button" onclick="closeGrantDynamicModal()">×</button>
+        </div>
+        ${innerHTML}
+      </div>
+    `;
+    overlay.onclick = closeGrantDynamicModal;
+    document.body.appendChild(overlay);
+  }
+
+  async function loadUniversityDirectory() {
+    if (Array.isArray(UNIVERSITY_DIRECTORY_CACHE)) {
+      return UNIVERSITY_DIRECTORY_CACHE;
+    }
+
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/rpc/get_university_directory`,
+      {
+        method: "POST",
+        headers: {
+          apikey: SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+          "Content-Type": "application/json"
+        },
+        body: "{}"
+      }
+    );
+
+    if (!response.ok) throw new Error(await response.text());
+
+    const data = await response.json();
+    UNIVERSITY_DIRECTORY_CACHE = Array.isArray(data) ? data : [];
+    return UNIVERSITY_DIRECTORY_CACHE;
+  }
+
+  async function openUniversityDirectory() {
+    try {
+      const rows = await loadUniversityDirectory();
+
+      openGrantDynamicModal(
+        grantText("ЖОО кодтары","Справочник ЖОО"),
+        `
+          <input
+            id="grantDirectorySearch"
+            class="grant-directory-search"
+            type="search"
+            placeholder="${grantText("ЖОО кодын немесе атауын жазыңыз","Введите код или название вуза")}"
+            oninput="filterUniversityDirectory(this.value)"
+          >
+          <div id="grantDirectoryList" class="grant-directory-list">
+            ${renderUniversityDirectoryRows(rows)}
+          </div>
+        `
+      );
+    }
+    catch (error) {
+      console.error("university directory error:", error);
+      alert(grantText("ЖОО анықтамалығын жүктеу мүмкін болмады.","Не удалось загрузить справочник вузов."));
+    }
+  }
+
+  function renderUniversityDirectoryRows(rows) {
+    if (!rows.length) {
+      return `<div class="grant-empty">${grantText("ЖОО табылмады","Вузы не найдены")}</div>`;
+    }
+
+    return rows.map(row => `
+      <div class="grant-directory-row">
+        <div class="grant-directory-code">${escapeHTML(row.code || "—")}</div>
+        <div class="grant-directory-name">
+          ${escapeHTML(
+            CURRENT_UI_LANGUAGE === "ru"
+              ? (row.name_ru || row.name_kz || "")
+              : (row.name_kz || row.name_ru || "")
+          )}
+        </div>
+        <div class="grant-directory-city">${escapeHTML(row.city || "")}</div>
+      </div>
+    `).join("");
+  }
+
+  function filterUniversityDirectory(query) {
+    const q = String(query || "").trim().toLowerCase();
+    const rows = Array.isArray(UNIVERSITY_DIRECTORY_CACHE)
+      ? UNIVERSITY_DIRECTORY_CACHE
+      : [];
+
+    const filtered = !q
+      ? rows
+      : rows.filter(row => {
+          const haystack = [
+            row.code,
+            row.name_kz,
+            row.name_ru,
+            row.city
+          ].filter(Boolean).join(" ").toLowerCase();
+
+          return haystack.includes(q);
+        });
+
+    const list = document.getElementById("grantDirectoryList");
+    if (list) list.innerHTML = renderUniversityDirectoryRows(filtered);
+  }
+
+  async function openAllGrantOptions() {
+    if (!LAST_GRANT_PROGRAM_CODE || LAST_GRANT_SCORE === null) return;
+
+    try {
+      const [historyResponse, directory] = await Promise.all([
+        fetch(
+          `${SUPABASE_URL}/rest/v1/grant_history?select=university_code,min_score,competition_type,year&program_code=eq.${encodeURIComponent(LAST_GRANT_PROGRAM_CODE)}&year=eq.2025&min_score=not.is.null&order=min_score.desc`,
+          {
+            headers: {
+              apikey: SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${SUPABASE_ANON_KEY}`
+            }
+          }
+        ),
+        loadUniversityDirectory()
+      ]);
+
+      if (!historyResponse.ok) throw new Error(await historyResponse.text());
+
+      const history = await historyResponse.json();
+      const directoryMap = Object.fromEntries(
+        directory.map(row => [String(row.code), row])
+      );
+
+      const options = history
+        .filter(row =>
+          row.university_code &&
+          ["special","university"].includes(row.competition_type) &&
+          LAST_GRANT_SCORE >= Number(row.min_score)
+        )
+        .map(row => {
+          const uni = directoryMap[String(row.university_code)] || {};
+          return {
+            ...row,
+            university_name:
+              CURRENT_UI_LANGUAGE === "ru"
+                ? (uni.name_ru || uni.name_kz || row.university_code)
+                : (uni.name_kz || uni.name_ru || row.university_code),
+            difference: LAST_GRANT_SCORE - Number(row.min_score)
+          };
+        })
+        .sort((a,b) => a.difference - b.difference);
+
+      openGrantDynamicModal(
+        grantText("2025 · Барлық арнайы грант нұсқалары","2025 · Все варианты специальных грантов"),
+        `
+          <div class="grant-all-options-list">
+            ${
+              options.length
+                ? options.map(item => `
+                    <div class="grant-all-option">
+                      <div class="grant-all-option-top">
+                        <div class="grant-all-option-name">
+                          <span class="grant-directory-code" style="margin-right:7px">${escapeHTML(item.university_code)}</span>
+                          ${escapeHTML(item.university_name)}
+                        </div>
+                        <div class="grant-all-option-score">${item.min_score}</div>
+                      </div>
+                      <div class="grant-history-line">
+                        ${grantText("Грантқа түскен ең төмен балл","Минимальный балл поступившего на грант")}
+                        · ${grantText("Айырмашылық","Разница")}: <b>+${item.difference}</b>
+                      </div>
+                    </div>
+                  `).join("")
+                : `<div class="grant-empty">${grantText("2025 бойынша балыңыз жететін арнайы грант нұсқасы табылмады.","По данным 2025 года специальных грантов, на которые хватает вашего балла, не найдено.")}</div>`
+            }
+          </div>
+        `
+      );
+    }
+    catch (error) {
+      console.error("all grant options error:", error);
+      alert(grantText("Нұсқаларды жүктеу мүмкін болмады.","Не удалось загрузить варианты."));
+    }
+  }
+
+  async function calculateGrantV2() {
+    const program = CURRENT_GRANT_PROGRAM;
+    const resultBox = document.getElementById("grantResultV2");
+    if (!program || !resultBox) return;
+
+    const values = {
+      english: readGrantScore("grantEnglish"),
+      critical: readGrantScore("grantCritical"),
+      analytical: readGrantScore("grantAnalytical"),
+      subject1: readGrantScore("grantSubject1"),
+      subject2: readGrantScore("grantSubject2")
+    };
+
+    const totalOnly = readGrantScore("grantTotalScore");
+    const hasAllFive = Object.values(values).every(v => v !== null);
+
+    let total = null;
+    let eligible = false;
+    let eligibilityKnown = false;
+    let validation = null;
+    const totalMin = Number(program.total_min || 75);
+
+    if (hasAllFive) {
+      validation = validateGrantInputs(program, values);
+
+      if (validation.invalid.length) {
+        resultBox.innerHTML = `
+          <div class="grant-empty">
+            ${grantText(
+              "Барлық 5 нәтижеңізді дұрыс диапазонда енгізіңіз немесе тек жалпы КТ балын жазыңыз.",
+              "Введите все 5 результатов в допустимом диапазоне или укажите только общий балл КТ."
+            )}
+          </div>
+        `;
+        return;
+      }
+
+      total =
+        values.english +
+        values.critical +
+        values.analytical +
+        values.subject1 +
+        values.subject2;
+
+      eligible =
+        total >= totalMin &&
+        validation.failedThresholds.length === 0;
+
+      eligibilityKnown = true;
+    }
+    else if (totalOnly !== null) {
+      if (totalOnly < 0 || totalOnly > 150) {
+        resultBox.innerHTML = `
+          <div class="grant-empty">
+            ${grantText("Жалпы балл 0–150 аралығында болуы керек.","Общий балл должен быть от 0 до 150.")}
+          </div>
+        `;
+        return;
+      }
+
+      total = totalOnly;
+      eligible = total >= totalMin;
+      eligibilityKnown = false;
+    }
+    else {
+      resultBox.innerHTML = `
+        <div class="grant-empty">
+          ${grantText(
+            "5 пән бойынша балдарды енгізіңіз немесе жалпы КТ балыңызды жазыңыз.",
+            "Введите баллы по 5 предметам или укажите общий балл КТ."
+          )}
+        </div>
+      `;
+      return;
+    }
+
+    const difference = total - totalMin;
+
+    const summary = `
+      <div class="grant-result-summary">
+        <div class="grant-summary-card">
+          <div class="label">${grantText("Жалпы нәтиже","Общий результат")}</div>
+          <div class="value">${total} / 150</div>
+        </div>
+        <div class="grant-summary-card">
+          <div class="label">${grantText("Конкурсқа қатысу шегі","Порог участия в конкурсе")}</div>
+          <div class="value">${totalMin}</div>
+        </div>
+        <div class="grant-summary-card">
+          <div class="label">${grantText("Шектен айырмашылық","Разница с порогом")}</div>
+          <div class="value">${difference >= 0 ? "+" : ""}${difference}</div>
+        </div>
+      </div>
+    `;
+
+    if (eligibilityKnown && !eligible) {
+      const failed = [
+        ...(total < totalMin
+          ? [[grantText("Жалпы балл","Общий балл"), total, totalMin]]
+          : []),
+        ...validation.failedThresholds.map(([,title,value,,,threshold]) => [title,value,threshold])
+      ];
+
+      resultBox.innerHTML = `
+        ${summary}
+        <div class="grant-status-box grant-status-bad">
+          <b>${grantText(
+            "Сіздің балыңыз жеткіліксіз. Грант конкурсына қатысу үшін әр пән бойынша міндетті минимумнан өту керек.",
+            "Вашего балла недостаточно. Для участия в конкурсе на грант необходимо пройти обязательный минимум по каждому предмету."
+          )}</b>
+          <ul class="grant-fail-list">
+            ${failed.map(([title,value,threshold]) => `
+              <li>${escapeHTML(title)}: <b>${value}</b> · ${grantText("минимум","минимум")} <b>${threshold}</b></li>
+            `).join("")}
+          </ul>
+        </div>
+      `;
+      return;
+    }
+
+    if (!eligibilityKnown && total < totalMin) {
+      resultBox.innerHTML = `
+        ${summary}
+        <div class="grant-status-box grant-status-bad">
+          <b>${grantText(
+            "Сіздің жалпы балыңыз жеткіліксіз: грант конкурсына қатысу үшін кемінде 75 балл қажет.",
+            "Вашего общего балла недостаточно: для участия в конкурсе на грант необходимо не менее 75 баллов."
+          )}</b>
+        </div>
+      `;
+      return;
+    }
+
+    resultBox.innerHTML = summary;
+
+    if (eligibilityKnown) {
+      resultBox.innerHTML += `
+        <div class="grant-status-box grant-status-ok">
+          <b>${grantText(
+            "Барлық міндетті шектерден өттіңіз. Грант конкурсына қатыса аласыз.",
+            "Все обязательные пороги пройдены. Вы можете участвовать в конкурсе на грант."
+          )}</b>
+        </div>
+      `;
+    }
+    else {
+      resultBox.innerHTML += `
+        <div class="grant-status-box">
+          <b>${grantText("Жалпы балл бойынша грант статистикасымен салыстырамыз.","Сравниваем со статистикой грантов по общему баллу.")}</b><br>
+          <span class="cabinet-sub">
+            ${grantText(
+              "Пәндер бойынша балл енгізілмегендіктен, жеке пәндік шектерді нақты тексеру мүмкін емес.",
+              "Так как баллы по отдельным предметам не введены, предметные пороги точно проверить нельзя."
+            )}
+          </span>
+        </div>
+      `;
+    }
+
+    LAST_GRANT_PROGRAM_CODE = program.code;
+    LAST_GRANT_SCORE = total;
+
+    try {
+      const response = await fetch(
+        `${SUPABASE_URL}/rest/v1/rpc/get_grant_recommendation`,
+        {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            p_program_code: program.code,
+            p_score: total
+          })
+        }
+      );
+
+      if (!response.ok) throw new Error(await response.text());
+
+      const rec = await response.json();
+
+      const general = rec?.general_2025 || {};
+      const special = rec?.special_2025 || {};
+      const bestOptions = Array.isArray(rec?.best_options) ? rec.best_options : [];
+      const history = Array.isArray(rec?.history) ? rec.history : [];
+
+      resultBox.innerHTML += `
+        <div class="grant-2025-head">
+          <div>
+            <h3>${grantText("2025 жылғы грант нәтижесі","Результаты гранта 2025")}</h3>
+            <p>${grantText(
+              "Негізгі салыстыру 2025 жылғы нақты грант нәтижелері бойынша жасалады.",
+              "Основное сравнение проводится по фактическим результатам гранта 2025 года."
+            )}</p>
+          </div>
+          <div class="grant-priority-badge">${grantText("НЕГІЗГІ ЖЫЛ","ПРИОРИТЕТНЫЙ ГОД")}</div>
+        </div>
+
+        <div class="grant-2025-grid">
+          <div class="grant-2025-card general">
+            <div class="grant-2025-label">${grantText("2025 · ЖАЛПЫ КОНКУРС","2025 · ОБЩИЙ КОНКУРС")}</div>
+            <div class="grant-2025-score">${general.min_score ?? "—"}</div>
+            <div class="grant-2025-caption">
+              ${general.min_score != null
+                ? grantText("Грантқа түскен ең төмен балл","Минимальный балл поступившего на грант")
+                : grantText("Дерек жоқ","Нет данных")}
+            </div>
+            ${
+              general.min_score != null
+                ? `<div class="grant-2025-status ${general.available ? "ok" : "no"}">
+                    ${general.available
+                      ? grantText("Сіздің балыңыз жетеді","Вашего балла достаточно")
+                      : grantText(`Тағы ${Math.max(0, Number(general.min_score)-total)} балл қажет`,`Нужно ещё ${Math.max(0, Number(general.min_score)-total)} балл.`)}
+                   </div>`
+                : ""
+            }
+          </div>
+
+          <div class="grant-2025-card special">
+            <div class="grant-2025-label">${grantText("2025 · АРНАЙЫ ГРАНТ","2025 · СПЕЦИАЛЬНЫЙ ГРАНТ")}</div>
+            <div class="grant-2025-score">${special.min_score ?? "—"}</div>
+            <div class="grant-2025-caption">
+              ${special.min_score != null
+                ? grantText("Грантқа түскен ең төмен балл","Минимальный балл поступившего на грант")
+                : grantText("Дерек жоқ","Нет данных")}
+            </div>
+            ${
+              special.min_score != null
+                ? `<div class="grant-2025-status ${special.available ? "ok" : "no"}">
+                    ${special.available
+                      ? grantText("Сіздің балыңыз жететін ЖОО бар","Есть вузы, где вашего балла достаточно")
+                      : grantText(`Тағы ${Math.max(0, Number(special.min_score)-total)} балл қажет`,`Нужно ещё ${Math.max(0, Number(special.min_score)-total)} балл.`)}
+                   </div>`
+                : ""
+            }
+          </div>
+        </div>
+
+        <div class="grant-opportunity-summary">
+          <div class="grant-opportunity-top">
+            <div>
+              <h3>${grantText("Сізге сәйкес грант мүмкіндіктері","Подходящие возможности для гранта")}</h3>
+              <p>${grantText(
+                "Жалпы конкурс қысқаша көрсетіледі, ал арнайы грантта нақты ЖОО-лар беріледі.",
+                "Общий конкурс показан компактно, а для специальных грантов указаны конкретные вузы."
+              )}</p>
+            </div>
+            <div class="grant-opportunity-counts">
+              <span class="grant-count-pill">
+                ${grantText("Жалпы конкурс","Общий конкурс")}: <b>${general.available ? 1 : 0}</b>
+              </span>
+              <span class="grant-count-pill">
+                ${grantText("Арнайы грант ЖОО","Вузы спецгранта")}: <b>${Number(special.count || 0)}</b>
+              </span>
+            </div>
+          </div>
+
+          ${
+            general.available
+              ? `
+                <div class="grant-general-option">
+                  <div class="grant-general-option-top">
+                    <div>
+                      <b>${grantText("Жалпы конкурс · 2025","Общий конкурс · 2025")}</b>
+                      <p>${grantText(
+                        "Бұл конкурс бірнеше ЖОО бойынша ортақ нәтиже ретінде көрсетіледі. Нақты ЖОО кодтары мен атауларын анықтамалықтан көре аласыз.",
+                        "Этот конкурс показан как общий результат по нескольким вузам. Коды и названия вузов можно посмотреть в справочнике."
+                      )}</p>
+                    </div>
+                    <div class="grant-option-type">${general.min_score}</div>
+                  </div>
+                </div>
+              `
+              : ""
+          }
+
+          ${
+            bestOptions.length
+              ? `
+                <div class="grant-options-head">
+                  <div><h3>${grantText("Сізге жақын арнайы грант нұсқалары","Ближайшие варианты специальных грантов")}</h3></div>
+                </div>
+                <div class="grant-options-grid">
+                  ${bestOptions.map(item => `
+                    <div class="grant-option-card">
+                      <div class="grant-option-top">
+                        <div class="grant-option-name">
+                          ${item.university_code ? `<span class="grant-directory-code" style="margin-right:6px">${escapeHTML(item.university_code)}</span>` : ""}
+                          ${escapeHTML(item.university_name || item.university_code || "")}
+                        </div>
+                        <div class="grant-option-type">${grantText("Арнайы грант","Спецгрант")}</div>
+                      </div>
+                      <div class="grant-option-score">
+                        <div>
+                          <span class="grant-result-label">${grantText("Сіздің балыңыз","Ваш балл")}</span><br>
+                          <b>${total}</b>
+                        </div>
+                        <div style="text-align:right">
+                          <span class="grant-result-label">${grantText("2025 грант балы","Балл гранта 2025")}</span><br>
+                          <b>${item.min_score}</b>
+                        </div>
+                      </div>
+                      <div class="grant-history-line">
+                        ${grantText("Грантқа түскен ең төмен балл","Минимальный балл поступившего на грант")}
+                        · ${grantText("Айырмашылық","Разница")}: <b>+${item.difference}</b>
+                      </div>
+                    </div>
+                  `).join("")}
+                </div>
+              `
+              : `
+                <div class="grant-empty" style="margin-top:12px">
+                  ${grantText(
+                    "2025 жылғы арнайы гранттар ішінде балыңыз жететін нақты ЖОО табылмады. Бұл биылғы конкурс нәтижесін алдын ала анықтамайды.",
+                    "Среди специальных грантов 2025 года не найден конкретный вуз, где вашего балла достаточно. Это не определяет результат конкурса текущего года."
+                  )}
+                </div>
+              `
+          }
+
+          <div class="grant-section-actions">
+            <button class="grant-mini-btn primary" type="button" onclick="openAllGrantOptions()">
+              ${grantText("Барлық арнайы гранттарды көру","Все специальные гранты")}
+            </button>
+            <button class="grant-mini-btn" type="button" onclick="openUniversityDirectory()">
+              ${grantText("ЖОО кодтары","Справочник ЖОО")}
+            </button>
+          </div>
+        </div>
+
+        <div class="grant-history-compact">
+          <div class="grant-history-compact-title">
+            ${grantText("Алдыңғы жылдар · қысқаша статистика","Предыдущие годы · краткая статистика")}
+          </div>
+          <div class="grant-history-chips">
+            ${
+              history
+                .filter(item => Number(item.year) < 2025)
+                .map(item => `
+                  <div class="grant-history-chip">
+                    <b>${item.year}</b><br>
+                    ${grantText("Жалпы","Общий")}: <b>${item.general_min ?? "—"}</b>
+                    · ${grantText("Арнайы","Спец")}: <b>${item.special_min ?? "—"}</b>
+                  </div>
+                `).join("") ||
+              `<span class="cabinet-sub">${grantText("2023–2024 дерегі жоқ","Нет данных за 2023–2024")}</span>`
+            }
+          </div>
+        </div>
+      `;
+    }
+    catch (error) {
+      console.error("grant recommendation error:", error);
+      resultBox.innerHTML += `
+        <div class="grant-empty" style="margin-top:12px">
+          ${grantText("Грант статистикасын жүктеу мүмкін болмады.","Не удалось загрузить статистику грантов.")}
+        </div>
+      `;
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const select = document.getElementById("grantProgramSelect");
+    if (select) select.addEventListener("change", onGrantProgramChange);
+
+    updateGrantLanguage();
+    loadGrantPrograms();
+  });
+
+  /* ====================================================
+     CLOSE MODAL BY BACKGROUND
+  ==================================================== */
+
+  document
+    .getElementById("reviewModal")
+    .addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target.id ===
+          "reviewModal"
+        ) {
+
+          closeReview();
+
+        }
+
+      }
+    );
+
+
+  document
+    .getElementById("courseModal")
+    .addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target.id ===
+          "courseModal"
+        ) {
+
+          closeCourse();
+
+        }
+
+      }
+    );
+
+
+
+  document.getElementById("coursePreviewModal").addEventListener("click", event => {
+    if (event.target.id === "coursePreviewModal") closeCoursePreview();
+  });
+  document.getElementById("accessModal").addEventListener("click", event => {
+    if (event.target.id === "accessModal") closeAccessModal();
+  });
+
+
+  document.getElementById("nameModal").addEventListener("click", event => {
+    if (event.target.id === "nameModal") closeNameModal();
+  });
+
+  document.getElementById("cabinetModal").addEventListener("click", event => {
+    if (event.target.id === "cabinetModal") closeCabinet();
+  });
+
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Escape"
+      ) {
+
+        closeReview();
+        closeCourse();
+        closeCoursePreview();
+        closeAccessModal();
+        closeNameModal();
+        closeCabinet();
+
+      }
+
+    }
+  );
+
+
+  /* ====================================================
+     START
+  ==================================================== */
+
+  loadFreeTests();
+  loadPaidCourses();
+  loadReviews();
+  applyLanguage();
+  restoreStudentSession();
+
+</script>
+
+</body>
+</html>
