@@ -3222,32 +3222,135 @@ footer{
 </style>
 
 
-<style id="magist-manual-analytics-style">
-.manual-analytics{border:1px solid rgba(16,17,22,.08);border-radius:24px;background:rgba(255,255,255,.9);padding:20px;box-shadow:0 14px 34px rgba(35,30,90,.06)}
-.manual-analytics-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
-.manual-score-card{border:1px solid rgba(16,17,22,.08);border-radius:16px;background:#fff;padding:14px}
-.manual-score-card label{display:block;font-size:11px;font-weight:900;margin-bottom:8px}
-.manual-score-wrap{display:flex;align-items:center;gap:8px}
-.manual-score-wrap input{width:100%;min-width:0;border:1px solid rgba(16,17,22,.12);border-radius:12px;padding:10px 11px;font-size:15px;font-weight:900;outline:none}
-.manual-score-wrap span{color:var(--muted);font-size:12px;font-weight:900;white-space:nowrap}
-.manual-analytics-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-.manual-analytics-results{margin-top:16px}
-.manual-summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:12px}
-.manual-summary-card{border:1px solid rgba(16,17,22,.08);border-radius:16px;background:#fafafd;padding:14px}
-.manual-summary-card span{display:block;color:var(--muted);font-size:10px;font-weight:800}
-.manual-summary-card b{display:block;margin-top:6px;font-size:20px}
-.manual-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.manual-panel{border:1px solid rgba(16,17,22,.08);border-radius:16px;background:#fff;padding:15px}
-.manual-panel h3{margin:0 0 10px;font-size:15px}
-.manual-row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(16,17,22,.06)}
-.manual-row:last-child{border-bottom:0}
-.manual-tip{margin-top:12px;border:1px solid rgba(108,92,255,.14);border-radius:16px;background:#f7f5ff;padding:15px}
-.manual-tip b{display:block;margin-bottom:6px}
-.manual-history{margin-top:14px}
-.manual-history-item{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(16,17,22,.06)}
-.manual-history-item:last-child{border-bottom:0}
-@media(max-width:900px){.manual-analytics-grid{grid-template-columns:repeat(2,1fr)}.manual-summary-grid{grid-template-columns:repeat(2,1fr)}.manual-breakdown{grid-template-columns:1fr}}
-@media(max-width:520px){.manual-analytics-grid{grid-template-columns:1fr}}
+<style id="magist-real-material-titles-fix">
+/* Real book/site names from paid_course_materials.title */
+#courseModal .course-hero-panel{
+  min-height:0!important;
+  height:auto!important;
+  padding:15px 17px!important;
+  margin-bottom:16px!important;
+}
+#courseModal .course-hero-main h2{
+  font-size:22px!important;
+  line-height:1.2!important;
+  margin-bottom:5px!important;
+}
+#courseModal .course-description{
+  font-size:11px!important;
+  line-height:1.45!important;
+  margin-bottom:0!important;
+}
+
+/* No oversized material cards */
+#courseModal .materials-card-grid{
+  display:block!important;
+  grid-template-columns:none!important;
+  gap:0!important;
+  width:100%!important;
+  overflow:hidden!important;
+  border:1px solid #e4e7ed!important;
+  border-radius:14px!important;
+  background:#fff!important;
+}
+#courseModal .material{
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:13px 15px!important;
+  overflow:visible!important;
+  border:0!important;
+  border-bottom:1px solid #eceef2!important;
+  border-radius:0!important;
+  background:#fff!important;
+  display:grid!important;
+  grid-template-columns:38px minmax(0,1fr) auto!important;
+  align-items:center!important;
+  gap:12px!important;
+  box-shadow:none!important;
+  transform:none!important;
+}
+#courseModal .material:last-child{border-bottom:0!important}
+#courseModal .material:hover{background:#fafaff!important;transform:none!important;box-shadow:none!important}
+
+#courseModal .material-index{
+  width:30px;
+  height:30px;
+  display:grid;
+  place-items:center;
+  border-radius:8px;
+  background:#f1efff;
+  color:#6558e8;
+  font-size:9px;
+  font-weight:950;
+}
+#courseModal .material-info{
+  min-width:0!important;
+  display:block!important;
+}
+#courseModal .material-title{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  min-height:0!important;
+  max-height:none!important;
+  height:auto!important;
+  overflow:visible!important;
+  white-space:normal!important;
+  -webkit-line-clamp:unset!important;
+  -webkit-box-orient:initial!important;
+  color:#14161c!important;
+  font-size:13px!important;
+  line-height:1.42!important;
+  font-weight:900!important;
+}
+#courseModal .material-code-sub{
+  margin-top:4px;
+  color:#9a9faa;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.03em;
+}
+#courseModal .material-kindline{margin:0 0 5px!important}
+#courseModal .material-actions{
+  width:auto!important;
+  min-width:max-content!important;
+  min-height:0!important;
+  height:auto!important;
+  margin:0!important;
+  display:flex!important;
+  align-items:center!important;
+}
+#courseModal .material-open-button,
+#courseModal .material-actions a{
+  height:34px!important;
+  min-height:34px!important;
+  padding:0 11px!important;
+  font-size:9px!important;
+  border-radius:9px!important;
+}
+
+/* Remove duplicated inner back row; outer LMS toolbar stays */
+#courseModal .course-workspace-topbar{display:none!important}
+#courseModal .course-fixed-zone{
+  min-height:0!important;
+  height:auto!important;
+  margin-bottom:10px!important;
+  padding-bottom:6px!important;
+}
+
+@media(max-width:760px){
+  #courseModal .material{
+    grid-template-columns:32px minmax(0,1fr)!important;
+  }
+  #courseModal .material-actions{
+    grid-column:2!important;
+    justify-content:flex-start!important;
+    width:100%!important;
+    margin-top:5px!important;
+  }
+}
 </style>
 
 </head>
@@ -3288,8 +3391,7 @@ footer{
       <a href="#free" id="navFree">Тегін</a>
       <a href="#paid" id="navPaid">Ақылы</a>
       <a href="#pricing" id="navPricing">Бағалар</a>
-      <a href="#analytics">Аналитика</a>
-        <a href="#reviews" id="navReviews">Отзывы және нәтиже</a>
+      <a href="#reviews" id="navReviews">Отзывы және нәтиже</a>
       <a href="#kt" id="navKt">КТ құрылымы</a>
       <a href="#grant" id="navGrant">Грант</a>
     </nav>
@@ -3461,37 +3563,6 @@ footer{
 
 
 <!-- PAID -->
-
-
-<section class="main-section" id="analytics">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-number">AN</div>
-      <div>
-        <h2>Менің аналитикам</h2>
-        <p>Тегін тест нәтижелеріңізді енгізіңіз. Тіркелу қажет емес.</p>
-      </div>
-    </div>
-    <div class="manual-analytics">
-      <div class="manual-analytics-grid">
-        <div class="manual-score-card"><label>Сыни ойлау</label><div class="manual-score-wrap"><input id="maCritical" type="number" min="0" max="15" inputmode="numeric" placeholder="0"><span>/ 15</span></div></div>
-        <div class="manual-score-card"><label>Аналитикалық ойлау</label><div class="manual-score-wrap"><input id="maAnalytical" type="number" min="0" max="15" inputmode="numeric" placeholder="0"><span>/ 15</span></div></div>
-        <div class="manual-score-card"><label>Listening</label><div class="manual-score-wrap"><input id="maListening" type="number" min="0" max="16" inputmode="numeric" placeholder="0"><span>/ 16</span></div></div>
-        <div class="manual-score-card"><label>Grammar</label><div class="manual-score-wrap"><input id="maGrammar" type="number" min="0" max="18" inputmode="numeric" placeholder="0"><span>/ 18</span></div></div>
-        <div class="manual-score-card"><label>Reading</label><div class="manual-score-wrap"><input id="maReading" type="number" min="0" max="16" inputmode="numeric" placeholder="0"><span>/ 16</span></div></div>
-      </div>
-      <div class="manual-analytics-actions">
-        <button class="btn" type="button" id="maCalculateBtn">Нәтижені есептеу</button>
-        <button class="btn secondary" type="button" id="maSaveBtn">Нәтижені сақтау</button>
-        <button class="btn secondary" type="button" id="maClearBtn">Тазалау</button>
-      </div>
-      <div class="manual-analytics-results" id="maResults"></div>
-      <div class="manual-history">
-        <div class="manual-panel"><h3>Сақталған нәтижелер</h3><div id="maHistory"><div class="empty-state">Әзірге сақталған нәтиже жоқ.</div></div></div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <section class="main-section" id="paid">
 
@@ -5593,6 +5664,18 @@ footer{
     return {key:"material",kk:"Материал",ru:"Материал"};
   }
 
+  function getMaterialDisplayTitle(material){
+    const candidates = [
+      material?.title,
+      material?.name,
+      material?.material_name,
+      material?.label,
+      material?.material_code
+    ];
+    const found = candidates.find(v => String(v ?? "").trim());
+    return String(found || (CURRENT_UI_LANGUAGE === "ru" ? "Без названия" : "Атауы жоқ")).trim();
+  }
+
   function getCourseSummaryChips(code){
     const mats=getMaterialsForCourse(code)||[];
     const kinds=new Set(mats.map(m=>getMaterialKind(m).key));
@@ -5793,65 +5876,6 @@ footer{
   }
 
 
-
-  const PEDAGOGY_MATERIAL_TITLES = {
-    "PED_TAU": "Таубаева — Педагогика",
-    "PED_ZHUN": "Жүндібаева Т.Н. — «Отбасы педагогикасы» · ҚАЗ/РУС",
-    "PED_ZAGVYAZINSKY": "Загвязинский В.И. — «Теория обучения» · ҚАЗ/РУС",
-    "PED_PIDKASISTY": "Пидкасистый П.И. — «Педагогика» · ҚАЗ/РУС",
-    "PED_MYNGBAEVA": "Мыңбаева А.К. — «Современное образование» · ҚАЗ/РУС",
-    "PED_SLASTENIN": "Сластенин В.А. — «Педагогика» · ҚАЗ/РУС",
-    "PED_PODLASY": "Подласый И.П. — «Педагогика» · ҚАЗ/РУС",
-    "PED_AKMEOLOGY": "Оспанова Б.А., Бейсембаева З.К. — «Акмеология» · ҚАЗ/РУС",
-    "PED_DIDACTICS": "Бекмамбетова Р.К. — «Дидактика» · ҚАЗ/РУС",
-    "PED_MANAGEMENT": "Кошербаева А.Н. — «Менеджмент в образовании» · ҚАЗ/РУС",
-    "PED_KHAN": "Хан Н.Н., Жампеисова К.К., Колумбаева Ш.Ж. · ҚАЗ/РУС",
-    "PED_KZ_BOOKS": "ҚАЗ: Әбенбаев С.Ш. «Тәрбие теориясы мен әдістемесі»; Дүйсенбаев А. «Педагогика»; Дүйсенбаев А. «Тәрбие теориясы мен әдістемесі»",
-    "PED_RU_BOOKS": "РУС: Голованова Н.Ф. «Педагогика»; Хмель Н.Д., Хайруллин Г.Т., Муканова Б.И. «Педагогика»; Рындак В.Г. «Педагогика»",
-    "PED_SCIENTISTS": "Педагогика — 20 ғалым бойынша тесттер",
-    "PED_PNEW": "Маңызды тест — 2 вариант",
-    "PED_TEST1": "Педагогика — тест 1",
-    "PED_TEST2": "Педагогика — тест 2",
-    "PED_TEST3": "Педагогика — тест 3",
-    "PED_TEST6": "Педагогика — тест 6",
-    "PED_SLIV1": "Слив — 10 вариант · 1-бөлім",
-    "PED_SLIV2": "Слив — 10 вариант · 2-бөлім",
-    "PED_RUSS_VARIANTS": "Педагогика — 6 вариант",
-    "PED_TRIAL_1": "Пробный тест — 1",
-    "PED_TRIAL_2": "Пробный тест — 2",
-    "PED_TRIAL_3": "Пробный тест — 3",
-    "PED_TRIAL_4": "Пробный тест — 4",
-    "PED_TRIAL_5": "Пробный тест — 5"
-  };
-
-  function normalizePaidMaterial(material, courseCode) {
-    const code = String(material?.material_code || "").toUpperCase();
-    const course = String(courseCode || "").toUpperCase();
-    let title = String(material?.title || "").trim();
-
-    if (course === "PEDAGOGY") {
-      if (code === "PED_TAU") {
-        title = PEDAGOGY_MATERIAL_TITLES.PED_TAU;
-      } else if (
-        !title ||
-        title.toLowerCase() === "материал" ||
-        title.toLowerCase().includes("қосымша педагогика материалы")
-      ) {
-        title = PEDAGOGY_MATERIAL_TITLES[code] || title;
-      }
-    }
-
-    return {
-      ...material,
-      title: title || PEDAGOGY_MATERIAL_TITLES[code] || material?.material_code || "Материал",
-      course_code: courseCode,
-      sort_order:
-        course === "PEDAGOGY" && code === "PED_TAU"
-          ? 0
-          : (material?.sort_order ?? 999)
-    };
-  }
-
   async function openProtectedCourse(code) {
     if (!ACCESS_SESSION) {
       openAccessModal(code);
@@ -5878,9 +5902,10 @@ footer{
         return;
       }
 
-      COURSE_MATERIALS = result.materials.map(material =>
-        normalizePaidMaterial(material, code)
-      );
+      COURSE_MATERIALS = result.materials.map(material => ({
+        ...material,
+        course_code: code
+      }));
 
       openCourse(code);
     }
@@ -6366,7 +6391,7 @@ footer{
 
       const cardsHTML =
         meta.sectionMaterials
-          .map(material => {
+          .map((material, materialIndex) => {
 
             const lowerTitle =
               String(material.title || "")
@@ -6381,28 +6406,30 @@ footer{
                       : ""
                   );
 
+            const materialKind = getMaterialKind(material);
+            const displayTitle = getMaterialDisplayTitle(material);
+
             return `
               <div class="material ${specialClass}">
-                <div>
+                <div class="material-index">${String(materialIndex + 1).padStart(2, "0")}</div>
+
+                <div class="material-info">
                   ${
-                    (material.material_type || "material") === "trial"
-                      ? `<div class="my-course-code" style="margin-bottom:8px">
-                          ${CURRENT_UI_LANGUAGE === "ru" ? "ПРОБНЫЙ ТЕСТ" : "ПРОБНЫЙ ТЕСТ"}
+                    materialKind.key !== "material"
+                      ? `<div class="material-kindline">
+                          <span class="material-kind ${materialKind.key}">
+                            ${escapeHTML(CURRENT_UI_LANGUAGE === "ru" ? materialKind.ru : materialKind.kk)}
+                          </span>
                         </div>`
                       : ""
                   }
 
-                  <div class="material-kindline">
-                    ${(()=>{const k=getMaterialKind(material);return `<span class="material-kind ${k.key}">${escapeHTML(CURRENT_UI_LANGUAGE === "ru" ? k.ru : k.kk)}</span>`;})()}
+                  <div class="material-title" title="${escapeHTML(displayTitle)}">
+                    ${escapeHTML(displayTitle)}
                   </div>
 
-                  <div class="material-title">
-                    ${escapeHTML(
-                      material.title ||
-                      (CURRENT_LANGUAGE === "ru"
-                        ? "Материал"
-                        : "Материал")
-                    )}
+                  <div class="material-code-sub">
+                    ${escapeHTML(material.material_code || "")}
                   </div>
                 </div>
 
@@ -6416,7 +6443,7 @@ footer{
                           onclick='openTrackedMaterial(
                             ${JSON.stringify(material.url)},
                             ${JSON.stringify(CURRENT_COURSE.code)},
-                            ${JSON.stringify(material.title || "")}
+                            ${JSON.stringify(displayTitle)}
                           )' 
                         >
                           ${openLabel}
@@ -7701,94 +7728,6 @@ footer{
 
 
 
-
-
-<script id="magist-manual-analytics-core">
-(function(){
-  const STORAGE_KEY="magist_manual_analytics_v1";
-  const maxes={critical:15,analytical:15,listening:16,grammar:18,reading:16};
-  const $=id=>document.getElementById(id);
-  const clamp=(v,max)=>Math.max(0,Math.min(max,Math.round(v)));
-  const pct=(v,max)=>Math.round(v/max*100);
-
-  function get(id,max){
-    const el=$(id); if(!el) return null;
-    const s=String(el.value??"").trim(); if(s==="") return null;
-    const n=Number(s); return Number.isFinite(n)?clamp(n,max):null;
-  }
-
-  function advice(label,p){
-    if(label==="Сыни ойлау") return p<60?"Сыни ойлау нәтижесі төмен. Есептерді шешу жылдамдығын және логикалық есептермен жұмыс істеуді көбірек жаттықтырыңыз.":p<80?"Сыни ойлау нәтижесі орташа. Тұрақты түрде есеп шығарып, уақытпен жұмыс істеуді бекіткен дұрыс.":"Сыни ойлау нәтижесі жақсы. Осы деңгейді аралас есептермен сақтап тұрыңыз.";
-    if(label==="Аналитикалық ойлау") return p<60?"Аналитикалық ойлау нәтижесі төмен. Мәтіннің негізгі ойын, логикалық байланысты және дұрыс тұжырымды анықтауға көбірек жаттығыңыз.":p<80?"Аналитикалық ойлау нәтижесі орташа. Маңызды ақпаратты тез ажырату дағдысын бекітіңіз.":"Аналитикалық ойлау нәтижесі жақсы. Мәтінмен жұмыс істеу деңгейіңізді сақтаңыз.";
-    if(label==="Listening") return p<60?"Listening нәтижесі төмен. Аудионы алдымен жалпы мағына үшін, кейін нақты детальдар үшін қайта тыңдап жаттыққан дұрыс.":p<80?"Listening нәтижесі орташа. Нақты детальдарды тыңдап табуға көбірек назар аударыңыз.":"Listening нәтижесі жақсы. Тыңдалымды тұрақты орындап, деңгейді сақтаңыз.";
-    if(label==="Grammar") return p<60?"Grammar нәтижесі төмен. Грамматикалық ережелерді қайталап, қысқа тесттермен бекіткен дұрыс.":p<80?"Grammar нәтижесі орташа. Қате кететін ережелерді қайталап, аралас тесттерді көбірек орындаңыз.":"Grammar нәтижесі жақсы. Ережелерді аралас тесттер арқылы қайталап тұрыңыз.";
-    return p<60?"Reading нәтижесі төмен. Мәтіннен негізгі ойды, нақты ақпаратты және контекстегі мағынаны табуға көбірек жаттығыңыз.":p<80?"Reading нәтижесі орташа. Мәтінді жылдам оқып, маңызды детальдарды дәл табу дағдысын күшейтіңіз.":"Reading нәтижесі жақсы. Мәтінді түсіну деңгейіңізді сақтаңыз.";
-  }
-
-  function collect(){
-    const d={critical:get("maCritical",15),analytical:get("maAnalytical",15),listening:get("maListening",16),grammar:get("maGrammar",18),reading:get("maReading",16)};
-    if(Object.values(d).some(v=>v===null)) return null;
-    d.english=d.listening+d.grammar+d.reading;
-    d.total=d.critical+d.analytical+d.english;
-    return d;
-  }
-
-  function render(d){
-    const items=[
-      ["Сыни ойлау",d.critical,15],
-      ["Аналитикалық ойлау",d.analytical,15],
-      ["Listening",d.listening,16],
-      ["Grammar",d.grammar,18],
-      ["Reading",d.reading,16]
-    ].map(([label,score,max])=>({label,score,max,p:pct(score,max)}));
-    const strong=items.slice().sort((a,b)=>b.p-a.p)[0];
-    const weak=items.slice().sort((a,b)=>a.p-b.p)[0];
-    const totalPct=pct(d.total,80);
-    $("maResults").innerHTML=`
-      <div class="manual-summary-grid">
-        <div class="manual-summary-card"><span>Жалпы нәтиже</span><b>${d.total} / 80</b></div>
-        <div class="manual-summary-card"><span>Жалпы пайыз</span><b>${totalPct}%</b></div>
-        <div class="manual-summary-card"><span>Ағылшын тілі</span><b>${d.english} / 50</b></div>
-        <div class="manual-summary-card"><span>Көбірек дайындалу керек</span><b style="font-size:14px">${weak.label}</b></div>
-      </div>
-      <div class="manual-breakdown">
-        <div class="manual-panel"><h3>Бөлімдер бойынша</h3>${items.map(x=>`<div class="manual-row"><div><b>${x.label}</b><div class="cabinet-sub">${x.score}/${x.max}</div></div><b>${x.p}%</b></div>`).join("")}</div>
-        <div class="manual-panel"><h3>Қысқаша талдау</h3><div class="manual-row"><span>Күшті бөлім</span><b>${strong.label} · ${strong.p}%</b></div><div class="manual-row"><span>Әлсіз бөлім</span><b>${weak.label} · ${weak.p}%</b></div><div class="manual-row"><span>English</span><b>${d.english}/50 · ${pct(d.english,50)}%</b></div></div>
-      </div>
-      <div class="manual-tip"><b>Дайындық бойынша ұсыныс</b>${advice(weak.label,weak.p)}</div>`;
-    return {totalPct};
-  }
-
-  function history(){try{const a=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");return Array.isArray(a)?a:[]}catch(_){return []}}
-  function showHistory(){
-    const host=$("maHistory"); if(!host) return;
-    const a=history().slice().reverse();
-    host.innerHTML=a.length?a.map(x=>`<div class="manual-history-item"><div><b>${x.total}/80 · ${x.totalPct}%</b><div class="cabinet-sub">Сыни ${x.critical}/15 · Аналитикалық ${x.analytical}/15 · Listening ${x.listening}/16 · Grammar ${x.grammar}/18 · Reading ${x.reading}/16</div></div><div style="text-align:right"><b>English ${x.english}/50</b><div class="cabinet-sub">${new Date(x.createdAt).toLocaleDateString("kk-KZ")}</div></div></div>`).join(""):'<div class="empty-state">Әзірге сақталған нәтиже жоқ.</div>';
-  }
-
-  function calculate(){
-    const d=collect();
-    if(!d){$("maResults").innerHTML='<div class="empty-state">Барлық 5 бөлімнің балын енгізіңіз.</div>';return null}
-    render(d); return d;
-  }
-
-  function save(){
-    const d=calculate(); if(!d) return;
-    const a=history(); a.push({...d,totalPct:pct(d.total,80),createdAt:new Date().toISOString()});
-    localStorage.setItem(STORAGE_KEY,JSON.stringify(a.slice(-30))); showHistory();
-    $("maResults").insertAdjacentHTML("beforeend",'<div style="margin-top:10px;font-size:12px;font-weight:900;color:#16a34a">✓ Нәтиже осы браузерде сақталды.</div>');
-  }
-
-  function init(){
-    showHistory();
-    $("maCalculateBtn")?.addEventListener("click",calculate);
-    $("maSaveBtn")?.addEventListener("click",save);
-    $("maClearBtn")?.addEventListener("click",()=>{["maCritical","maAnalytical","maListening","maGrammar","maReading"].forEach(id=>{if($(id))$(id).value=""});if($("maResults"))$("maResults").innerHTML=""});
-    [["maCritical",15],["maAnalytical",15],["maListening",16],["maGrammar",18],["maReading",16]].forEach(([id,max])=>$(id)?.addEventListener("input",e=>{const n=Number(e.target.value);if(Number.isFinite(n)&&n>max)e.target.value=max;if(Number.isFinite(n)&&n<0)e.target.value=0}));
-  }
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
-})();
-</script>
 
 </body>
 </html>
