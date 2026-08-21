@@ -7762,5 +7762,64 @@ footer{
 })();
 </script>
 
+
+<script id="magist-visit-tracker">
+(function(){
+  const VISITOR_KEY = "magist_guest_id";
+  const THROTTLE_KEY = "magist_visit_last_sent";
+  const THROTTLE_MS = 30 * 60 * 1000;
+
+  function getVisitorId(){
+    let id = localStorage.getItem(VISITOR_KEY);
+    if(!id){
+      id = "guest_" + (
+        window.crypto && typeof window.crypto.randomUUID === "function"
+          ? window.crypto.randomUUID()
+          : Date.now() + "_" + Math.random().toString(36).slice(2)
+      );
+      localStorage.setItem(VISITOR_KEY,id);
+    }
+    return id;
+  }
+
+  async function sendVisit(){
+    try{
+      const now = Date.now();
+      const last = Number(localStorage.getItem(THROTTLE_KEY) || 0);
+      if(now - last < THROTTLE_MS) return;
+
+      const visitorId = getVisitorId();
+      const response = await fetch(
+        "https://wbikkbndoaqjqrbolbuw.supabase.co/rest/v1/rpc/record_site_visit",
+        {
+          method:"POST",
+          headers:{
+            apikey:"sb_publishable_Z251FafeuejV3jgVgXZFow_W_PLAcTC",
+            Authorization:"Bearer sb_publishable_Z251FafeuejV3jgVgXZFow_W_PLAcTC",
+            "Content-Type":"application/json"
+          },
+          body:JSON.stringify({
+            p_visitor_id:visitorId,
+            p_path:location.pathname || "/"
+          })
+        }
+      );
+
+      if(response.ok){
+        localStorage.setItem(THROTTLE_KEY,String(now));
+      }
+    }catch(error){
+      console.warn("Visit tracking unavailable", error);
+    }
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded",sendVisit,{once:true});
+  }else{
+    sendVisit();
+  }
+})();
+</script>
+
 </body>
 </html>
