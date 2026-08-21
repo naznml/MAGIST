@@ -5956,7 +5956,76 @@ footer{
           </head>
           <body style="font-family:Arial,sans-serif;padding:30px">
             ${escapeHTML(tr("openingMaterial"))}
-          </body>
+          
+<script id="magist-safe-visit-tracker">
+(function () {
+  const LAST_VISIT_KEY = "magist_visit_last_sent";
+  const GUEST_KEY = "magist_guest_id";
+  const THROTTLE_MS = 30 * 60 * 1000;
+
+  function getGuestId() {
+    let id = localStorage.getItem(GUEST_KEY);
+
+    if (!id) {
+      id =
+        "guest_" +
+        (
+          window.crypto &&
+          typeof window.crypto.randomUUID === "function"
+            ? window.crypto.randomUUID()
+            : Date.now() + "_" + Math.random().toString(36).slice(2)
+        );
+
+      localStorage.setItem(GUEST_KEY, id);
+    }
+
+    return id;
+  }
+
+  async function recordVisit() {
+    try {
+      const now = Date.now();
+      const lastSent = Number(localStorage.getItem(LAST_VISIT_KEY) || 0);
+
+      if (now - lastSent < THROTTLE_MS) {
+        return;
+      }
+
+      const response = await fetch(
+        "https://wbikkbndoaqjqrbolbuw.supabase.co/rest/v1/rpc/record_site_visit",
+        {
+          method: "POST",
+          headers: {
+            apikey: "sb_publishable_Z251FafeuejV3jgVgXZFow_W_PLAcTC",
+            Authorization: "Bearer sb_publishable_Z251FafeuejV3jgVgXZFow_W_PLAcTC",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            p_visitor_id: getGuestId(),
+            p_path: location.pathname || "/"
+          })
+        }
+      );
+
+      if (response.ok) {
+        localStorage.setItem(LAST_VISIT_KEY, String(now));
+      }
+    }
+    catch (error) {
+      console.warn("MAGIST visit tracker error:", error);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", recordVisit, { once: true });
+  }
+  else {
+    recordVisit();
+  }
+})();
+</script>
+
+</body>
         </html>
       `);
     }
