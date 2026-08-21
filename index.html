@@ -3210,65 +3210,138 @@ footer{
 </style>
 
 
-<style id="magist-free-analytics-style">
-.magist-analytics-box{
+<style id="magist-manual-analytics-style">
+.manual-analytics{
   border:1px solid rgba(16,17,22,.08);
-  border-radius:22px;
-  background:rgba(255,255,255,.82);
+  border-radius:24px;
+  background:rgba(255,255,255,.9);
   padding:20px;
-  box-shadow:0 10px 32px rgba(30,25,80,.055);
+  box-shadow:0 14px 34px rgba(35,30,90,.06);
 }
-.magist-analytics-stats{
+.manual-analytics-grid{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:10px;
+}
+.manual-score-card{
+  border:1px solid rgba(16,17,22,.08);
+  border-radius:16px;
+  background:#fff;
+  padding:14px;
+}
+.manual-score-card label{
+  display:block;
+  font-size:11px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+.manual-score-wrap{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.manual-score-wrap input{
+  width:100%;
+  min-width:0;
+  border:1px solid rgba(16,17,22,.12);
+  border-radius:12px;
+  padding:10px 11px;
+  font-size:15px;
+  font-weight:900;
+  outline:none;
+}
+.manual-score-wrap span{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:900;
+  white-space:nowrap;
+}
+.manual-analytics-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:14px;
+}
+.manual-analytics-results{
+  margin-top:16px;
+}
+.manual-summary-grid{
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
   gap:10px;
-  margin-bottom:14px;
+  margin-bottom:12px;
 }
-.magist-analytics-stat{
-  border:1px solid rgba(16,17,22,.07);
+.manual-summary-card{
+  border:1px solid rgba(16,17,22,.08);
   border-radius:16px;
-  background:#fff;
-  padding:15px;
+  background:#fafafd;
+  padding:14px;
 }
-.magist-analytics-stat span{
+.manual-summary-card span{
   display:block;
-  color:#777e8b;
+  color:var(--muted);
   font-size:10px;
   font-weight:800;
 }
-.magist-analytics-stat b{
+.manual-summary-card b{
   display:block;
-  margin-top:7px;
-  font-size:24px;
+  margin-top:6px;
+  font-size:20px;
 }
-.magist-analytics-grid{
+.manual-breakdown{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
 }
-.magist-analytics-panel{
-  border:1px solid rgba(16,17,22,.07);
+.manual-panel{
+  border:1px solid rgba(16,17,22,.08);
   border-radius:16px;
   background:#fff;
   padding:15px;
 }
-.magist-analytics-panel h3{
+.manual-panel h3{
   margin:0 0 10px;
   font-size:15px;
 }
-.magist-analytics-row{
+.manual-row{
   display:flex;
-  align-items:center;
   justify-content:space-between;
   gap:12px;
+  align-items:center;
+  padding:9px 0;
+  border-bottom:1px solid rgba(16,17,22,.06);
+}
+.manual-row:last-child{border-bottom:0}
+.manual-tip{
+  margin-top:12px;
+  border:1px solid rgba(108,92,255,.14);
+  border-radius:16px;
+  background:#f7f5ff;
+  padding:15px;
+}
+.manual-tip b{
+  display:block;
+  margin-bottom:6px;
+}
+.manual-history{
+  margin-top:14px;
+}
+.manual-history-item{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-start;
   padding:10px 0;
   border-bottom:1px solid rgba(16,17,22,.06);
 }
-.magist-analytics-row:last-child{border-bottom:0}
-.magist-analytics-row small{display:block;color:#858b96;margin-top:3px}
-@media(max-width:760px){
-  .magist-analytics-stats{grid-template-columns:repeat(2,1fr)}
-  .magist-analytics-grid{grid-template-columns:1fr}
+.manual-history-item:last-child{border-bottom:0}
+@media(max-width:900px){
+  .manual-analytics-grid{grid-template-columns:repeat(2,1fr)}
+  .manual-summary-grid{grid-template-columns:repeat(2,1fr)}
+  .manual-breakdown{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .manual-analytics-grid{grid-template-columns:1fr}
 }
 </style>
 
@@ -3487,15 +3560,70 @@ footer{
 <section class="main-section" id="analytics">
   <div class="container">
     <div class="section-header">
-      <div class="section-number">02</div>
+      <div class="section-number">AN</div>
       <div>
         <h2>Менің аналитикам</h2>
-        <p>Тіркелусіз. Осы браузерде тапсырылған тегін тесттердің нәтижелері.</p>
+        <p>Тегін тест нәтижелеріңізді енгізіңіз. Тіркелу қажет емес.</p>
       </div>
     </div>
 
-    <div class="magist-analytics-box" id="freeAnalyticsBox">
-      <div class="loading">Нәтижелер жүктелуде...</div>
+    <div class="manual-analytics">
+      <div class="manual-analytics-grid">
+        <div class="manual-score-card">
+          <label>Сыни ойлау</label>
+          <div class="manual-score-wrap">
+            <input id="maCritical" type="number" min="0" max="15" inputmode="numeric" placeholder="0">
+            <span>/ 15</span>
+          </div>
+        </div>
+
+        <div class="manual-score-card">
+          <label>Аналитикалық ойлау</label>
+          <div class="manual-score-wrap">
+            <input id="maAnalytical" type="number" min="0" max="15" inputmode="numeric" placeholder="0">
+            <span>/ 15</span>
+          </div>
+        </div>
+
+        <div class="manual-score-card">
+          <label>Listening</label>
+          <div class="manual-score-wrap">
+            <input id="maListening" type="number" min="0" max="16" inputmode="numeric" placeholder="0">
+            <span>/ 16</span>
+          </div>
+        </div>
+
+        <div class="manual-score-card">
+          <label>Grammar</label>
+          <div class="manual-score-wrap">
+            <input id="maGrammar" type="number" min="0" max="18" inputmode="numeric" placeholder="0">
+            <span>/ 18</span>
+          </div>
+        </div>
+
+        <div class="manual-score-card">
+          <label>Reading</label>
+          <div class="manual-score-wrap">
+            <input id="maReading" type="number" min="0" max="16" inputmode="numeric" placeholder="0">
+            <span>/ 16</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="manual-analytics-actions">
+        <button class="btn" type="button" id="maCalculateBtn">Нәтижені есептеу</button>
+        <button class="btn secondary" type="button" id="maSaveBtn">Нәтижені сақтау</button>
+        <button class="btn secondary" type="button" id="maClearBtn">Тазалау</button>
+      </div>
+
+      <div class="manual-analytics-results" id="maResults"></div>
+
+      <div class="manual-history">
+        <div class="manual-panel">
+          <h3>Сақталған нәтижелер</h3>
+          <div id="maHistory"><div class="empty-state">Әзірге сақталған нәтиже жоқ.</div></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -3505,7 +3633,7 @@ footer{
 
     <div class="section-header">
 
-      <div class="section-number">03</div>
+      <div class="section-number">02</div>
 
       <div>
         <h2 id="paidTitle">Ақылы дайындық</h2>
@@ -4813,7 +4941,7 @@ footer{
             class="card-link"
             target="_blank"
             rel="noopener"
-            href="${escapeHTML(window.MAGIST_BUILD_FREE_TEST_URL ? window.MAGIST_BUILD_FREE_TEST_URL(test.url || "#") : (test.url || "#"))}"
+            href="${escapeHTML(test.url || "#")}"
           >
             ${tr("startTest")}
           </a>
@@ -7811,126 +7939,262 @@ footer{
 </script>
 
 
-<script id="magist-free-analytics-core">
+<script id="magist-manual-analytics-core">
 (function(){
-  const KEY="magist_guest_id";
+  const STORAGE_KEY="magist_manual_analytics_v1";
 
-  function guestId(){
-    let id=localStorage.getItem(KEY);
-    if(!id){
-      id="guest_"+(
-        window.crypto && typeof window.crypto.randomUUID==="function"
-          ? window.crypto.randomUUID()
-          : Date.now()+"_"+Math.random().toString(36).slice(2)
-      );
-      localStorage.setItem(KEY,id);
+  const limits={
+    critical:15,
+    analytical:15,
+    listening:16,
+    grammar:18,
+    reading:16
+  };
+
+  function byId(id){return document.getElementById(id);}
+
+  function readNumber(id,max){
+    const el=byId(id);
+    if(!el) return null;
+    const raw=String(el.value??"").trim();
+    if(raw==="") return null;
+    const n=Number(raw);
+    if(!Number.isFinite(n)) return null;
+    return Math.max(0,Math.min(max,Math.round(n)));
+  }
+
+  function pct(score,max){
+    return Math.round((score/max)*100);
+  }
+
+  function level(percent){
+    if(percent<60) return "low";
+    if(percent<80) return "mid";
+    return "high";
+  }
+
+  function adviceFor(label,percent){
+    const l=level(percent);
+
+    if(label==="Сыни ойлау"){
+      if(l==="low") return "Сыни ойлау нәтижесі төмен. Есептерді шешу жылдамдығын, шартты дұрыс түсінуді және логикалық есептермен жұмыс істеуді көбірек жаттықтырыңыз.";
+      if(l==="mid") return "Сыни ойлау нәтижесі орташа. Тұрақты түрде есеп шығарып, уақытпен жұмыс істеуді бекіткен дұрыс.";
+      return "Сыни ойлау нәтижесі жақсы. Осы деңгейді сақтау үшін аралас есептерді тұрақты орындап отырыңыз.";
     }
-    return id;
-  }
 
-  function buildTestUrl(url){
-    try{
-      const u=new URL(url,location.href);
-      u.searchParams.set("magist_guest",guestId());
-      return u.toString();
-    }catch(_){
-      return url;
+    if(label==="Аналитикалық ойлау"){
+      if(l==="low") return "Аналитикалық ойлау нәтижесі төмен. Мәтіннің негізгі ойын, логикалық байланысты және дұрыс тұжырымды анықтауға көбірек жаттығыңыз.";
+      if(l==="mid") return "Аналитикалық ойлау нәтижесі орташа. Мәтінді мұқият оқып, маңызды ақпаратты тез ажырату дағдысын бекітіңіз.";
+      return "Аналитикалық ойлау нәтижесі жақсы. Мәтінмен жұмыс істеу деңгейіңізді сақтап тұрыңыз.";
     }
+
+    if(label==="Listening"){
+      if(l==="low") return "Listening нәтижесі төмен. Аудионы алдымен жалпы мағына үшін, кейін нақты детальдар үшін қайта тыңдап жаттыққан дұрыс.";
+      if(l==="mid") return "Listening нәтижесі орташа. Уақыт, орын, адам және нақты детальдарды тыңдап табуға көбірек назар аударыңыз.";
+      return "Listening нәтижесі жақсы. Тыңдалымды тұрақты орындап, осы деңгейді сақтаңыз.";
+    }
+
+    if(label==="Grammar"){
+      if(l==="low") return "Grammar нәтижесі төмен. Грамматикалық ережелерді қайталап, әр ережеден кейін қысқа тестпен бекіткен дұрыс.";
+      if(l==="mid") return "Grammar нәтижесі орташа. Қате кететін ережелерді қайталап, аралас грамматикалық тесттерді көбірек орындаңыз.";
+      return "Grammar нәтижесі жақсы. Ережелерді аралас тесттер арқылы қайталап тұру жеткілікті.";
+    }
+
+    if(label==="Reading"){
+      if(l==="low") return "Reading нәтижесі төмен. Мәтіннен негізгі ойды, нақты ақпаратты және контекстегі мағынаны табуға көбірек жаттығыңыз.";
+      if(l==="mid") return "Reading нәтижесі орташа. Мәтінді жылдам оқып, маңызды детальдарды дәл табу дағдысын күшейтіңіз.";
+      return "Reading нәтижесі жақсы. Мәтінді түсіну деңгейіңіз жоғары, осы нәтижені сақтап тұрыңыз.";
+    }
+
+    return "";
   }
 
-  async function rpc(name,payload){
-    const response=await fetch(
-      "https://wbikkbndoaqjqrbolbuw.supabase.co/rest/v1/rpc/"+name,
-      {
-        method:"POST",
-        headers:{
-          apikey:"sb_publishable_Z251FafeuejV3jgVgXZFow_W_PLAcTC",
-          Authorization:"Bearer sb_publishable_Z251FafeuejV3jgVgXZFow_W_PLAcTC",
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify(payload||{})
-      }
-    );
-    if(!response.ok) throw new Error(name+": "+response.status);
-    return await response.json();
+  function collect(){
+    const data={
+      critical:readNumber("maCritical",15),
+      analytical:readNumber("maAnalytical",15),
+      listening:readNumber("maListening",16),
+      grammar:readNumber("maGrammar",18),
+      reading:readNumber("maReading",16)
+    };
+
+    if(Object.values(data).some(v=>v===null)){
+      return {ok:false};
+    }
+
+    data.english=data.listening+data.grammar+data.reading;
+    data.total=data.critical+data.analytical+data.english;
+    data.totalMax=80;
+
+    return {ok:true,data};
   }
 
-  function esc(v){
-    return String(v??"").replace(/[&<>"']/g,c=>({
-      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-    }[c]));
-  }
+  function render(data){
+    const items=[
+      {key:"critical",label:"Сыни ойлау",score:data.critical,max:15},
+      {key:"analytical",label:"Аналитикалық ойлау",score:data.analytical,max:15},
+      {key:"listening",label:"Listening",score:data.listening,max:16},
+      {key:"grammar",label:"Grammar",score:data.grammar,max:18},
+      {key:"reading",label:"Reading",score:data.reading,max:16}
+    ].map(x=>({...x,percent:pct(x.score,x.max)}));
 
-  async function renderAnalytics(){
-    const box=document.getElementById("freeAnalyticsBox");
-    if(!box) return;
+    const strongest=items.slice().sort((a,b)=>b.percent-a.percent)[0];
+    const weakest=items.slice().sort((a,b)=>a.percent-b.percent)[0];
+    const overallPct=Math.round((data.total/data.totalMax)*100);
 
-    try{
-      const data=await rpc("get_free_test_analytics",{p_visitor_id:guestId()});
+    byId("maResults").innerHTML=`
+      <div class="manual-summary-grid">
+        <div class="manual-summary-card"><span>Жалпы нәтиже</span><b>${data.total} / ${data.totalMax}</b></div>
+        <div class="manual-summary-card"><span>Жалпы пайыз</span><b>${overallPct}%</b></div>
+        <div class="manual-summary-card"><span>Ағылшын тілі</span><b>${data.english} / 50</b></div>
+        <div class="manual-summary-card"><span>Көбірек дайындалу керек</span><b style="font-size:14px">${weakest.label}</b></div>
+      </div>
 
-      if(!data || data.success!==true || !data.total_attempts){
-        box.innerHTML=`
-          <div class="empty-state">
-            Әзірге нәтиже жоқ. Тегін тест тапсырып болғаннан кейін нәтижелер осы жерде автоматты түрде шығады.
-          </div>`;
-        return;
-      }
-
-      const categories=Array.isArray(data.categories)?data.categories:[];
-      const latest=Array.isArray(data.latest_results)?data.latest_results:[];
-
-      box.innerHTML=`
-        <div class="magist-analytics-stats">
-          <div class="magist-analytics-stat"><span>Тапсырылған тест</span><b>${Number(data.total_attempts||0)}</b></div>
-          <div class="magist-analytics-stat"><span>Орташа нәтиже</span><b>${Math.round(Number(data.average_percentage||0))}%</b></div>
-          <div class="magist-analytics-stat"><span>Ең жоғары нәтиже</span><b>${Math.round(Number(data.best_percentage||0))}%</b></div>
-          <div class="magist-analytics-stat"><span>Соңғы нәтиже</span><b>${Math.round(Number(data.last_percentage||0))}%</b></div>
+      <div class="manual-breakdown">
+        <div class="manual-panel">
+          <h3>Бөлімдер бойынша</h3>
+          ${items.map(x=>`
+            <div class="manual-row">
+              <div>
+                <b>${x.label}</b>
+                <div class="cabinet-sub">${x.score} / ${x.max}</div>
+              </div>
+              <b>${x.percent}%</b>
+            </div>
+          `).join("")}
         </div>
 
-        <div class="magist-analytics-grid">
-          <div class="magist-analytics-panel">
-            <h3>Пәндер бойынша</h3>
-            ${
-              categories.length
-                ? categories.map(x=>`
-                  <div class="magist-analytics-row">
-                    <div><b>${esc(x.category||"Тест")}</b><small>${Number(x.attempts||0)} тест</small></div>
-                    <b>${Math.round(Number(x.average_percentage||0))}%</b>
-                  </div>`).join("")
-                : '<div class="empty-state">Әзірге дерек жоқ.</div>'
-            }
+        <div class="manual-panel">
+          <h3>Қысқаша талдау</h3>
+          <div class="manual-row">
+            <span>Күшті бөлім</span>
+            <b>${strongest.label} · ${strongest.percent}%</b>
           </div>
+          <div class="manual-row">
+            <span>Әлсіз бөлім</span>
+            <b>${weakest.label} · ${weakest.percent}%</b>
+          </div>
+          <div class="manual-row">
+            <span>English</span>
+            <b>${data.english} / 50 · ${Math.round(data.english/50*100)}%</b>
+          </div>
+        </div>
+      </div>
 
-          <div class="magist-analytics-panel">
-            <h3>Соңғы нәтижелер</h3>
-            ${
-              latest.length
-                ? latest.map(x=>`
-                  <div class="magist-analytics-row">
-                    <div><b>${esc(x.test_title||"Тегін тест")}</b><small>${esc(x.category||"")}</small></div>
-                    <div style="text-align:right"><b>${Math.round(Number(x.percentage||0))}%</b><small>${Number(x.score||0)}/${Number(x.max_score||0)}</small></div>
-                  </div>`).join("")
-                : '<div class="empty-state">Әзірге дерек жоқ.</div>'
-            }
-          </div>
-        </div>`;
-    }catch(error){
-      console.warn("Free analytics unavailable:",error);
-      box.innerHTML='<div class="empty-state">Аналитика уақытша қолжетімсіз.</div>';
-    }
+      <div class="manual-tip">
+        <b>Дайындық бойынша ұсыныс</b>
+        ${adviceFor(weakest.label,weakest.percent)}
+      </div>
+    `;
+
+    return {overallPct,strongest,weakest};
   }
 
-  window.MAGIST_GUEST_ID=guestId;
-  window.MAGIST_BUILD_FREE_TEST_URL=buildTestUrl;
-  window.MAGIST_REFRESH_FREE_ANALYTICS=renderAnalytics;
+  function loadHistory(){
+    try{
+      const arr=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");
+      return Array.isArray(arr)?arr:[];
+    }catch(_){return [];}
+  }
+
+  function saveHistory(arr){
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(arr.slice(-30)));
+  }
+
+  function renderHistory(){
+    const host=byId("maHistory");
+    if(!host) return;
+    const arr=loadHistory().slice().reverse();
+
+    if(!arr.length){
+      host.innerHTML='<div class="empty-state">Әзірге сақталған нәтиже жоқ.</div>';
+      return;
+    }
+
+    host.innerHTML=arr.map((x,i)=>`
+      <div class="manual-history-item">
+        <div>
+          <b>${x.total}/80 · ${x.overallPct}%</b>
+          <div class="cabinet-sub">
+            Сыни ${x.critical}/15 · Аналитикалық ${x.analytical}/15 ·
+            Listening ${x.listening}/16 · Grammar ${x.grammar}/18 · Reading ${x.reading}/16
+          </div>
+        </div>
+        <div style="text-align:right">
+          <b>English ${x.english}/50</b>
+          <div class="cabinet-sub">${new Date(x.createdAt).toLocaleDateString("kk-KZ")}</div>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  function calculate(){
+    const result=collect();
+    if(!result.ok){
+      byId("maResults").innerHTML='<div class="empty-state">Барлық 5 бөлімнің балын енгізіңіз.</div>';
+      return null;
+    }
+    render(result.data);
+    return result.data;
+  }
+
+  function save(){
+    const data=calculate();
+    if(!data) return;
+
+    const overallPct=Math.round((data.total/data.totalMax)*100);
+    const arr=loadHistory();
+
+    arr.push({
+      ...data,
+      overallPct,
+      createdAt:new Date().toISOString()
+    });
+
+    saveHistory(arr);
+    renderHistory();
+
+    byId("maResults").insertAdjacentHTML(
+      "beforeend",
+      '<div style="margin-top:10px;font-size:12px;font-weight:900;color:#16a34a">✓ Нәтиже осы браузерде сақталды.</div>'
+    );
+  }
+
+  function clearInputs(){
+    ["maCritical","maAnalytical","maListening","maGrammar","maReading"].forEach(id=>{
+      const el=byId(id);
+      if(el) el.value="";
+    });
+    if(byId("maResults")) byId("maResults").innerHTML="";
+  }
+
+  function init(){
+    renderHistory();
+
+    byId("maCalculateBtn")?.addEventListener("click",calculate);
+    byId("maSaveBtn")?.addEventListener("click",save);
+    byId("maClearBtn")?.addEventListener("click",clearInputs);
+
+    [
+      ["maCritical",15],
+      ["maAnalytical",15],
+      ["maListening",16],
+      ["maGrammar",18],
+      ["maReading",16]
+    ].forEach(([id,max])=>{
+      byId(id)?.addEventListener("input",e=>{
+        let v=Number(e.target.value);
+        if(Number.isFinite(v) && v>max) e.target.value=max;
+        if(Number.isFinite(v) && v<0) e.target.value=0;
+      });
+    });
+  }
 
   if(document.readyState==="loading"){
-    document.addEventListener("DOMContentLoaded",renderAnalytics,{once:true});
+    document.addEventListener("DOMContentLoaded",init,{once:true});
   }else{
-    renderAnalytics();
+    init();
   }
-
-  window.addEventListener("focus",renderAnalytics);
 })();
 </script>
 
