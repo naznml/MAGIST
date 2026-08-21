@@ -3209,6 +3209,69 @@ footer{
 }
 </style>
 
+
+<style id="magist-free-analytics-style">
+.magist-analytics-box{
+  border:1px solid rgba(16,17,22,.08);
+  border-radius:22px;
+  background:rgba(255,255,255,.82);
+  padding:20px;
+  box-shadow:0 10px 32px rgba(30,25,80,.055);
+}
+.magist-analytics-stats{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin-bottom:14px;
+}
+.magist-analytics-stat{
+  border:1px solid rgba(16,17,22,.07);
+  border-radius:16px;
+  background:#fff;
+  padding:15px;
+}
+.magist-analytics-stat span{
+  display:block;
+  color:#777e8b;
+  font-size:10px;
+  font-weight:800;
+}
+.magist-analytics-stat b{
+  display:block;
+  margin-top:7px;
+  font-size:24px;
+}
+.magist-analytics-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.magist-analytics-panel{
+  border:1px solid rgba(16,17,22,.07);
+  border-radius:16px;
+  background:#fff;
+  padding:15px;
+}
+.magist-analytics-panel h3{
+  margin:0 0 10px;
+  font-size:15px;
+}
+.magist-analytics-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 0;
+  border-bottom:1px solid rgba(16,17,22,.06);
+}
+.magist-analytics-row:last-child{border-bottom:0}
+.magist-analytics-row small{display:block;color:#858b96;margin-top:3px}
+@media(max-width:760px){
+  .magist-analytics-stats{grid-template-columns:repeat(2,1fr)}
+  .magist-analytics-grid{grid-template-columns:1fr}
+}
+</style>
+
 </head>
 
 <body>
@@ -3246,7 +3309,8 @@ footer{
     <nav>
       <a href="#free" id="navFree">Тегін</a>
       <a href="#paid" id="navPaid">Ақылы</a>
-      <a href="#reviews" id="navReviews">Отзывы және нәтиже</a>
+      <a href="#analytics">Аналитика</a>
+        <a href="#reviews" id="navReviews">Отзывы және нәтиже</a>
       <a href="#kt" id="navKt">КТ құрылымы</a>
       <a href="#grant" id="navGrant">Грант</a>
     </nav>
@@ -3419,12 +3483,29 @@ footer{
 
 <!-- PAID -->
 
+
+<section class="main-section" id="analytics">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">02</div>
+      <div>
+        <h2>Менің аналитикам</h2>
+        <p>Тіркелусіз. Осы браузерде тапсырылған тегін тесттердің нәтижелері.</p>
+      </div>
+    </div>
+
+    <div class="magist-analytics-box" id="freeAnalyticsBox">
+      <div class="loading">Нәтижелер жүктелуде...</div>
+    </div>
+  </div>
+</section>
+
 <section class="main-section" id="paid">
 <div class="container">
 
     <div class="section-header">
 
-      <div class="section-number">02</div>
+      <div class="section-number">03</div>
 
       <div>
         <h2 id="paidTitle">Ақылы дайындық</h2>
@@ -4732,7 +4813,7 @@ footer{
             class="card-link"
             target="_blank"
             rel="noopener"
-            href="${escapeHTML(test.url || "#")}"
+            href="${escapeHTML(window.MAGIST_BUILD_FREE_TEST_URL ? window.MAGIST_BUILD_FREE_TEST_URL(test.url || "#") : (test.url || "#"))}"
           >
             ${tr("startTest")}
           </a>
@@ -7726,6 +7807,130 @@ footer{
   } else {
     recordVisit();
   }
+})();
+</script>
+
+
+<script id="magist-free-analytics-core">
+(function(){
+  const KEY="magist_guest_id";
+
+  function guestId(){
+    let id=localStorage.getItem(KEY);
+    if(!id){
+      id="guest_"+(
+        window.crypto && typeof window.crypto.randomUUID==="function"
+          ? window.crypto.randomUUID()
+          : Date.now()+"_"+Math.random().toString(36).slice(2)
+      );
+      localStorage.setItem(KEY,id);
+    }
+    return id;
+  }
+
+  function buildTestUrl(url){
+    try{
+      const u=new URL(url,location.href);
+      u.searchParams.set("magist_guest",guestId());
+      return u.toString();
+    }catch(_){
+      return url;
+    }
+  }
+
+  async function rpc(name,payload){
+    const response=await fetch(
+      "https://wbikkbndoaqjqrbolbuw.supabase.co/rest/v1/rpc/"+name,
+      {
+        method:"POST",
+        headers:{
+          apikey:"sb_publishable_Z251FafeuejV3jgVgXZFow_W_PLAcTC",
+          Authorization:"Bearer sb_publishable_Z251FafeuejV3jgVgXZFow_W_PLAcTC",
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify(payload||{})
+      }
+    );
+    if(!response.ok) throw new Error(name+": "+response.status);
+    return await response.json();
+  }
+
+  function esc(v){
+    return String(v??"").replace(/[&<>"']/g,c=>({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    }[c]));
+  }
+
+  async function renderAnalytics(){
+    const box=document.getElementById("freeAnalyticsBox");
+    if(!box) return;
+
+    try{
+      const data=await rpc("get_free_test_analytics",{p_visitor_id:guestId()});
+
+      if(!data || data.success!==true || !data.total_attempts){
+        box.innerHTML=`
+          <div class="empty-state">
+            Әзірге нәтиже жоқ. Тегін тест тапсырып болғаннан кейін нәтижелер осы жерде автоматты түрде шығады.
+          </div>`;
+        return;
+      }
+
+      const categories=Array.isArray(data.categories)?data.categories:[];
+      const latest=Array.isArray(data.latest_results)?data.latest_results:[];
+
+      box.innerHTML=`
+        <div class="magist-analytics-stats">
+          <div class="magist-analytics-stat"><span>Тапсырылған тест</span><b>${Number(data.total_attempts||0)}</b></div>
+          <div class="magist-analytics-stat"><span>Орташа нәтиже</span><b>${Math.round(Number(data.average_percentage||0))}%</b></div>
+          <div class="magist-analytics-stat"><span>Ең жоғары нәтиже</span><b>${Math.round(Number(data.best_percentage||0))}%</b></div>
+          <div class="magist-analytics-stat"><span>Соңғы нәтиже</span><b>${Math.round(Number(data.last_percentage||0))}%</b></div>
+        </div>
+
+        <div class="magist-analytics-grid">
+          <div class="magist-analytics-panel">
+            <h3>Пәндер бойынша</h3>
+            ${
+              categories.length
+                ? categories.map(x=>`
+                  <div class="magist-analytics-row">
+                    <div><b>${esc(x.category||"Тест")}</b><small>${Number(x.attempts||0)} тест</small></div>
+                    <b>${Math.round(Number(x.average_percentage||0))}%</b>
+                  </div>`).join("")
+                : '<div class="empty-state">Әзірге дерек жоқ.</div>'
+            }
+          </div>
+
+          <div class="magist-analytics-panel">
+            <h3>Соңғы нәтижелер</h3>
+            ${
+              latest.length
+                ? latest.map(x=>`
+                  <div class="magist-analytics-row">
+                    <div><b>${esc(x.test_title||"Тегін тест")}</b><small>${esc(x.category||"")}</small></div>
+                    <div style="text-align:right"><b>${Math.round(Number(x.percentage||0))}%</b><small>${Number(x.score||0)}/${Number(x.max_score||0)}</small></div>
+                  </div>`).join("")
+                : '<div class="empty-state">Әзірге дерек жоқ.</div>'
+            }
+          </div>
+        </div>`;
+    }catch(error){
+      console.warn("Free analytics unavailable:",error);
+      box.innerHTML='<div class="empty-state">Аналитика уақытша қолжетімсіз.</div>';
+    }
+  }
+
+  window.MAGIST_GUEST_ID=guestId;
+  window.MAGIST_BUILD_FREE_TEST_URL=buildTestUrl;
+  window.MAGIST_REFRESH_FREE_ANALYTICS=renderAnalytics;
+
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",renderAnalytics,{once:true});
+  }else{
+    renderAnalytics();
+  }
+
+  window.addEventListener("focus",renderAnalytics);
 })();
 </script>
 
