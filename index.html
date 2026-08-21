@@ -3222,135 +3222,11 @@ footer{
 </style>
 
 
-<style id="magist-real-material-titles-fix">
-/* Real book/site names from paid_course_materials.title */
-#courseModal .course-hero-panel{
-  min-height:0!important;
-  height:auto!important;
-  padding:15px 17px!important;
-  margin-bottom:16px!important;
-}
-#courseModal .course-hero-main h2{
-  font-size:22px!important;
-  line-height:1.2!important;
-  margin-bottom:5px!important;
-}
-#courseModal .course-description{
-  font-size:11px!important;
-  line-height:1.45!important;
-  margin-bottom:0!important;
-}
-
-/* No oversized material cards */
-#courseModal .materials-card-grid{
-  display:block!important;
-  grid-template-columns:none!important;
-  gap:0!important;
-  width:100%!important;
-  overflow:hidden!important;
-  border:1px solid #e4e7ed!important;
-  border-radius:14px!important;
-  background:#fff!important;
-}
-#courseModal .material{
-  width:100%!important;
-  height:auto!important;
-  min-height:0!important;
-  max-height:none!important;
-  margin:0!important;
-  padding:13px 15px!important;
-  overflow:visible!important;
-  border:0!important;
-  border-bottom:1px solid #eceef2!important;
-  border-radius:0!important;
-  background:#fff!important;
-  display:grid!important;
-  grid-template-columns:38px minmax(0,1fr) auto!important;
-  align-items:center!important;
-  gap:12px!important;
-  box-shadow:none!important;
-  transform:none!important;
-}
-#courseModal .material:last-child{border-bottom:0!important}
-#courseModal .material:hover{background:#fafaff!important;transform:none!important;box-shadow:none!important}
-
-#courseModal .material-index{
-  width:30px;
-  height:30px;
-  display:grid;
-  place-items:center;
-  border-radius:8px;
-  background:#f1efff;
-  color:#6558e8;
-  font-size:9px;
-  font-weight:950;
-}
-#courseModal .material-info{
-  min-width:0!important;
-  display:block!important;
-}
-#courseModal .material-title{
-  display:block!important;
-  visibility:visible!important;
-  opacity:1!important;
-  min-height:0!important;
-  max-height:none!important;
-  height:auto!important;
-  overflow:visible!important;
-  white-space:normal!important;
-  -webkit-line-clamp:unset!important;
-  -webkit-box-orient:initial!important;
-  color:#14161c!important;
-  font-size:13px!important;
-  line-height:1.42!important;
-  font-weight:900!important;
-}
-#courseModal .material-code-sub{
-  margin-top:4px;
-  color:#9a9faa;
-  font-size:8px;
-  font-weight:800;
-  letter-spacing:.03em;
-}
-#courseModal .material-kindline{margin:0 0 5px!important}
-#courseModal .material-actions{
-  width:auto!important;
-  min-width:max-content!important;
-  min-height:0!important;
-  height:auto!important;
-  margin:0!important;
-  display:flex!important;
-  align-items:center!important;
-}
-#courseModal .material-open-button,
-#courseModal .material-actions a{
-  height:34px!important;
-  min-height:34px!important;
-  padding:0 11px!important;
-  font-size:9px!important;
-  border-radius:9px!important;
-}
-
-/* Remove duplicated inner back row; outer LMS toolbar stays */
-#courseModal .course-workspace-topbar{display:none!important}
-#courseModal .course-fixed-zone{
-  min-height:0!important;
-  height:auto!important;
-  margin-bottom:10px!important;
-  padding-bottom:6px!important;
-}
-
-@media(max-width:760px){
-  #courseModal .material{
-    grid-template-columns:32px minmax(0,1fr)!important;
-  }
-  #courseModal .material-actions{
-    grid-column:2!important;
-    justify-content:flex-start!important;
-    width:100%!important;
-    margin-top:5px!important;
-  }
-}
+<style id="magist-paid-notice-style">
+.magist-paid-notice{margin:0 0 22px;padding:18px 20px;border:1px solid #ddd8ff;border-radius:18px;background:linear-gradient(135deg,#faf9ff 0%,#f5f2ff 100%);box-shadow:0 10px 28px rgba(88,72,210,.06)}
+.magist-paid-notice-title{display:flex;align-items:center;gap:8px;margin-bottom:8px;color:#4f43c8;font-size:12px;font-weight:950;letter-spacing:.02em}
+.magist-paid-notice p{margin:0;color:#555b68;font-size:13px;line-height:1.6}
+.magist-paid-notice strong{display:block;margin-top:8px;color:#2e276f;font-size:13px;line-height:1.55}
 </style>
 
 </head>
@@ -3360,7 +3236,10 @@ footer{
 <script>
 (function(){
   const h = String(location.hostname || "").toLowerCase();
-  if (h.endsWith(".vercel.app") && h !== "magist.online") {
+  if (
+    h !== "magist.online" &&
+    (h.endsWith(".vercel.app") || h === "www.magist.online")
+  ) {
     location.replace(
       "https://magist.online" +
       location.pathname +
@@ -3394,7 +3273,8 @@ footer{
       <a href="#reviews" id="navReviews">Отзывы және нәтиже</a>
       <a href="#kt" id="navKt">КТ құрылымы</a>
       <a href="#grant" id="navGrant">Грант</a>
-    </nav>
+      <a href="#free-analytics">Аналитика</a>
+</nav>
 
     <div class="header-actions">
       <div class="lang-switch">
@@ -3564,7 +3444,30 @@ footer{
 
 <!-- PAID -->
 
+
+<section class="main-section" id="free-analytics">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">AN</div>
+      <div>
+        <h2>Аналитика</h2>
+        <p>Тіркелусіз. Осы браузерде тапсырылған тегін тесттердің нәтижелері бір жерде сақталады.</p>
+      </div>
+    </div>
+    <div id="freeAnalyticsPanel" class="grant-box">
+      <div class="loading">Әзірге нәтиже жоқ. Тегін тест тапсырып көріңіз.</div>
+    </div>
+  </div>
+</section>
+
 <section class="main-section" id="paid">
+
+<div class="magist-paid-notice">
+  <div class="magist-paid-notice-title">Маңызды ақпарат</div>
+  <p>Ақылы материалдар ҰТО бекіткен әдебиеттер мен тақырыптар негізінде жасалған. Бұл КТ-да дәл осы сұрақтар келеді деген кепілдік емес.</p>
+  <strong>Дегенмен, пайдаланушылардың кері байланысы бойынша, дайындық сайттарындағы тесттерге ұқсас сұрақтар КТ барысында көп кездескен.</strong>
+</div>
+
 
   <div class="container">
 
@@ -5335,7 +5238,21 @@ footer{
   }
 
   function getDeviceID() {
-    let id = localStorage.getItem("magist_device_id");
+    const STORAGE_KEY = "magist_device_id";
+    const COOKIE_KEY = "magist_device_id";
+
+    let id = localStorage.getItem(STORAGE_KEY);
+
+    if (!id) {
+      const match = document.cookie.match(
+        new RegExp("(?:^|; )" + COOKIE_KEY + "=([^;]*)")
+      );
+      if (match) {
+        id = decodeURIComponent(match[1]);
+        localStorage.setItem(STORAGE_KEY, id);
+      }
+    }
+
     if (!id) {
       id =
         "dev_" +
@@ -5345,8 +5262,18 @@ footer{
             ? window.crypto.randomUUID()
             : Date.now() + "_" + Math.random().toString(36).slice(2)
         );
-      localStorage.setItem("magist_device_id", id);
+
+      localStorage.setItem(STORAGE_KEY, id);
     }
+
+    document.cookie =
+      COOKIE_KEY +
+      "=" +
+      encodeURIComponent(id) +
+      "; Max-Age=" +
+      (60 * 60 * 24 * 548) +
+      "; Path=/; SameSite=Lax; Secure";
+
     return id;
   }
 
@@ -5662,18 +5589,6 @@ footer{
     if(type==="trial"||title.includes("пробный")||title.includes("variant")||title.includes("нұсқа")) return {key:"test",kk:"Тест",ru:"Тест"};
     if(title.includes("кітап")||title.includes("книга")||title.includes("book")||material?.file_url) return {key:"book",kk:"Кітап",ru:"Книга"};
     return {key:"material",kk:"Материал",ru:"Материал"};
-  }
-
-  function getMaterialDisplayTitle(material){
-    const candidates = [
-      material?.title,
-      material?.name,
-      material?.material_name,
-      material?.label,
-      material?.material_code
-    ];
-    const found = candidates.find(v => String(v ?? "").trim());
-    return String(found || (CURRENT_UI_LANGUAGE === "ru" ? "Без названия" : "Атауы жоқ")).trim();
   }
 
   function getCourseSummaryChips(code){
@@ -6391,7 +6306,7 @@ footer{
 
       const cardsHTML =
         meta.sectionMaterials
-          .map((material, materialIndex) => {
+          .map(material => {
 
             const lowerTitle =
               String(material.title || "")
@@ -6406,30 +6321,28 @@ footer{
                       : ""
                   );
 
-            const materialKind = getMaterialKind(material);
-            const displayTitle = getMaterialDisplayTitle(material);
-
             return `
               <div class="material ${specialClass}">
-                <div class="material-index">${String(materialIndex + 1).padStart(2, "0")}</div>
-
-                <div class="material-info">
+                <div>
                   ${
-                    materialKind.key !== "material"
-                      ? `<div class="material-kindline">
-                          <span class="material-kind ${materialKind.key}">
-                            ${escapeHTML(CURRENT_UI_LANGUAGE === "ru" ? materialKind.ru : materialKind.kk)}
-                          </span>
+                    (material.material_type || "material") === "trial"
+                      ? `<div class="my-course-code" style="margin-bottom:8px">
+                          ${CURRENT_UI_LANGUAGE === "ru" ? "ПРОБНЫЙ ТЕСТ" : "ПРОБНЫЙ ТЕСТ"}
                         </div>`
                       : ""
                   }
 
-                  <div class="material-title" title="${escapeHTML(displayTitle)}">
-                    ${escapeHTML(displayTitle)}
+                  <div class="material-kindline">
+                    ${(()=>{const k=getMaterialKind(material);return `<span class="material-kind ${k.key}">${escapeHTML(CURRENT_UI_LANGUAGE === "ru" ? k.ru : k.kk)}</span>`;})()}
                   </div>
 
-                  <div class="material-code-sub">
-                    ${escapeHTML(material.material_code || "")}
+                  <div class="material-title">
+                    ${escapeHTML(
+                      material.title ||
+                      (CURRENT_LANGUAGE === "ru"
+                        ? "Материал"
+                        : "Материал")
+                    )}
                   </div>
                 </div>
 
@@ -6443,7 +6356,7 @@ footer{
                           onclick='openTrackedMaterial(
                             ${JSON.stringify(material.url)},
                             ${JSON.stringify(CURRENT_COURSE.code)},
-                            ${JSON.stringify(displayTitle)}
+                            ${JSON.stringify(material.title || "")}
                           )' 
                         >
                           ${openLabel}
@@ -7728,6 +7641,126 @@ footer{
 
 
 
+
+
+<script id="magist-free-analytics-core">
+(function(){
+  const GUEST_KEY = "magist_guest_id";
+  const RESULTS_KEY = "magist_free_results_v1";
+
+  function getGuestId(){
+    let id = localStorage.getItem(GUEST_KEY);
+    if(!id){
+      id = "guest_" + (
+        window.crypto && typeof window.crypto.randomUUID === "function"
+          ? window.crypto.randomUUID()
+          : Date.now() + "_" + Math.random().toString(36).slice(2)
+      );
+      localStorage.setItem(GUEST_KEY,id);
+    }
+    return id;
+  }
+
+  function loadResults(){
+    try{
+      const data = JSON.parse(localStorage.getItem(RESULTS_KEY) || "[]");
+      return Array.isArray(data) ? data : [];
+    }catch(_){ return []; }
+  }
+
+  function saveResult(payload){
+    if(!payload || typeof payload !== "object") return false;
+    const score = Number(payload.score);
+    const maxScore = Number(payload.max_score ?? payload.maxScore);
+    if(!Number.isFinite(score) || !Number.isFinite(maxScore) || maxScore <= 0) return false;
+
+    const row = {
+      guest_id: getGuestId(),
+      test_code: String(payload.test_code || payload.testCode || "FREE_TEST"),
+      test_title: String(payload.test_title || payload.testTitle || "Тегін тест"),
+      category: String(payload.category || payload.course_code || payload.courseCode || "FREE"),
+      score,
+      max_score: maxScore,
+      percentage: Number.isFinite(Number(payload.percentage))
+        ? Number(payload.percentage)
+        : Math.round((score / maxScore) * 100),
+      created_at: payload.created_at || new Date().toISOString()
+    };
+
+    const rows = loadResults();
+    rows.push(row);
+    localStorage.setItem(RESULTS_KEY, JSON.stringify(rows.slice(-300)));
+    window.dispatchEvent(new CustomEvent("magist-free-analytics-updated"));
+    return true;
+  }
+
+  window.MAGIST_FREE_ANALYTICS = { getGuestId, loadResults, saveResult };
+
+  window.addEventListener("message", function(event){
+    const data = event.data;
+    if(!data || typeof data !== "object") return;
+    if(data.type === "MAGIST_FREE_TEST_RESULT"){
+      saveResult(data.payload || data);
+    }
+  });
+})();
+</script>
+
+
+<script id="magist-free-analytics-ui">
+(function(){
+  function esc(v){
+    return String(v ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+  }
+
+  function render(){
+    const host=document.getElementById("freeAnalyticsPanel");
+    if(!host||!window.MAGIST_FREE_ANALYTICS)return;
+    const rows=window.MAGIST_FREE_ANALYTICS.loadResults();
+
+    if(!rows.length){
+      host.innerHTML='<div class="empty-state">Әзірге нәтиже жоқ. Алдымен тегін тест тапсырып көріңіз.</div>';
+      return;
+    }
+
+    const avg=Math.round(rows.reduce((s,r)=>s+Number(r.percentage||0),0)/rows.length);
+    const best=Math.max(...rows.map(r=>Number(r.percentage||0)));
+    const latest=rows.slice().reverse().slice(0,8);
+    const byCategory={};
+
+    rows.forEach(r=>{
+      const k=r.category||"FREE";
+      (byCategory[k] ||= []).push(Number(r.percentage||0));
+    });
+
+    const categoryHTML=Object.entries(byCategory).map(([k,vals])=>{
+      const a=Math.round(vals.reduce((s,v)=>s+v,0)/vals.length);
+      return `<div class="dashboard-row"><div><b>${esc(k)}</b><div class="cabinet-sub">${vals.length} тест</div></div><div><b>${a}%</b></div></div>`;
+    }).join("");
+
+    const latestHTML=latest.map(r=>`
+      <div class="dashboard-row">
+        <div><b>${esc(r.test_title)}</b><div class="cabinet-sub">${esc(r.category)}</div></div>
+        <div style="text-align:right"><b>${Number(r.percentage||0)}%</b><div class="cabinet-sub">${r.score}/${r.max_score}</div></div>
+      </div>`).join("");
+
+    host.innerHTML=`
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">Тапсырылған тест</div><div class="stat-value">${rows.length}</div></div>
+        <div class="stat-card"><div class="stat-label">Орташа нәтиже</div><div class="stat-value">${avg}%</div></div>
+        <div class="stat-card"><div class="stat-label">Ең жоғары нәтиже</div><div class="stat-value">${best}%</div></div>
+        <div class="stat-card"><div class="stat-label">Профиль</div><div class="stat-value" style="font-size:13px">${esc(window.MAGIST_FREE_ANALYTICS.getGuestId().slice(0,18))}</div></div>
+      </div>
+      <div class="dashboard-grid">
+        <div class="dashboard-panel"><h3>Пәндер бойынша</h3>${categoryHTML}</div>
+        <div class="dashboard-panel"><h3>Соңғы нәтижелер</h3>${latestHTML}</div>
+      </div>`;
+  }
+
+  document.addEventListener("DOMContentLoaded",render);
+  window.addEventListener("magist-free-analytics-updated",render);
+})();
+</script>
 
 </body>
 </html>
