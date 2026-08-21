@@ -3196,11 +3196,6 @@ footer{
     }
 
 </style>
-
-<style id="magist-paid-note-merged-style">
-.paid-access-note p strong{color:#302970;font-weight:950}
-</style>
-
 </head>
 
 <body>
@@ -3412,7 +3407,15 @@ footer{
 <!-- PAID -->
 
 <section class="main-section" id="paid">
-<div class="container">
+
+<div class="magist-paid-notice">
+  <div class="magist-paid-notice-title">Маңызды ақпарат</div>
+  <p>Ақылы материалдар ҰТО бекіткен әдебиеттер мен тақырыптар негізінде жасалған. Бұл КТ-да дәл осы сұрақтар келеді деген кепілдік емес.</p>
+  <strong>Дегенмен, пайдаланушылардың кері байланысы бойынша, дайындық сайттарындағы тесттерге ұқсас сұрақтар КТ барысында көп кездескен.</strong>
+</div>
+
+
+  <div class="container">
 
     <div class="section-header">
 
@@ -3439,13 +3442,7 @@ footer{
       <div class="paid-access-note-icon">!</div>
       <div>
         <b id="paidAccessNoteTitle">Ақылы материалдар жеке пайдалануға арналған.</b>
-        <p id="paidAccessNoteText">
-          Қолжетімділік мерзімі — <strong>18 ай (1,5 жыл)</strong>. Материалдарды сатуға, таратуға және басқа тұлғаларға беруге болмайды.
-          <br><br>
-          <strong>Маңызды ақпарат:</strong> Ақылы материалдар ҰТО бекіткен әдебиеттер мен тақырыптар негізінде жасалған. Бұл КТ-да дәл осы сұрақтар келеді деген кепілдік емес.
-          <br>
-          <strong>Дегенмен, пайдаланушылардың кері байланысы бойынша, дайындық сайттарындағы тесттерге ұқсас сұрақтар КТ барысында көп кездескен.</strong>
-        </p>
+        <p id="paidAccessNoteText">Қолжетімділік мерзімі — 18 ай (1,5 жыл). Материалдарды сатуға, таратуға және басқа тұлғаларға беруге болмайды.</p>
       </div>
     </div>
 
@@ -5963,6 +5960,36 @@ footer{
           <head>
             <meta charset="utf-8">
             <title>MAGIST</title>
+          
+<style id="magist-paid-notice-safe-style">
+.magist-paid-notice{
+  margin:0 0 20px;
+  padding:16px 18px;
+  border:1px solid #ddd8ff;
+  border-radius:16px;
+  background:#f7f5ff;
+}
+.magist-paid-notice-title{
+  margin-bottom:7px;
+  color:#5d50d6;
+  font-size:12px;
+  font-weight:950;
+}
+.magist-paid-notice p{
+  margin:0;
+  color:#555b68;
+  font-size:12px;
+  line-height:1.6;
+}
+.magist-paid-notice strong{
+  display:block;
+  margin-top:8px;
+  color:#2f286f;
+  font-size:12px;
+  line-height:1.55;
+}
+</style>
+
 </head>
           <body style="font-family:Arial,sans-serif;padding:30px">
             ${escapeHTML(tr("openingMaterial"))}
