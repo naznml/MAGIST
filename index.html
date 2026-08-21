@@ -3353,6 +3353,12 @@ footer{
 }
 </style>
 
+
+<style id="magist-public-analytics-style">
+#analytics{scroll-margin-top:90px}.analytics-shell{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);gap:18px}.analytics-card{background:#fff;border:1px solid #e6e8ef;border-radius:20px;padding:20px;box-shadow:0 10px 32px rgba(26,24,45,.045)}.analytics-card h3{margin:0 0 5px;font-size:18px}.analytics-muted{color:var(--muted);font-size:11px;line-height:1.55}.analytics-inputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}.analytics-field{padding:12px;border:1px solid #ececf2;border-radius:14px;background:#fafafd}.analytics-field label{display:flex;justify-content:space-between;gap:10px;margin-bottom:7px;font-size:10px;font-weight:900}.analytics-field input{width:100%;height:42px;border:1px solid #dfe2e8;border-radius:10px;padding:0 12px;background:#fff;font:inherit;font-weight:850;outline:none}.analytics-field input:focus{border-color:#7567f6;box-shadow:0 0 0 3px rgba(108,92,255,.08)}.analytics-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.analytics-btn{border:0;border-radius:11px;min-height:40px;padding:0 14px;font-size:10px;font-weight:950;cursor:pointer;background:#17181d;color:#fff}.analytics-btn.secondary{background:#f1efff;color:#6557e8}.analytics-total{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:17px;border-radius:17px;background:linear-gradient(135deg,#f3f0ff,#fbfbff);border:1px solid rgba(108,92,255,.12)}.analytics-total span{font-size:10px;color:var(--muted);font-weight:800}.analytics-total b{font-size:31px;line-height:1}.analytics-bars{display:grid;gap:10px;margin-top:16px}.analytics-bar-head{display:flex;justify-content:space-between;gap:12px;font-size:10px;font-weight:850;margin-bottom:5px}.analytics-track{height:7px;border-radius:999px;background:#ececf2;overflow:hidden}.analytics-fill{height:100%;border-radius:999px;background:#6c5cff;width:0;transition:width .25s ease}.analytics-insights{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}.analytics-insight{padding:12px;border:1px solid #ececf2;border-radius:13px}.analytics-insight span{display:block;color:var(--muted);font-size:9px;font-weight:850;margin-bottom:4px}.analytics-insight b{font-size:12px}.analytics-recommendation{margin-top:10px;padding:12px 14px;border-radius:13px;background:#fafafd;font-size:10px;line-height:1.55}.analytics-history{margin-top:18px}.analytics-history-list{display:grid;gap:8px;margin-top:10px}.analytics-history-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:11px 12px;border:1px solid #ececf2;border-radius:13px;background:#fff}.analytics-history-row small{color:var(--muted);font-size:9px}.analytics-history-row b{font-size:12px}.analytics-delta{font-size:10px;font-weight:950}.analytics-empty{padding:15px;text-align:center;color:var(--muted);font-size:10px;border:1px dashed #dfe2e8;border-radius:13px}.analytics-note{margin-top:10px;font-size:9px;color:var(--muted)}
+@media(max-width:820px){.analytics-shell{grid-template-columns:1fr}.analytics-inputs{grid-template-columns:1fr}.analytics-insights{grid-template-columns:1fr 1fr}}
+</style>
+
 </head>
 
 <body>
@@ -3390,6 +3396,7 @@ footer{
     <nav>
       <a href="#free" id="navFree">Тегін</a>
       <a href="#paid" id="navPaid">Ақылы</a>
+      <a href="#analytics" id="navAnalytics">Аналитика</a>
       <a href="#pricing" id="navPricing">Бағалар</a>
       <a href="#reviews" id="navReviews">Отзывы және нәтиже</a>
       <a href="#kt" id="navKt">КТ құрылымы</a>
@@ -3498,6 +3505,35 @@ footer{
 
   </div>
 </div>
+
+
+
+<section class="main-section" id="analytics">
+  <div class="container">
+    <div class="section-header"><div class="section-number">02</div><div><h2 id="analyticsTitle">Нәтиже аналитикасы</h2><p id="analyticsDesc">Тегін тест нәтижелеріңізді енгізіп, бөлімдер бойынша көрсеткіш пен прогресті бақылаңыз.</p></div></div>
+    <div class="analytics-shell">
+      <div class="analytics-card">
+        <h3 id="analyticsInputTitle">Нәтижелерді енгізу</h3><div class="analytics-muted" id="analyticsInputText">Әр бөлім бойынша жинаған балыңызды жазыңыз.</div>
+        <div class="analytics-inputs">
+          <div class="analytics-field"><label><span id="anCriticalLabel">Сыни ойлау</span><span>/15</span></label><input id="anCritical" type="number" min="0" max="15" inputmode="numeric" placeholder="0–15"></div>
+          <div class="analytics-field"><label><span id="anAnalyticalLabel">Аналитикалық ойлау</span><span>/15</span></label><input id="anAnalytical" type="number" min="0" max="15" inputmode="numeric" placeholder="0–15"></div>
+          <div class="analytics-field"><label><span>Listening</span><span>/16</span></label><input id="anListening" type="number" min="0" max="16" inputmode="numeric" placeholder="0–16"></div>
+          <div class="analytics-field"><label><span>Grammar</span><span>/18</span></label><input id="anGrammar" type="number" min="0" max="18" inputmode="numeric" placeholder="0–18"></div>
+          <div class="analytics-field"><label><span>Reading</span><span>/16</span></label><input id="anReading" type="number" min="0" max="16" inputmode="numeric" placeholder="0–16"></div>
+        </div>
+        <div class="analytics-actions"><button class="analytics-btn" id="analyticsCalcBtn" onclick="calculatePublicAnalytics()">Талдау</button><button class="analytics-btn secondary" id="analyticsSaveBtn" onclick="savePublicAnalytics()">Нәтижені сақтау</button></div>
+        <div class="analytics-note" id="analyticsPrivacy">Тарих тек осы браузерде сақталады.</div>
+      </div>
+      <div class="analytics-card">
+        <div class="analytics-total"><div><span id="analyticsTotalLabel">Жалпы нәтиже</span><div class="analytics-muted"><span id="analyticsEnglishLabel">Ағылшын тілі</span>: <b id="anEnglishTotal" style="font-size:12px">0/50</b></div></div><b id="anGrandTotal">0/80</b></div>
+        <div class="analytics-bars" id="analyticsBars"></div>
+        <div class="analytics-insights"><div class="analytics-insight"><span id="analyticsStrongLabel">Ең күшті бөлім</span><b id="anStrong">—</b></div><div class="analytics-insight"><span id="analyticsWeakLabel">Назар аударатын бөлім</span><b id="anWeak">—</b></div></div>
+        <div class="analytics-recommendation" id="anRecommendation">Нәтижелерді енгізгеннен кейін қысқаша ұсыныс шығады.</div>
+      </div>
+    </div>
+    <div class="analytics-card analytics-history"><h3 id="analyticsHistoryTitle">Нәтижелер тарихы</h3><div class="analytics-muted" id="analyticsHistoryText">Әр сақталған нәтиже алдыңғы көрсеткішпен салыстырылады.</div><div class="analytics-history-list" id="analyticsHistoryList"></div></div>
+  </div>
+</section>
 
 
 <!-- FREE -->
@@ -4615,6 +4651,10 @@ footer{
       "quickGrantTitle","quickGrantText","freeDesc","paidDesc","freeProtectionTitle","freeProtectionText","reviewsDesc",
       "ktDesc","ktMainTitle","ktSectionsTitle","contactDesc"
     ].forEach(id => setText(id, id));
+
+    if (typeof refreshPublicAnalyticsLanguage === "function") refreshPublicAnalyticsLanguage();
+    const navAnalytics = document.getElementById("navAnalytics");
+    if (navAnalytics) navAnalytics.textContent = CURRENT_UI_LANGUAGE === "ru" ? "Аналитика" : "Аналитика";
 
     updateAccountButton();
 
@@ -7728,6 +7768,23 @@ footer{
 
 
 
+
+
+<script id="magist-public-analytics-script">
+(function(){
+ const KEY='magist_public_analytics_history_v1';
+ const fields=[['critical','anCritical',15,'Сыни ойлау','Критическое мышление'],['analytical','anAnalytical',15,'Аналитикалық ойлау','Аналитическое мышление'],['listening','anListening',16,'Listening','Listening'],['grammar','anGrammar',18,'Grammar','Grammar'],['reading','anReading',16,'Reading','Reading']];
+ function ru(){return window.CURRENT_UI_LANGUAGE==='ru'}
+ function txt(kk,rv){return ru()?rv:kk}
+ function values(){const o={};for(const [k,id,max] of fields){const el=document.getElementById(id);let v=Number(el?.value||0);if(!Number.isFinite(v))v=0;v=Math.max(0,Math.min(max,v));if(el&&el.value!=='')el.value=v;o[k]=v}return o}
+ function stats(v){const english=v.listening+v.grammar+v.reading,total=v.critical+v.analytical+english;const rows=fields.map(([k,,max,kk,rv])=>({k,max,name:txt(kk,rv),value:v[k],pct:Math.round(v[k]/max*100)}));return{english,total,rows,strong:[...rows].sort((a,b)=>b.pct-a.pct)[0],weak:[...rows].sort((a,b)=>a.pct-b.pct)[0]}}
+ window.calculatePublicAnalytics=function(){const v=values(),s=stats(v);document.getElementById('anEnglishTotal').textContent=s.english+'/50';document.getElementById('anGrandTotal').textContent=s.total+'/80';document.getElementById('anStrong').textContent=s.strong.name+' · '+s.strong.pct+'%';document.getElementById('anWeak').textContent=s.weak.name+' · '+s.weak.pct+'%';document.getElementById('analyticsBars').innerHTML=s.rows.map(x=>`<div><div class="analytics-bar-head"><span>${x.name}</span><span>${x.value}/${x.max} · ${x.pct}%</span></div><div class="analytics-track"><div class="analytics-fill" style="width:${x.pct}%"></div></div></div>`).join('');let rec=s.total===0?txt('Нәтижелерді енгізгеннен кейін қысқаша ұсыныс шығады.','После ввода результатов появится краткая рекомендация.'):s.weak.pct<50?txt(`${s.weak.name} бөліміне көбірек назар аударыңыз. Алдымен әлсіз бөлімді көтеріп, кейін жалпы нәтижені қайта салыстырыңыз.`,`Уделите больше внимания разделу «${s.weak.name}». Сначала подтяните слабый блок, затем снова сравните общий результат.`):s.total<60?txt('Нәтиже жаман емес. Ең төмен пайыз көрсеткен бөлімді күшейтіп, тұрақты түрде қайта тест тапсырыңыз.','Результат неплохой. Усильте блок с самым низким процентом и регулярно проходите тесты повторно.'):txt('Жалпы нәтиже жоғары. Қазір негізгі мақсат — әлсіз бөлімдегі ұпай жоғалтуды азайтып, нәтижені тұрақтандыру.','Общий результат высокий. Сейчас главная цель — уменьшить потерю баллов в слабом блоке и стабилизировать результат.');document.getElementById('anRecommendation').textContent=rec;return{v,s}}
+ window.savePublicAnalytics=function(){const r=calculatePublicAnalytics();if(r.s.total===0){alert(txt('Кемінде бір нәтиже енгізіңіз.','Введите хотя бы один результат.'));return}let h=[];try{h=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}h.push({date:new Date().toISOString(),...r.v,english:r.s.english,total:r.s.total});h=h.slice(-20);localStorage.setItem(KEY,JSON.stringify(h));renderHistory()}
+ function renderHistory(){const host=document.getElementById('analyticsHistoryList');if(!host)return;let h=[];try{h=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}if(!h.length){host.innerHTML=`<div class="analytics-empty">${txt('Әзірге сақталған нәтиже жоқ.','Пока нет сохранённых результатов.')}</div>`;return}host.innerHTML=[...h].reverse().map((x,revIndex)=>{const i=h.length-1-revIndex,prev=i>0?h[i-1]:null,delta=prev?x.total-prev.total:null;const ds=new Date(x.date).toLocaleString(ru()?'ru-RU':'kk-KZ',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});return `<div class="analytics-history-row"><div><b>${x.total}/80</b><br><small>${ds} · ${txt('Ағылшын','Английский')} ${x.english}/50</small></div><b>${Math.round(x.total/80*100)}%</b><span class="analytics-delta">${delta===null?'—':(delta>0?'+':'')+delta}</span></div>`}).join('')}
+ function localize(){const map={analyticsTitle:['Нәтиже аналитикасы','Аналитика результатов'],analyticsDesc:['Тегін тест нәтижелеріңізді енгізіп, бөлімдер бойынша көрсеткіш пен прогресті бақылаңыз.','Введите результаты бесплатных тестов и отслеживайте показатели и прогресс по блокам.'],analyticsInputTitle:['Нәтижелерді енгізу','Введите результаты'],analyticsInputText:['Әр бөлім бойынша жинаған балыңызды жазыңыз.','Укажите набранные баллы по каждому блоку.'],anCriticalLabel:['Сыни ойлау','Критическое мышление'],anAnalyticalLabel:['Аналитикалық ойлау','Аналитическое мышление'],analyticsCalcBtn:['Талдау','Анализировать'],analyticsSaveBtn:['Нәтижені сақтау','Сохранить результат'],analyticsPrivacy:['Тарих тек осы браузерде сақталады.','История хранится только в этом браузере.'],analyticsTotalLabel:['Жалпы нәтиже','Общий результат'],analyticsEnglishLabel:['Ағылшын тілі','Английский язык'],analyticsStrongLabel:['Ең күшті бөлім','Самый сильный блок'],analyticsWeakLabel:['Назар аударатын бөлім','Требует внимания'],analyticsHistoryTitle:['Нәтижелер тарихы','История результатов'],analyticsHistoryText:['Әр сақталған нәтиже алдыңғы көрсеткішпен салыстырылады.','Каждый сохранённый результат сравнивается с предыдущим.']};for(const [id,a] of Object.entries(map)){const e=document.getElementById(id);if(e)e.textContent=txt(a[0],a[1])}calculatePublicAnalytics();renderHistory()}
+ window.refreshPublicAnalyticsLanguage=localize;document.addEventListener('DOMContentLoaded',localize);setTimeout(localize,0);
+})();
+</script>
 
 </body>
 </html>
