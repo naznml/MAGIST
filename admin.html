@@ -39,6 +39,14 @@ th,td{text-align:left;padding:11px;border-bottom:1px solid #eff0f4;font-size:12p
     .admin-expiry-box{margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:14px;background:#fbfaff}
 .admin-expiry-actions,.admin-expiry-date{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
 .admin-expiry-date input{max-width:190px}
+
+.visit-stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.visit-stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
+.visit-stat span{display:block;color:var(--muted);font-size:10px;font-weight:800;line-height:1.35}
+.visit-stat b{display:block;margin-top:7px;font-size:25px}
+@media(max-width:1000px){.visit-stats{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.visit-stats{grid-template-columns:repeat(2,1fr)}}
+
 </style>
 </head>
 <body>
@@ -75,6 +83,23 @@ th,td{text-align:left;padding:11px;border-bottom:1px solid #eff0f4;font-size:12p
       <div class="card stat"><span class="muted">Активных доступов</span><b id="statActive">0</b></div>
       <div class="card stat"><span class="muted">Подключено устройств</span><b id="statDevices">0</b></div>
       <div class="card stat"><span class="muted">Выдано курсов</span><b id="statCourseAccess">0</b></div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <h3 style="margin:0">Статистика платформы</h3>
+          <div class="muted" style="margin-top:4px">Уникальные браузеры/посетители. Обновляется при нажатии «Обновить».</div>
+        </div>
+      </div>
+      <div class="visit-stats">
+        <div class="visit-stat"><span>Сейчас · 15 минут</span><b id="visitOnline">0</b></div>
+        <div class="visit-stat"><span>Уникальных сегодня</span><b id="visitToday">0</b></div>
+        <div class="visit-stat"><span>За 7 дней</span><b id="visit7d">0</b></div>
+        <div class="visit-stat"><span>За 30 дней</span><b id="visit30d">0</b></div>
+        <div class="visit-stat"><span>Всего уникальных</span><b id="visitAll">0</b></div>
+        <div class="visit-stat"><span>Открытий сегодня</span><b id="visitViewsToday">0</b></div>
+      </div>
     </div>
 
     <div class="section">
@@ -161,16 +186,23 @@ async function loadCourseCatalog(){
 }
 async function loadAll(){
  try{
-  const [d,c,e]=await Promise.all([
+  const [d,c,e,v]=await Promise.all([
     adminRpc("admin_get_dashboard"),
     adminRpc("admin_list_customers"),
-    adminRpc("admin_get_expiry_list")
+    adminRpc("admin_get_expiry_list"),
+    adminRpc("admin_get_visit_stats")
   ]);
-  if(d?.success===false||c?.success===false||e?.success===false)throw new Error(d?.message||c?.message||e?.message);
+  if(d?.success===false||c?.success===false||e?.success===false||v?.success===false)throw new Error(d?.message||c?.message||e?.message||v?.message);
   const expiryMap=Object.fromEntries((e.items||[]).map(x=>[x.code,x.expires_at]));
   DASHBOARD=d;
   CUSTOMERS=(c.customers||[]).map(x=>({...x,expires_at:expiryMap[x.code]||null}));
   statCustomers.textContent=d.customers||0;statActive.textContent=d.active_customers||0;statDevices.textContent=d.devices||0;statCourseAccess.textContent=d.course_accesses||0;
+  visitOnline.textContent=v.online_15m||0;
+  visitToday.textContent=v.unique_today||0;
+  visit7d.textContent=v.unique_7d||0;
+  visit30d.textContent=v.unique_30d||0;
+  visitAll.textContent=v.unique_all||0;
+  visitViewsToday.textContent=v.page_views_today||0;
   renderCourseStats();renderCustomers();await loadCourseCatalog()
  }catch(e){console.error(e);alert("Не удалось загрузить админ-панель. Проверьте Console.")}
 }
