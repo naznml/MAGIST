@@ -5245,12 +5245,23 @@ footer{
 
   function renderPaidCourses() {
 
-    const full =
+    const fullRaw =
       PAID_COURSES.filter(
         course =>
           !String(course.code || "")
             .includes("TRIAL")
       );
+
+    // Keep only the first card for each course code.
+    // This removes the duplicate second M072 "Менеджмент" card.
+    const seenFullCourseCodes = new Set();
+    const full = fullRaw.filter(course => {
+      const code = String(course.code || "").trim().toUpperCase();
+      if (!code) return true;
+      if (seenFullCourseCodes.has(code)) return false;
+      seenFullCourseCodes.add(code);
+      return true;
+    });
 
 
     const trials =
