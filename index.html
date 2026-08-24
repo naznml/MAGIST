@@ -3508,6 +3508,18 @@ footer{
   .quick-card{min-height:112px!important;padding:14px!important;}
 }
 </style>
+
+<style>
+.course-preview-video{
+  width:100%;
+  display:block;
+  margin-top:10px;
+  border-radius:14px;
+  background:#000;
+  max-height:430px;
+}
+</style>
+
 </head>
 
 <body>
@@ -5596,7 +5608,7 @@ footer{
             ].filter(Boolean);
             const videoUrl = course.video_url || candidates.map(key => COURSE_VIDEO_URLS[key]).find(Boolean);
             return videoUrl
-              ? `<a class="card-link" href="${escapeHTML(videoUrl)}" target="_blank" rel="noopener">${tr("watchVideo")}</a>`
+              ? `<video class="course-preview-video" controls playsinline preload="metadata" src="${escapeHTML(videoUrl)}"></video>`
               : `<div class="access-muted">${tr("videoSoon")}</div>`;
           })()}
         </div>
