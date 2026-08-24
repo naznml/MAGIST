@@ -3751,6 +3751,31 @@ body{
 }
 </style>
 
+
+<style id="magist-quick-seven-cards">
+.quick-grid{
+  grid-template-columns:repeat(7,minmax(0,1fr))!important;
+  gap:9px!important;
+}
+.quick-card{
+  min-height:118px!important;
+  padding:14px!important;
+}
+.quick-card h3{
+  margin-top:18px!important;
+  font-size:13px!important;
+}
+.quick-card p{
+  font-size:9.5px!important;
+}
+@media(max-width:1180px){
+  .quick-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;}
+}
+@media(max-width:760px){
+  .quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+}
+</style>
+
 </head>
 
 <body>
@@ -3877,26 +3902,32 @@ body{
       <p id="quickPaidText">Курстар және пробный тесттер.</p>
     </a>
 
-    <a href="#reviews" class="quick-card">
+    <a href="#pricing" class="quick-card">
       <span class="quick-number">03</span>
+      <h3 id="quickPricingTitle">Бағалар</h3>
+      <p id="quickPricingText">Курстар мен пакеттердің бағалары.</p>
+    </a>
+
+    <a href="#reviews" class="quick-card">
+      <span class="quick-number">04</span>
       <h3 id="quickReviewsTitle">Отзывы және нәтиже</h3>
-      <p id="quickReviewsText">Кері байланыстар мен баллдары.</p>
+      <p id="quickReviewsText">Кері байланыстар мен нәтижелер.</p>
     </a>
 
     <a href="#grant" class="quick-card">
-      <span class="quick-number">04</span>
+      <span class="quick-number">05</span>
       <h3 id="quickGrantTitle">Грант мүмкіндігі</h3>
       <p id="quickGrantText">2026 нәтижелерімен салыстыру.</p>
     </a>
 
     <a href="#kt" class="quick-card">
-      <span class="quick-number">05</span>
+      <span class="quick-number">06</span>
       <h3 id="quickKtTitle">КТ құрылымы</h3>
       <p id="quickKtText">Сұрақтар, балл және шекті балл.</p>
     </a>
 
     <a href="#analytics" class="quick-card analytics-quick">
-      <span class="quick-number">06</span>
+      <span class="quick-number">07</span>
       <h3>Нәтиже аналитикасы</h3>
       <p>5 бөлім бойынша балл енгізіп, прогресті бақылау.</p>
     </a>
@@ -5483,17 +5514,28 @@ body{
             .includes("TRIAL")
       );
 
-    // Keep only the first card for each course code.
-    // This removes the duplicate second M072 "Менеджмент" card.
     const seenFullCourseCodes = new Set();
+    let managementShown = false;
+
     const full = fullRaw.filter(course => {
       const code = String(course.code || "").trim().toUpperCase();
-      if (!code) return true;
-      if (seenFullCourseCodes.has(code)) return false;
-      seenFullCourseCodes.add(code);
+      const title = String(course.title || course.title_kk || course.title_ru || "").toLowerCase();
+
+      // Remove the second Management card even if it comes with a duplicate/alternate row.
+      const isManagement = code === "M072" || title.includes("менеджмент") || title.includes("management");
+      if (isManagement) {
+        if (managementShown) return false;
+        managementShown = true;
+      }
+
+      // Also prevent ordinary duplicate course codes.
+      if (code) {
+        if (seenFullCourseCodes.has(code)) return false;
+        seenFullCourseCodes.add(code);
+      }
+
       return true;
     });
-
 
     const trials =
       PAID_COURSES.filter(
@@ -5502,18 +5544,8 @@ body{
             .includes("TRIAL")
       );
 
-
-    renderCourseGroup(
-      full,
-      "fullCourses"
-    );
-
-
-    renderCourseGroup(
-      trials,
-      "trialCourses"
-    );
-
+    renderCourseGroup(full, "fullCourses");
+    renderCourseGroup(trials, "trialCourses");
   }
 
 
