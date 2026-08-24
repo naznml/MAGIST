@@ -5,51 +5,85 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAGIST Admin</title>
 <style>
-:root{--bg:#f6f7fb;--card:#fff;--text:#17191f;--muted:#777e8b;--line:#e6e8ee;--danger:#c63f59;--ok:#16845f}
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
-button,input,select,textarea{font:inherit}.wrap{max-width:1250px;margin:auto;padding:24px}
+:root{
+  --bg:#f6f7fb;--card:#fff;--text:#17191f;--muted:#777e8b;--line:#e6e8ee;
+  --danger:#c63f59;--danger-bg:#fff1f3;--ok:#16845f;--ok-bg:#eefaf5;
+  --accent:#6758f5;--shadow:0 10px 30px rgba(30,32,50,.06)
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.wrap{max-width:1280px;margin:auto;padding:24px}
 .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:22px}
-.brand{font-weight:900;font-size:24px}.muted{color:var(--muted);font-size:12px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat b{font-size:28px;display:block;margin-top:6px}
-.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:11px;padding:10px 13px;font-weight:800;cursor:pointer}
-.btn.primary{background:#17191f;color:white}.btn.light{background:white;border:1px solid var(--line)}
-.btn.danger{background:#fff1f3;color:var(--danger);border:1px solid #ffd7df}.btn.ok{background:#eefaf5;color:var(--ok);border:1px solid #cdeee0}
+.brand{font-weight:900;font-size:24px}
+.muted{color:var(--muted);font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat b{font-size:28px;display:block;margin-top:6px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:11px;padding:10px 13px;font-weight:800}
+.btn.primary{background:#17191f;color:white}
+.btn.light{background:white;border:1px solid var(--line)}
+.btn.danger{background:var(--danger-bg);color:var(--danger);border:1px solid #ffd7df}
+.btn.ok{background:var(--ok-bg);color:var(--ok);border:1px solid #cdeee0}
+.btn:disabled{opacity:.55;cursor:not-allowed}
 input,select,textarea{width:100%;border:1px solid var(--line);border-radius:11px;padding:11px;background:white}
-label{font-size:12px;font-weight:800;display:block;margin-bottom:7px}.course-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;max-height:260px;overflow:auto}
-.course-choice{border:1px solid var(--line);border-radius:11px;padding:9px;background:#fafbfc;font-size:12px}.course-choice input{width:auto;margin-right:7px}
-.section{margin-top:18px}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
-.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}table{width:100%;border-collapse:collapse;background:white;min-width:900px}
-th,td{text-align:left;padding:11px;border-bottom:1px solid #eff0f4;font-size:12px;vertical-align:top}th{background:#fafbfc;font-size:11px}
-.code{font-family:monospace;font-weight:900}.pill{display:inline-block;border-radius:999px;padding:5px 8px;background:#f2f3f7;margin:2px;font-size:10px;font-weight:800}
-.pill.ok{background:#edf9f4;color:var(--ok)}.pill.bad{background:#fff1f3;color:var(--danger)}
-.login-shell{min-height:100vh;display:grid;place-items:center;padding:20px}.login-box{width:min(440px,100%)}.message{min-height:18px;margin-top:9px;font-size:12px}
-.hidden{display:none!important}.course-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.course-stat{border:1px solid var(--line);border-radius:12px;padding:11px;background:#fff}.course-stat b{display:block;font-size:20px;margin-top:4px}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;padding:18px;z-index:99}.modal.open{display:flex}
-.modal-card{background:#fff;width:min(620px,100%);max-height:90vh;overflow:auto;border-radius:18px;padding:20px}.modal-head{display:flex;justify-content:space-between;gap:10px;align-items:center}
+label{font-size:12px;font-weight:800;display:block;margin-bottom:7px}
+.section{margin-top:18px}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;background:white;min-width:980px}
+th,td{text-align:left;padding:11px;border-bottom:1px solid #eff0f4;font-size:12px;vertical-align:top}
+th{background:#fafbfc;font-size:11px}
+.code{font-family:monospace;font-weight:900}
+.pill{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:5px 8px;background:#f2f3f7;margin:2px;font-size:10px;font-weight:800}
+.pill.ok{background:#edf9f4;color:var(--ok)}
+.pill.bad{background:#fff1f3;color:var(--danger)}
+.login-shell{min-height:100vh;display:grid;place-items:center;padding:20px}
+.login-box{width:min(440px,100%)}
+.message{min-height:18px;margin-top:9px;font-size:12px}
+.hidden{display:none!important}
+.course-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.course-stat{border:1px solid var(--line);border-radius:12px;padding:11px;background:#fff}
+.course-stat b{display:block;font-size:20px;margin-top:4px}
+.course-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;max-height:290px;overflow:auto}
+.course-choice{border:1px solid var(--line);border-radius:11px;padding:9px;background:#fafbfc;font-size:12px}
+.course-choice input{width:auto;margin-right:7px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.42);display:none;align-items:center;justify-content:center;padding:18px;z-index:99}
+.modal.open{display:flex}
+.modal-card{background:#fff;width:min(680px,100%);max-height:90vh;overflow:auto;border-radius:18px;padding:20px;box-shadow:0 30px 80px rgba(0,0,0,.16)}
+.modal-head{display:flex;justify-content:space-between;gap:10px;align-items:center}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:800px){.grid4,.course-stats{grid-template-columns:repeat(2,1fr)}.course-grid{grid-template-columns:1fr}.row{grid-template-columns:1fr}}
-
-.admin-note-preview{max-width:210px;white-space:normal;line-height:1.35;font-size:11px}
-.note-link{border:0;background:none;padding:4px 0;color:#5f54d9;font-size:10px;font-weight:800;cursor:pointer}
-.admin-personal-note{margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:14px;background:#fafbfc}
-.admin-personal-note textarea{resize:vertical;min-height:90px}
-
-    .admin-expiry-box{margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:14px;background:#fbfaff}
+.admin-personal-note,.admin-expiry-box,.danger-zone{margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:14px;background:#fafbfc}
+.admin-expiry-box{background:#fbfaff}
+.danger-zone{border-color:#ffd7df;background:#fff8f9}
+.danger-zone h4{margin:0 0 6px;color:var(--danger)}
 .admin-expiry-actions,.admin-expiry-date{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
 .admin-expiry-date input{max-width:190px}
-
 .visit-stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
 .visit-stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
 .visit-stat span{display:block;color:var(--muted);font-size:10px;font-weight:800;line-height:1.35}
 .visit-stat b{display:block;margin-top:7px;font-size:25px}
-@media(max-width:1000px){.visit-stats{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:600px){.visit-stats{grid-template-columns:repeat(2,1fr)}}
-
+.status-line{margin-top:7px;font-size:11px}
+@media(max-width:1000px){
+  .visit-stats{grid-template-columns:repeat(3,1fr)}
+  .course-stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:800px){
+  .grid4{grid-template-columns:repeat(2,1fr)}
+  .course-grid{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr}
+  .topbar{align-items:flex-start;flex-direction:column}
+}
+@media(max-width:600px){
+  .visit-stats{grid-template-columns:repeat(2,1fr)}
+  .wrap{padding:14px}
+}
 </style>
 </head>
 <body>
+
 <div id="loginView" class="login-shell">
   <div class="card login-box">
     <h1>MAGIST Admin</h1>
@@ -114,7 +148,7 @@ th,td{text-align:left;padding:11px;border-bottom:1px solid #eff0f4;font-size:12p
       </div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Покупатель</th><th>MAG-код</th><th>Курсы</th><th>Устройства</th><th>Статус</th><th>Доступ до</th><th>Мои заметки</th><th>Дата</th><th>Действия</th></tr></thead>
+          <thead><tr><th>Покупатель</th><th>MAG-код</th><th>Курсы</th><th>Устройства</th><th>Статус</th><th>Доступ до</th><th>Заметки</th><th>Дата</th><th>Действия</th></tr></thead>
           <tbody id="customersBody"></tbody>
         </table>
       </div>
@@ -146,6 +180,7 @@ th,td{text-align:left;padding:11px;border-bottom:1px solid #eff0f4;font-size:12p
 <script>
 const SUPABASE_URL = "https://wbikkbndoaqjqrbolbuw.supabase.co";
 const SUPABASE_KEY = "sb_publishable_Z251FafeuejV3jgVgXZFow_W_PLAcTC";
+
 let AUTH=null,CUSTOMERS=[],DASHBOARD=null,COURSE_CATALOG=[];
 
 const FALLBACK_COURSES=[
@@ -155,179 +190,394 @@ const FALLBACK_COURSES=[
 ["M019_TRIALS","M019 Пробные тесты"],["M021_TRIALS","M021 Пробный тест"],["PED_TAUBAEVA_TRIALS","Таубаева — Педагогика"]
 ];
 
-function tokenHeaders(){return {apikey:SUPABASE_KEY,Authorization:`Bearer ${AUTH?.access_token||SUPABASE_KEY}`,"Content-Type":"application/json"}}
-async function adminLogin(){
- const email=document.getElementById("adminEmail").value.trim(),password=document.getElementById("adminPassword").value,message=document.getElementById("loginMessage");
- message.textContent="Проверяем...";
- try{
-  const r=await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`,{method:"POST",headers:{apikey:SUPABASE_KEY,"Content-Type":"application/json"},body:JSON.stringify({email,password})});
-  const d=await r.json();
-  if(!r.ok||!d.access_token){message.textContent=d.error_description||d.msg||"Неверный email или пароль.";return}
-  AUTH=d;
-  const check=await adminRpc("is_magist_admin",{});
-  if(check!==true){AUTH=null;message.textContent="Этот аккаунт не имеет прав администратора.";return}
-  sessionStorage.setItem("magist_admin_session",JSON.stringify(d));showAdmin();await loadAll();
- }catch(e){console.error(e);message.textContent="Ошибка входа."}
+function tokenHeaders(){
+  return {
+    apikey:SUPABASE_KEY,
+    Authorization:`Bearer ${AUTH?.access_token||SUPABASE_KEY}`,
+    "Content-Type":"application/json"
+  };
 }
-function adminLogout(){sessionStorage.removeItem("magist_admin_session");AUTH=null;document.getElementById("adminView").classList.add("hidden");document.getElementById("loginView").classList.remove("hidden")}
-function showAdmin(){document.getElementById("loginView").classList.add("hidden");document.getElementById("adminView").classList.remove("hidden");document.getElementById("adminIdentity").textContent=AUTH?.user?.email||""}
+
 async function adminRpc(name,payload={}){
- const r=await fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`,{method:"POST",headers:tokenHeaders(),body:JSON.stringify(payload)});
- if(!r.ok)throw new Error(`${name}: ${r.status} ${await r.text()}`);return await r.json()
-}
-async function loadCourseCatalog(){
- try{
-  const r=await fetch(`${SUPABASE_URL}/rest/v1/paid_courses?select=code,title&is_active=eq.true&order=sort_order.asc`,{headers:tokenHeaders()});
-  if(!r.ok)throw new Error("catalog");
-  const rows=await r.json();COURSE_CATALOG=(rows||[]).map(x=>[x.code,x.title||x.code]).filter(x=>x[0]);
-  if(!COURSE_CATALOG.length)throw new Error("empty")
- }catch{COURSE_CATALOG=FALLBACK_COURSES}
- renderCourseChoices()
-}
-async function loadAll(){
- try{
-  const [d,c,e,v]=await Promise.all([
-    adminRpc("admin_get_dashboard"),
-    adminRpc("admin_list_customers"),
-    adminRpc("admin_get_expiry_list"),
-    adminRpc("admin_get_visit_stats")
-  ]);
-  if(d?.success===false||c?.success===false||e?.success===false||v?.success===false)throw new Error(d?.message||c?.message||e?.message||v?.message);
-  const expiryMap=Object.fromEntries((e.items||[]).map(x=>[x.code,x.expires_at]));
-  DASHBOARD=d;
-  CUSTOMERS=(c.customers||[]).map(x=>({...x,expires_at:expiryMap[x.code]||null}));
-  statCustomers.textContent=d.customers||0;statActive.textContent=d.active_customers||0;statDevices.textContent=d.devices||0;statCourseAccess.textContent=d.course_accesses||0;
-  visitOnline.textContent=v.online_15m||0;
-  visitToday.textContent=v.unique_today||0;
-  visit7d.textContent=v.unique_7d||0;
-  visit30d.textContent=v.unique_30d||0;
-  visitAll.textContent=v.unique_all||0;
-  visitViewsToday.textContent=v.page_views_today||0;
-  renderCourseStats();renderCustomers();await loadCourseCatalog()
- }catch(e){console.error(e);alert("Не удалось загрузить админ-панель. Проверьте Console.")}
-}
-function renderCourseStats(){
- const rows=DASHBOARD?.courses||[];courseStats.innerHTML=rows.length?rows.map(x=>`<div class="course-stat"><span class="muted">${escapeHtml(x.course_code)}</span><b>${x.customers||0}</b><span class="muted">покупателей</span></div>`).join(""):'<div class="muted">Пока нет данных.</div>'
-}
-function renderCustomers(){
- const q=customerSearch.value.trim().toLowerCase(),rows=CUSTOMERS.filter(c=>!q||[c.name||"",c.code||"",...(c.courses||[])].join(" ").toLowerCase().includes(q));
- customersBody.innerHTML=rows.length?rows.map(c=>`<tr>
- <td><b>${escapeHtml(c.name||"Имя ещё не указано")}</b>${c.note?`<div class="muted">${escapeHtml(c.note)}</div>`:""}</td>
- <td><span class="code">${escapeHtml(c.code)}</span></td>
- <td>${(c.courses||[]).map(x=>`<span class="pill">${escapeHtml(x)}</span>`).join("")||'<span class="muted">Нет курсов</span>'}</td>
- <td><b>${c.devices_used||0}/${c.max_devices||2}</b></td>
- <td>${c.is_active?'<span class="pill ok">Активен</span>':'<span class="pill bad">Заблокирован</span>'}</td>
- <td><b>${formatDate(c.expires_at)}</b>${c.expires_at&&new Date(c.expires_at)<=new Date()?'<div><span class="pill bad">Истёк</span></div>':''}</td>
- <td><div class="admin-note-preview">${c.note?escapeHtml(c.note):'<span class="muted">Нет заметки</span>'}</div><button class="note-link" onclick="openCustomerModal('${escapeJs(c.code)}')">Изменить</button></td>
- <td>${formatDate(c.created_at)}</td>
- <td><button class="btn light" onclick="openCustomerModal('${escapeJs(c.code)}')">Управление</button></td>
- </tr>`).join(""):'<tr><td colspan="9" class="muted">Ничего не найдено.</td></tr>'
-}
-function renderCourseChoices(selected=[]){
- const src=COURSE_CATALOG.length?COURSE_CATALOG:FALLBACK_COURSES;
- courseChoices.innerHTML=src.map(([code,title])=>`<label class="course-choice"><input type="checkbox" value="${escapeHtml(code)}" ${selected.includes(code)?"checked":""}><b>${escapeHtml(code)}</b><br><span class="muted">${escapeHtml(title)}</span></label>`).join("")
-}
-function openCreateModal(){newMaxDevices.value="2";newNote.value="";createMessage.textContent="";renderCourseChoices([]);createModal.classList.add("open")}
-function closeCreateModal(){createModal.classList.remove("open")}
-async function createAccess(){
- const courses=[...document.querySelectorAll("#courseChoices input:checked")].map(x=>x.value),maxDevices=Number(newMaxDevices.value||2),note=newNote.value.trim()||null;
- if(!courses.length){createMessage.textContent="Выберите хотя бы один курс.";return}
- createMessage.textContent="Создаём...";
- try{
-  const r=await adminRpc("admin_create_access",{p_courses:courses,p_max_devices:maxDevices,p_note:note});
-  if(!r?.success){createMessage.textContent=r?.message||"Не удалось создать доступ.";return}
-  createMessage.innerHTML=`Готово: <span class="code">${escapeHtml(r.code)}</span> <button class="btn light" onclick="copyText('${escapeJs(r.code)}')">Копировать</button>`;
-  await loadAll()
- }catch(e){console.error(e);createMessage.textContent="Ошибка создания доступа."}
-}
-function openCustomerModal(code){
- const c=CUSTOMERS.find(x=>x.code===code);if(!c)return;
- customerModalTitle.textContent=`${c.name||"Покупатель"} · ${c.code}`;
- const available=(COURSE_CATALOG.length?COURSE_CATALOG:FALLBACK_COURSES).filter(([cc])=>!(c.courses||[]).includes(cc));
- customerModalBody.innerHTML=`<div class="card" style="margin-top:12px">
- <div><b>Устройства:</b> ${c.devices_used||0}/${c.max_devices||2}</div>
- <div style="margin-top:8px"><b>Статус:</b> ${c.is_active?"Активен":"Заблокирован"}</div>
- <div style="margin-top:8px"><b>Доступ до:</b> <span id="customerExpiryText">${formatDate(c.expires_at)}</span></div>
- </div>
- <div class="admin-expiry-box">
-   <label>Срок доступа</label>
-   <div class="admin-expiry-actions">
-     <button class="btn light" onclick="extendCustomerAccess('${escapeJs(c.code)}',6)">+6 месяцев</button>
-     <button class="btn light" onclick="extendCustomerAccess('${escapeJs(c.code)}',18)">+18 месяцев</button>
-   </div>
-   <div class="admin-expiry-date">
-     <input id="customerExpiryDate" type="date" value="${toDateInput(c.expires_at)}">
-     <button class="btn light" onclick="setCustomerExpiry('${escapeJs(c.code)}')">Установить дату</button>
-   </div>
-   <div id="customerExpiryMessage" class="muted" style="margin-top:7px"></div>
- </div>
- <div class="admin-personal-note">
-   <label>Мои заметки</label>
-   <textarea id="customerAdminNote" rows="4" placeholder="Например: оплатил 15.08; написать после 20 числа; просил добавить курс...">${escapeHtml(c.note||"")}</textarea>
-   <div style="margin-top:8px"><button class="btn light" onclick="saveCustomerNote('${escapeJs(c.code)}')">Сохранить заметку</button><span id="customerNoteMessage" class="muted" style="margin-left:8px"></span></div>
- </div>
- <div style="margin-top:14px"><label>Купленные курсы</label><div>${(c.courses||[]).map(course=>`<span class="pill">${escapeHtml(course)} <button style="border:0;background:none;cursor:pointer" onclick="removeCourse('${escapeJs(c.code)}','${escapeJs(course)}')">×</button></span>`).join("")||'<span class="muted">Нет курсов</span>'}</div></div>
- <div style="margin-top:14px"><label>Добавить курс</label><select id="addCourseSelect"><option value="">Выберите курс</option>${available.map(([cc,t])=>`<option value="${escapeHtml(cc)}">${escapeHtml(cc)} — ${escapeHtml(t)}</option>`).join("")}</select><button class="btn primary" style="margin-top:8px" onclick="addCourse('${escapeJs(c.code)}')">Добавить</button></div>
- <div class="actions" style="margin-top:18px"><button class="btn light" onclick="copyText('${escapeJs(c.code)}')">Копировать MAG-код</button><button class="btn light" onclick="resetDevices('${escapeJs(c.code)}')">Сбросить устройства</button><button class="btn ${c.is_active?"danger":"ok"}" onclick="setActive('${escapeJs(c.code)}',${!c.is_active})">${c.is_active?"Заблокировать":"Разблокировать"}</button></div>`;
- customerModal.classList.add("open")
-}
-function closeCustomerModal(){customerModal.classList.remove("open")}
-function toDateInput(value){
- if(!value)return"";
- const d=new Date(value);
- if(Number.isNaN(d.getTime()))return"";
- const local=new Date(d.getTime()-d.getTimezoneOffset()*60000);
- return local.toISOString().slice(0,10);
-}
-async function extendCustomerAccess(code,months){
- const msg=document.getElementById("customerExpiryMessage");
- if(msg)msg.textContent="Продлеваем...";
- try{
-  const r=await adminRpc("admin_extend_access",{p_code:code,p_months:months});
-  if(r?.success===false){if(msg)msg.textContent=r.message||"Ошибка";return}
-  if(msg)msg.textContent=`Продлено до ${formatDate(r.expires_at)}`;
-  await loadAll();
-  openCustomerModal(code);
- }catch(e){console.error(e);if(msg)msg.textContent="Ошибка";}
-}
-async function setCustomerExpiry(code){
- const input=document.getElementById("customerExpiryDate");
- const msg=document.getElementById("customerExpiryMessage");
- if(!input?.value){if(msg)msg.textContent="Выберите дату.";return}
- if(msg)msg.textContent="Сохраняем...";
- try{
-  const r=await adminRpc("admin_set_access_expiry",{
-    p_code:code,
-    p_expires_at:`${input.value}T23:59:59+05:00`
+  const r=await fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`,{
+    method:"POST",
+    headers:tokenHeaders(),
+    body:JSON.stringify(payload)
   });
-  if(r?.success===false){if(msg)msg.textContent=r.message||"Ошибка";return}
-  if(msg)msg.textContent=`Сохранено: ${formatDate(r.expires_at)}`;
+  if(!r.ok)throw new Error(`${name}: ${r.status} ${await r.text()}`);
+  return await r.json();
+}
+
+async function adminLogin(){
+  const email=adminEmail.value.trim();
+  const password=adminPassword.value;
+  loginMessage.textContent="Проверяем...";
+  try{
+    const r=await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`,{
+      method:"POST",
+      headers:{apikey:SUPABASE_KEY,"Content-Type":"application/json"},
+      body:JSON.stringify({email,password})
+    });
+    const d=await r.json();
+    if(!r.ok||!d.access_token){
+      loginMessage.textContent=d.error_description||d.msg||"Неверный email или пароль.";
+      return;
+    }
+    AUTH=d;
+    const check=await adminRpc("is_magist_admin",{});
+    if(check!==true){
+      AUTH=null;
+      loginMessage.textContent="Этот аккаунт не имеет прав администратора.";
+      return;
+    }
+    sessionStorage.setItem("magist_admin_session",JSON.stringify(d));
+    showAdmin();
+    await loadAll();
+  }catch(e){
+    console.error(e);
+    loginMessage.textContent="Ошибка входа.";
+  }
+}
+
+function adminLogout(){
+  sessionStorage.removeItem("magist_admin_session");
+  AUTH=null;
+  adminView.classList.add("hidden");
+  loginView.classList.remove("hidden");
+}
+function showAdmin(){
+  loginView.classList.add("hidden");
+  adminView.classList.remove("hidden");
+  adminIdentity.textContent=AUTH?.user?.email||"";
+}
+
+async function loadCourseCatalog(){
+  try{
+    const r=await fetch(`${SUPABASE_URL}/rest/v1/paid_courses?select=code,title&is_active=eq.true&order=sort_order.asc`,{headers:tokenHeaders()});
+    if(!r.ok)throw new Error("catalog");
+    const rows=await r.json();
+    COURSE_CATALOG=(rows||[]).map(x=>[x.code,x.title||x.code]).filter(x=>x[0]);
+    if(!COURSE_CATALOG.length)throw new Error("empty");
+  }catch{
+    COURSE_CATALOG=FALLBACK_COURSES;
+  }
+  renderCourseChoices();
+}
+
+async function loadAll(){
+  try{
+    const [d,c,e,v]=await Promise.all([
+      adminRpc("admin_get_dashboard"),
+      adminRpc("admin_list_customers"),
+      adminRpc("admin_get_expiry_list"),
+      adminRpc("admin_get_visit_stats")
+    ]);
+    if(d?.success===false||c?.success===false||e?.success===false||v?.success===false){
+      throw new Error(d?.message||c?.message||e?.message||v?.message);
+    }
+    const expiryMap=Object.fromEntries((e.items||[]).map(x=>[x.code,x.expires_at]));
+    DASHBOARD=d;
+    CUSTOMERS=(c.customers||[]).map(x=>({...x,expires_at:expiryMap[x.code]||null}));
+
+    statCustomers.textContent=d.customers||0;
+    statActive.textContent=d.active_customers||0;
+    statDevices.textContent=d.devices||0;
+    statCourseAccess.textContent=d.course_accesses||0;
+
+    visitOnline.textContent=v.online_15m||0;
+    visitToday.textContent=v.unique_today||0;
+    visit7d.textContent=v.unique_7d||0;
+    visit30d.textContent=v.unique_30d||0;
+    visitAll.textContent=v.unique_all||0;
+    visitViewsToday.textContent=v.page_views_today||0;
+
+    renderCourseStats();
+    renderCustomers();
+    await loadCourseCatalog();
+  }catch(e){
+    console.error(e);
+    alert("Не удалось загрузить админ-панель. Проверьте Console.");
+  }
+}
+
+function renderCourseStats(){
+  const rows=DASHBOARD?.courses||[];
+  courseStats.innerHTML=rows.length
+    ? rows.map(x=>`<div class="course-stat"><span class="muted">${escapeHtml(x.course_code)}</span><b>${x.customers||0}</b><span class="muted">покупателей</span></div>`).join("")
+    : '<div class="muted">Пока нет данных.</div>';
+}
+
+function renderCustomers(){
+  const q=customerSearch.value.trim().toLowerCase();
+  const rows=CUSTOMERS.filter(c=>!q||[c.name||"",c.code||"",...(c.courses||[])].join(" ").toLowerCase().includes(q));
+
+  customersBody.innerHTML=rows.length
+    ? rows.map(c=>`<tr>
+      <td><b>${escapeHtml(c.name||"Имя ещё не указано")}</b>${c.note?`<div class="muted">${escapeHtml(c.note)}</div>`:""}</td>
+      <td><span class="code">${escapeHtml(c.code)}</span></td>
+      <td>${(c.courses||[]).map(x=>`<span class="pill">${escapeHtml(x)}</span>`).join("")||'<span class="muted">Нет курсов</span>'}</td>
+      <td><b>${c.devices_used||0}/${c.max_devices||2}</b></td>
+      <td>${c.is_active?'<span class="pill ok">Активен</span>':'<span class="pill bad">Заблокирован</span>'}</td>
+      <td><b>${formatDate(c.expires_at)}</b>${c.expires_at&&new Date(c.expires_at)<=new Date()?'<div><span class="pill bad">Истёк</span></div>':''}</td>
+      <td><div>${c.note?escapeHtml(c.note):'<span class="muted">Нет заметки</span>'}</div><button class="btn light" style="padding:6px 8px;margin-top:5px" onclick="openCustomerModal('${escapeJs(c.code)}')">Изменить</button></td>
+      <td>${formatDate(c.created_at)}</td>
+      <td><button class="btn light" onclick="openCustomerModal('${escapeJs(c.code)}')">Управление</button></td>
+    </tr>`).join("")
+    : '<tr><td colspan="9" class="muted">Ничего не найдено.</td></tr>';
+}
+
+function renderCourseChoices(selected=[]){
+  const src=COURSE_CATALOG.length?COURSE_CATALOG:FALLBACK_COURSES;
+  courseChoices.innerHTML=src.map(([code,title])=>`
+    <label class="course-choice">
+      <input type="checkbox" value="${escapeHtml(code)}" ${selected.includes(code)?"checked":""}>
+      <b>${escapeHtml(code)}</b><br><span class="muted">${escapeHtml(title)}</span>
+    </label>`).join("");
+}
+
+function openCreateModal(){
+  newMaxDevices.value="2";
+  newNote.value="";
+  createMessage.textContent="";
+  renderCourseChoices([]);
+  createModal.classList.add("open");
+}
+function closeCreateModal(){createModal.classList.remove("open")}
+
+async function createAccess(){
+  const courses=[...document.querySelectorAll("#courseChoices input:checked")].map(x=>x.value);
+  const maxDevices=Number(newMaxDevices.value||2);
+  const note=newNote.value.trim()||null;
+  if(!courses.length){
+    createMessage.textContent="Выберите хотя бы один курс.";
+    return;
+  }
+  createMessage.textContent="Создаём...";
+  try{
+    const r=await adminRpc("admin_create_access",{p_courses:courses,p_max_devices:maxDevices,p_note:note});
+    if(!r?.success){
+      createMessage.textContent=r?.message||"Не удалось создать доступ.";
+      return;
+    }
+    createMessage.innerHTML=`Готово: <span class="code">${escapeHtml(r.code)}</span> <button class="btn light" onclick="copyText('${escapeJs(r.code)}')">Копировать</button>`;
+    await loadAll();
+  }catch(e){
+    console.error(e);
+    createMessage.textContent="Ошибка создания доступа.";
+  }
+}
+
+function openCustomerModal(code){
+  const c=CUSTOMERS.find(x=>x.code===code);
+  if(!c)return;
+
+  customerModalTitle.textContent=`${c.name||"Покупатель"} · ${c.code}`;
+  const available=(COURSE_CATALOG.length?COURSE_CATALOG:FALLBACK_COURSES)
+    .filter(([cc])=>!(c.courses||[]).includes(cc));
+
+  customerModalBody.innerHTML=`
+    <div class="card" style="margin-top:12px">
+      <div><b>Устройства:</b> ${c.devices_used||0}/${c.max_devices||2}</div>
+      <div style="margin-top:8px"><b>Статус:</b> ${c.is_active?"Активен":"Заблокирован"}</div>
+      <div style="margin-top:8px"><b>Доступ до:</b> ${formatDate(c.expires_at)}</div>
+    </div>
+
+    <div class="admin-expiry-box">
+      <label>Срок доступа</label>
+      <div class="admin-expiry-actions">
+        <button class="btn light" onclick="extendCustomerAccess('${escapeJs(c.code)}',6)">+6 месяцев</button>
+        <button class="btn light" onclick="extendCustomerAccess('${escapeJs(c.code)}',18)">+18 месяцев</button>
+      </div>
+      <div class="admin-expiry-date">
+        <input id="customerExpiryDate" type="date" value="${toDateInput(c.expires_at)}">
+        <button class="btn light" onclick="setCustomerExpiry('${escapeJs(c.code)}')">Установить дату</button>
+      </div>
+      <div id="customerExpiryMessage" class="status-line muted"></div>
+    </div>
+
+    <div class="admin-personal-note">
+      <label>Мои заметки</label>
+      <textarea id="customerAdminNote" rows="4" placeholder="Например: оплатил 15.08; написать после 20 числа...">${escapeHtml(c.note||"")}</textarea>
+      <div style="margin-top:8px">
+        <button class="btn light" onclick="saveCustomerNote('${escapeJs(c.code)}')">Сохранить заметку</button>
+        <span id="customerNoteMessage" class="muted" style="margin-left:8px"></span>
+      </div>
+    </div>
+
+    <div style="margin-top:14px">
+      <label>Купленные курсы</label>
+      <div>${(c.courses||[]).map(course=>`
+        <span class="pill">${escapeHtml(course)}
+          <button style="border:0;background:none;cursor:pointer" onclick="removeCourse('${escapeJs(c.code)}','${escapeJs(course)}')">×</button>
+        </span>`).join("")||'<span class="muted">Нет курсов</span>'}
+      </div>
+    </div>
+
+    <div style="margin-top:14px">
+      <label>Добавить курс</label>
+      <select id="addCourseSelect">
+        <option value="">Выберите курс</option>
+        ${available.map(([cc,t])=>`<option value="${escapeHtml(cc)}">${escapeHtml(cc)} — ${escapeHtml(t)}</option>`).join("")}
+      </select>
+      <button class="btn primary" style="margin-top:8px" onclick="addCourse('${escapeJs(c.code)}')">Добавить</button>
+    </div>
+
+    <div class="actions" style="margin-top:18px">
+      <button class="btn light" onclick="copyText('${escapeJs(c.code)}')">Копировать MAG-код</button>
+      <button class="btn light" onclick="resetDevices('${escapeJs(c.code)}')">Сбросить устройства</button>
+      <button class="btn ${c.is_active?"danger":"ok"}" onclick="setActive('${escapeJs(c.code)}',${!c.is_active})">${c.is_active?"Заблокировать":"Разблокировать"}</button>
+    </div>
+
+    <div class="danger-zone">
+      <h4>Полное удаление</h4>
+      <div class="muted">Удаляет покупателя и его MAG-доступ полностью. Действие нельзя отменить.</div>
+      <button class="btn danger" style="margin-top:10px" onclick="deleteCustomer('${escapeJs(c.code)}')">Удалить покупателя полностью</button>
+      <div id="deleteCustomerMessage" class="status-line"></div>
+    </div>
+  `;
+  customerModal.classList.add("open");
+}
+
+function closeCustomerModal(){customerModal.classList.remove("open")}
+
+function toDateInput(value){
+  if(!value)return"";
+  const d=new Date(value);
+  if(Number.isNaN(d.getTime()))return"";
+  const local=new Date(d.getTime()-d.getTimezoneOffset()*60000);
+  return local.toISOString().slice(0,10);
+}
+
+async function extendCustomerAccess(code,months){
+  const msg=document.getElementById("customerExpiryMessage");
+  if(msg)msg.textContent="Продлеваем...";
+  try{
+    const r=await adminRpc("admin_extend_access",{p_code:code,p_months:months});
+    if(r?.success===false){if(msg)msg.textContent=r.message||"Ошибка";return}
+    if(msg)msg.textContent=`Продлено до ${formatDate(r.expires_at)}`;
+    await loadAll();
+    openCustomerModal(code);
+  }catch(e){console.error(e);if(msg)msg.textContent="Ошибка";}
+}
+
+async function setCustomerExpiry(code){
+  const input=document.getElementById("customerExpiryDate");
+  const msg=document.getElementById("customerExpiryMessage");
+  if(!input?.value){if(msg)msg.textContent="Выберите дату.";return}
+  if(msg)msg.textContent="Сохраняем...";
+  try{
+    const r=await adminRpc("admin_set_access_expiry",{
+      p_code:code,
+      p_expires_at:`${input.value}T23:59:59+05:00`
+    });
+    if(r?.success===false){if(msg)msg.textContent=r.message||"Ошибка";return}
+    if(msg)msg.textContent=`Сохранено: ${formatDate(r.expires_at)}`;
+    await loadAll();
+    openCustomerModal(code);
+  }catch(e){console.error(e);if(msg)msg.textContent="Ошибка";}
+}
+
+async function saveCustomerNote(code){
+  const el=document.getElementById("customerAdminNote");
+  const msg=document.getElementById("customerNoteMessage");
+  if(!el)return;
+  msg.textContent="Сохраняем...";
+  try{
+    const r=await adminRpc("admin_update_note",{p_code:code,p_note:el.value.trim()||null});
+    if(r?.success===false){msg.textContent=r.message||"Не удалось сохранить.";return}
+    msg.textContent="Сохранено";
+    await loadAll();
+  }catch(e){console.error(e);msg.textContent="Ошибка";}
+}
+
+async function addCourse(code){
+  const course=addCourseSelect.value;
+  if(!course)return;
+  await adminRpc("admin_add_course",{p_code:code,p_course_code:course});
   await loadAll();
   openCustomerModal(code);
- }catch(e){console.error(e);if(msg)msg.textContent="Ошибка";}
 }
-async function saveCustomerNote(code){
- const el=document.getElementById("customerAdminNote"),msg=document.getElementById("customerNoteMessage");
- if(!el)return;
- msg.textContent="Сохраняем...";
- try{
-  const r=await adminRpc("admin_update_note",{p_code:code,p_note:el.value.trim()||null});
-  if(r?.success===false){msg.textContent=r.message||"Не удалось сохранить.";return}
-  msg.textContent="Сохранено";
+
+async function removeCourse(code,course){
+  if(!confirm(`Убрать курс ${course} у ${code}?`))return;
+  await adminRpc("admin_remove_course",{p_code:code,p_course_code:course});
   await loadAll();
- }catch(e){console.error(e);msg.textContent="Ошибка";}
+  openCustomerModal(code);
 }
-async function addCourse(code){const course=addCourseSelect.value;if(!course)return;await adminRpc("admin_add_course",{p_code:code,p_course_code:course});await loadAll();openCustomerModal(code)}
-async function removeCourse(code,course){if(!confirm(`Убрать курс ${course} у ${code}?`))return;await adminRpc("admin_remove_course",{p_code:code,p_course_code:course});await loadAll();openCustomerModal(code)}
-async function resetDevices(code){if(!confirm(`Сбросить все устройства для ${code}?`))return;await adminRpc("admin_reset_devices",{p_code:code});await loadAll();openCustomerModal(code)}
-async function setActive(code,active){await adminRpc("admin_set_access_active",{p_code:code,p_active:active});await loadAll();openCustomerModal(code)}
+
+async function resetDevices(code){
+  if(!confirm(`Сбросить все устройства для ${code}?`))return;
+  await adminRpc("admin_reset_devices",{p_code:code});
+  await loadAll();
+  openCustomerModal(code);
+}
+
+async function setActive(code,active){
+  await adminRpc("admin_set_access_active",{p_code:code,p_active:active});
+  await loadAll();
+  openCustomerModal(code);
+}
+
+/* Requires a Supabase RPC named admin_delete_customer(p_code text).
+   The admin UI is ready for it; if the RPC does not exist yet, the UI shows an error. */
+async function deleteCustomer(code){
+  const msg=document.getElementById("deleteCustomerMessage");
+
+  if(!confirm(`Полностью удалить покупателя ${code}?\n\nMAG-код и доступ будут удалены. Это действие нельзя отменить.`))return;
+  if(!confirm(`Последнее подтверждение: удалить ${code} НАВСЕГДА?`))return;
+
+  if(msg){
+    msg.style.color="";
+    msg.textContent="Удаляем...";
+  }
+
+  try{
+    const r=await adminRpc("admin_delete_customer",{p_code:code});
+    if(r?.success===false){
+      if(msg){
+        msg.style.color="var(--danger)";
+        msg.textContent=r.message||"Не удалось удалить.";
+      }
+      return;
+    }
+    closeCustomerModal();
+    await loadAll();
+    alert(`Покупатель ${code} полностью удалён.`);
+  }catch(e){
+    console.error(e);
+    if(msg){
+      msg.style.color="var(--danger)";
+      msg.textContent="Функция удаления ещё не создана в Supabase.";
+    }
+  }
+}
+
 function copyText(text){navigator.clipboard?.writeText(text)}
 function formatDate(v){if(!v)return"";try{return new Date(v).toLocaleDateString("ru-RU")}catch{return v}}
 function escapeHtml(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
 function escapeJs(v){return String(v??"").replaceAll("\\","\\\\").replaceAll("'","\\'")}
+
+createModal.addEventListener("click",e=>{if(e.target.id==="createModal")closeCreateModal()});
+customerModal.addEventListener("click",e=>{if(e.target.id==="customerModal")closeCustomerModal()});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){
+    closeCreateModal();
+    closeCustomerModal();
+  }
+});
+
 (async function(){
- const saved=sessionStorage.getItem("magist_admin_session");if(!saved)return;
- try{AUTH=JSON.parse(saved);const check=await adminRpc("is_magist_admin",{});if(check!==true)throw new Error("not admin");showAdmin();await loadAll()}catch{adminLogout()}
+  const saved=sessionStorage.getItem("magist_admin_session");
+  if(!saved)return;
+  try{
+    AUTH=JSON.parse(saved);
+    const check=await adminRpc("is_magist_admin",{});
+    if(check!==true)throw new Error("not admin");
+    showAdmin();
+    await loadAll();
+  }catch{
+    adminLogout();
+  }
 })();
 </script>
 </body>
