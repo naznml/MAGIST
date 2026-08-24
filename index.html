@@ -3508,28 +3508,6 @@ footer{
   .quick-card{min-height:112px!important;padding:14px!important;}
 }
 </style>
-<style>
-/* PAID VIDEO PREVIEW */
-.paid-video-preview{margin:0 0 26px;padding:20px;border:1px solid rgba(108,92,255,.14);border-radius:22px;background:linear-gradient(145deg,rgba(245,243,255,.92),rgba(255,255,255,.92));box-shadow:0 10px 30px rgba(40,35,95,.05)}
-.paid-video-head{margin-bottom:14px}
-.paid-video-kicker{display:inline-flex;padding:5px 8px;border-radius:999px;background:#ece8ff;color:#6758f5;font-size:9px;font-weight:900;letter-spacing:.08em}
-.paid-video-head h3{font-size:20px;margin:9px 0 5px;letter-spacing:-.5px}
-.paid-video-head p{font-size:11px;color:var(--muted);line-height:1.5}
-.paid-video-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
-.paid-video-card{border:1px solid var(--border);border-radius:14px;background:#fff;padding:13px;text-align:left;min-height:76px;display:flex;flex-direction:column;justify-content:space-between;transition:.18s ease}
-.paid-video-card:hover{transform:translateY(-2px);border-color:rgba(108,92,255,.28);box-shadow:0 10px 24px rgba(40,35,95,.07)}
-.paid-video-card b{font-size:13px}
-.paid-video-card span{font-size:9px;color:#6758f5;font-weight:900}
-.paid-preview-modal{position:fixed;inset:0;z-index:3000;background:rgba(10,11,16,.84);display:none;align-items:center;justify-content:center;padding:18px}
-.paid-preview-modal.open{display:flex}
-.paid-preview-shell{width:min(860px,96vw);background:#111217;border-radius:20px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.35)}
-.paid-preview-top{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:13px 15px;color:#fff}
-.paid-preview-top b{font-size:14px}
-.paid-preview-close{width:34px;height:34px;border:0;border-radius:50%;background:#fff;color:#111;font-size:20px;font-weight:900}
-.paid-preview-shell video{display:block;width:100%;max-height:76vh;background:#000}
-@media(max-width:800px){.paid-video-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:480px){.paid-video-grid{grid-template-columns:1fr}.paid-video-card{min-height:66px}}
-</style>
 </head>
 
 <body>
@@ -3763,27 +3741,6 @@ footer{
 
     </div>
 
-
-
-    <div class="paid-video-preview">
-      <div class="paid-video-head">
-        <div>
-          <span class="paid-video-kicker">ВИДЕО ОБЗОР</span>
-          <h3>Ақылы тест сұрақтарын алдын ала көріңіз</h3>
-          <p>Қызықтырған бағытты таңдаңыз. Видео осы бетте ашылады.</p>
-        </div>
-      </div>
-
-      <div class="paid-video-grid">
-        <button type="button" class="paid-video-card" onclick="openPaidPreview('Ағылшын тілі','https://wbikkbndoaqjqrbolbuw.supabase.co/storage/v1/object/public/course-videos/ENGLISH.mp4')"><b>Ағылшын тілі</b><span>Видео обзор →</span></button>
-        <button type="button" class="paid-video-card" onclick="openPaidPreview('M003','https://wbikkbndoaqjqrbolbuw.supabase.co/storage/v1/object/public/course-videos/M003.mp4')"><b>M003</b><span>Видео обзор →</span></button>
-        <button type="button" class="paid-video-card" onclick="openPaidPreview('M017','https://wbikkbndoaqjqrbolbuw.supabase.co/storage/v1/object/public/course-videos/M017.mp4')"><b>M017</b><span>Видео обзор →</span></button>
-        <button type="button" class="paid-video-card" onclick="openPaidPreview('M018','https://wbikkbndoaqjqrbolbuw.supabase.co/storage/v1/object/public/course-videos/M018.mp4')"><b>M018</b><span>Видео обзор →</span></button>
-        <button type="button" class="paid-video-card" onclick="openPaidPreview('M019','https://wbikkbndoaqjqrbolbuw.supabase.co/storage/v1/object/public/course-videos/M019.mp4')"><b>M019</b><span>Видео обзор →</span></button>
-        <button type="button" class="paid-video-card" onclick="openPaidPreview('Педагогика','https://wbikkbndoaqjqrbolbuw.supabase.co/storage/v1/object/public/course-videos/PEDAGOGY.mp4')"><b>Педагогика</b><span>Видео обзор →</span></button>
-        <button type="button" class="paid-video-card" onclick="openPaidPreview('Сыни ойлау','https://wbikkbndoaqjqrbolbuw.supabase.co/storage/v1/object/public/course-videos/SO.mp4')"><b>Сыни ойлау</b><span>Видео обзор →</span></button>
-      </div>
-    </div>
 
     <div class="sub-title">
       <h3 id="fullCoursesTitle">Толық курстар</h3>
@@ -5608,6 +5565,8 @@ footer{
       : tr("priceLater");
   }
 
+  const COURSE_VIDEO_URLS = {"ENGLISH": "https://wbikkbndoaqjqrbolbuw.supabase.co/storage/v1/object/public/course-videos/ENGLISH.mp4", "M003": "https://wbikkbndoaqjqrbolbuw.supabase.co/storage/v1/object/public/course-videos/M003.mp4", "M017": "https://wbikkbndoaqjqrbolbuw.supabase.co/storage/v1/object/public/course-videos/M017.mp4", "M018": "https://wbikkbndoaqjqrbolbuw.supabase.co/storage/v1/object/public/course-videos/M018.mp4", "M019": "https://wbikkbndoaqjqrbolbuw.supabase.co/storage/v1/object/public/course-videos/M019.mp4", "PEDAGOGY": "https://wbikkbndoaqjqrbolbuw.supabase.co/storage/v1/object/public/course-videos/PEDAGOGY.mp4", "SO": "https://wbikkbndoaqjqrbolbuw.supabase.co/storage/v1/object/public/course-videos/SO.mp4"};
+
   function openCoursePreview(code) {
     const course = PAID_COURSES.find(item => item.code === code);
     if (!course) return;
@@ -5626,9 +5585,20 @@ footer{
           <div class="access-muted">${escapeHTML(languageLabel)}</div>
         </div>
         <div class="access-panel"><div class="access-panel-title">${tr("videoReview")}</div>
-          ${course.video_url
-            ? `<a class="card-link" href="${escapeHTML(course.video_url)}" target="_blank" rel="noopener">${tr("watchVideo")}</a>`
-            : `<div class="access-muted">${tr("videoSoon")}</div>`}
+          ${(() => {
+            const rawCode = String(course.code || "").toUpperCase().trim();
+            const candidates = [
+              rawCode,
+              rawCode.replace(/[^A-Z0-9]/g, ""),
+              rawCode.includes("ENGLISH") ? "ENGLISH" : "",
+              rawCode.includes("PED") ? "PEDAGOGY" : "",
+              rawCode === "SO" || rawCode.includes("СЫНИ") ? "SO" : ""
+            ].filter(Boolean);
+            const videoUrl = course.video_url || candidates.map(key => COURSE_VIDEO_URLS[key]).find(Boolean);
+            return videoUrl
+              ? `<a class="card-link" href="${escapeHTML(videoUrl)}" target="_blank" rel="noopener">${tr("watchVideo")}</a>`
+              : `<div class="access-muted">${tr("videoSoon")}</div>`;
+          })()}
         </div>
         <div class="access-panel"><div class="access-panel-title">${tr("price")}</div>
           <div class="access-price">${getPreviewPrice(course)}</div>
@@ -8073,35 +8043,6 @@ footer{
     };
   }
 })();
-</script>
-
-
-<div class="paid-preview-modal" id="paidPreviewModal" onclick="if(event.target===this) closePaidPreview()">
-  <div class="paid-preview-shell">
-    <div class="paid-preview-top">
-      <b id="paidPreviewTitle">Видео обзор</b>
-      <button type="button" class="paid-preview-close" onclick="closePaidPreview()" aria-label="Жабу">×</button>
-    </div>
-    <video id="paidPreviewVideo" controls playsinline preload="metadata"></video>
-  </div>
-</div>
-<script>
-function openPaidPreview(title,url){
-  const modal=document.getElementById('paidPreviewModal');
-  const video=document.getElementById('paidPreviewVideo');
-  document.getElementById('paidPreviewTitle').textContent=title+' · Видео обзор';
-  video.src=url;
-  modal.classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closePaidPreview(){
-  const modal=document.getElementById('paidPreviewModal');
-  const video=document.getElementById('paidPreviewVideo');
-  if(video){video.pause();video.removeAttribute('src');video.load();}
-  if(modal) modal.classList.remove('open');
-  document.body.style.overflow='';
-}
-document.addEventListener('keydown',function(e){if(e.key==='Escape') closePaidPreview();});
 </script>
 
 </body>
