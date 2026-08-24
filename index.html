@@ -3539,6 +3539,218 @@ body{
 }
 </style>
 
+
+<style id="magist-mobile-fixed-header-v2">
+/* iPhone / mobile: fix ONLY MAGIST + language + login bar to the viewport */
+@media (max-width: 700px){
+  /* The outer header stays in document flow, so the separate Бағалар card is NOT fixed */
+  header{
+    position:relative !important;
+    top:auto !important;
+    left:auto !important;
+    right:auto !important;
+    width:100% !important;
+    z-index:auto !important;
+    background:transparent !important;
+    backdrop-filter:none !important;
+    -webkit-backdrop-filter:none !important;
+    border-bottom:0 !important;
+  }
+
+  header .header-inner{
+    position:fixed !important;
+    top:env(safe-area-inset-top, 0px) !important;
+    left:0 !important;
+    right:0 !important;
+    width:100% !important;
+    max-width:none !important;
+    height:66px !important;
+    margin:0 !important;
+    padding:0 16px !important;
+    z-index:2147483000 !important;
+
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:10px !important;
+
+    background:rgba(248,248,252,.96) !important;
+    border-bottom:1px solid rgba(16,17,22,.08) !important;
+    box-shadow:0 8px 24px rgba(20,20,35,.08) !important;
+    backdrop-filter:blur(18px) saturate(150%) !important;
+    -webkit-backdrop-filter:blur(18px) saturate(150%) !important;
+  }
+
+  /* Leave room for the fixed mobile bar */
+  body{
+    padding-top:calc(66px + env(safe-area-inset-top, 0px)) !important;
+  }
+
+  header nav{display:none !important;}
+
+  header .logo{
+    flex:0 1 auto !important;
+    min-width:0 !important;
+    font-size:20px !important;
+    gap:9px !important;
+    white-space:nowrap !important;
+  }
+
+  header .logo-box{
+    width:38px !important;
+    height:38px !important;
+    min-width:38px !important;
+    border-radius:12px !important;
+  }
+
+  header .header-actions{
+    flex:0 0 auto !important;
+    display:flex !important;
+    align-items:center !important;
+    gap:8px !important;
+  }
+
+  header .lang-switch{
+    flex:0 0 auto !important;
+    padding:4px !important;
+  }
+
+  header .lang-switch button{
+    padding:8px 11px !important;
+    font-size:11px !important;
+  }
+
+  header .login-button{
+    flex:0 0 auto !important;
+    padding:11px 14px !important;
+    border-radius:12px !important;
+    white-space:nowrap !important;
+  }
+
+  /* Бағалар remains a normal page element and scrolls away */
+  header > .magist-pricing-nav-card{
+    position:relative !important;
+    top:auto !important;
+    left:auto !important;
+    right:auto !important;
+    z-index:1 !important;
+  }
+}
+
+@media (max-width: 390px){
+  header .header-inner{padding:0 10px !important;gap:6px !important;}
+  header .logo{font-size:18px !important;gap:7px !important;}
+  header .logo-box{width:35px !important;height:35px !important;min-width:35px !important;}
+  header .lang-switch button{padding:7px 9px !important;}
+  header .login-button{padding:10px 11px !important;}
+}
+</style>
+
+
+<style id="magist-mobile-all-fixed-v3">
+/* MOBILE: EVERYTHING IN THE TOP HEADER STAYS FIXED */
+@media (max-width:700px){
+  header{
+    position:fixed !important;
+    top:env(safe-area-inset-top, 0px) !important;
+    left:0 !important;
+    right:0 !important;
+    width:100% !important;
+    height:118px !important;
+    z-index:2147483000 !important;
+    background:rgba(248,248,252,.97) !important;
+    border-bottom:1px solid rgba(16,17,22,.08) !important;
+    box-shadow:0 8px 24px rgba(20,20,35,.08) !important;
+    backdrop-filter:blur(18px) saturate(150%) !important;
+    -webkit-backdrop-filter:blur(18px) saturate(150%) !important;
+  }
+
+  /* Бағалар is also fixed as part of the header */
+  header > .magist-pricing-nav-card{
+    position:absolute !important;
+    top:8px !important;
+    left:10px !important;
+    z-index:2147483002 !important;
+    margin:0 !important;
+  }
+
+  header .header-inner{
+    position:absolute !important;
+    top:50px !important;
+    left:0 !important;
+    right:0 !important;
+    width:100% !important;
+    max-width:none !important;
+    height:68px !important;
+    margin:0 !important;
+    padding:0 14px !important;
+    z-index:2147483001 !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:8px !important;
+    background:transparent !important;
+    border:0 !important;
+    box-shadow:none !important;
+  }
+
+  body{
+    padding-top:calc(118px + env(safe-area-inset-top, 0px)) !important;
+  }
+
+  header nav{display:none !important;}
+
+  header .logo{
+    flex:0 1 auto !important;
+    min-width:0 !important;
+    white-space:nowrap !important;
+    font-size:20px !important;
+    gap:8px !important;
+  }
+
+  header .logo-box{
+    width:38px !important;
+    height:38px !important;
+    min-width:38px !important;
+    border-radius:12px !important;
+  }
+
+  header .header-actions{
+    flex:0 0 auto !important;
+    display:flex !important;
+    align-items:center !important;
+    gap:7px !important;
+  }
+
+  header .lang-switch{
+    flex:0 0 auto !important;
+    padding:4px !important;
+  }
+
+  header .lang-switch button{
+    padding:8px 10px !important;
+    font-size:11px !important;
+  }
+
+  header .login-button{
+    flex:0 0 auto !important;
+    padding:11px 13px !important;
+    border-radius:12px !important;
+    white-space:nowrap !important;
+  }
+}
+
+@media (max-width:390px){
+  header{height:114px !important;}
+  header .header-inner{top:48px !important;height:66px !important;padding:0 9px !important;gap:5px !important;}
+  body{padding-top:calc(114px + env(safe-area-inset-top, 0px)) !important;}
+  header .logo{font-size:18px !important;gap:6px !important;}
+  header .logo-box{width:35px !important;height:35px !important;min-width:35px !important;}
+  header .lang-switch button{padding:7px 8px !important;}
+  header .login-button{padding:10px 10px !important;}
+}
+</style>
+
 </head>
 
 <body>
@@ -3668,7 +3880,7 @@ body{
     <a href="#reviews" class="quick-card">
       <span class="quick-number">03</span>
       <h3 id="quickReviewsTitle">Отзывы және нәтиже</h3>
-      <p id="quickReviewsText">Оқушылардың пікірлері мен баллдары.</p>
+      <p id="quickReviewsText"Кері байланыстар.</p>
     </a>
 
     <a href="#grant" class="quick-card">
@@ -3826,7 +4038,7 @@ body{
         <h2 id="reviewsTitle">Отзывы және нәтиже</h2>
 
         <p>
-          <span id="reviewsDesc">Оқушылардың пікірлері, КТ баллдары және дайындық нәтижелері бір жерде.</span>
+          <span id="reviewsDesc">Кері бакйланыстар және дайындық нәтижелері бір жерде.</span>
         </p>
       </div>
 
@@ -4633,7 +4845,7 @@ body{
       quickPaidTitle: "Ақылы дайындық",
       quickPaidText: "Курстар және пробный тесттер.",
       quickReviewsTitle: "Отзывы және нәтиже",
-      quickReviewsText: "Оқушылардың пікірлері мен баллдары.",
+      quickReviewsText: "Кері байланыстар.",
       quickKtTitle: "КТ құрылымы",
       quickKtText: "Сұрақтар, балл және шекті балл.",
       quickGrantTitle: "Грант мүмкіндігі",
@@ -4642,7 +4854,7 @@ body{
       freeProtectionTitle: "Материалдарды сатуға және таратуға болмайды.",
       freeProtectionText: "Ондай жағдайда заңмен жауап беруіңізге тура келеді.",
       paidDesc: "Толық курстар мен бөлек пробный тест пакеттері.",
-      reviewsDesc: "Оқушылардың пікірлері, КТ баллдары және дайындық нәтижелері бір жерде.",
+      reviewsDesc: "Кері байланыстар және дайындық нәтижелері бір жерде.",
       ktDesc: "Ғылыми-педагогикалық магистратура.",
       ktMainTitle: "Негізгі құрылым",
       ktSectionsTitle: "Бөлімдер",
