@@ -3476,6 +3476,38 @@ footer{
 }
 </style>
 
+<style>
+/* QUICK CARDS — compact 6-card layout */
+.quick-grid{
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  gap:10px!important;
+}
+.quick-card{
+  min-height:126px!important;
+  padding:16px!important;
+  border-radius:18px!important;
+}
+.quick-card h3{
+  margin-top:20px!important;
+  font-size:14px!important;
+  line-height:1.25!important;
+}
+.quick-card p{
+  font-size:10px!important;
+  line-height:1.4!important;
+}
+.quick-number{
+  font-size:8px!important;
+  padding:4px 7px!important;
+}
+@media(max-width:1100px){
+  .quick-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;}
+}
+@media(max-width:620px){
+  .quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+  .quick-card{min-height:112px!important;padding:14px!important;}
+}
+</style>
 </head>
 
 <body>
@@ -3514,10 +3546,10 @@ footer{
       <a href="#free" id="navFree">Тегін</a>
       <a href="#paid" id="navPaid">Ақылы</a>
       <a href="#pricing" id="navPricing">Бағалар</a>
-      <a href="#analytics" id="navAnalytics">Аналитика</a>
       <a href="#reviews" id="navReviews">Отзывы және нәтиже</a>
-      <a href="#kt" id="navKt">КТ құрылымы</a>
       <a href="#grant" id="navGrant">Грант</a>
+      <a href="#kt" id="navKt">КТ құрылымы</a>
+      <a href="#analytics" id="navAnalytics">Аналитика</a>
     </nav>
 
     <div class="header-actions">
@@ -3590,13 +3622,6 @@ footer{
 <div class="quick-section">
   <div class="container quick-grid">
 
-    <a href="#analytics" class="quick-card analytics-quick">
-      <span class="quick-number">AN</span>
-      <h3>Нәтиже аналитикасы</h3>
-      <p>5 бөлім бойынша балл енгізіп, прогресті бақылау.</p>
-    </a>
-
-
     <a href="#free" class="quick-card">
       <span class="quick-number">01</span>
       <h3 id="quickFreeTitle">Тегін дайындық</h3>
@@ -3615,16 +3640,22 @@ footer{
       <p id="quickReviewsText">Оқушылардың пікірлері мен баллдары.</p>
     </a>
 
-    <a href="#kt" class="quick-card">
+    <a href="#grant" class="quick-card">
       <span class="quick-number">04</span>
+      <h3 id="quickGrantTitle">Грант мүмкіндігі</h3>
+      <p id="quickGrantText">2026 нәтижелерімен салыстыру.</p>
+    </a>
+
+    <a href="#kt" class="quick-card">
+      <span class="quick-number">05</span>
       <h3 id="quickKtTitle">КТ құрылымы</h3>
       <p id="quickKtText">Сұрақтар, балл және шекті балл.</p>
     </a>
 
-    <a href="#grant" class="quick-card">
-      <span class="quick-number">05</span>
-      <h3 id="quickGrantTitle">Грант мүмкіндігі</h3>
-      <p id="quickGrantText">2026 нәтижелерімен салыстыру.</p>
+    <a href="#analytics" class="quick-card analytics-quick">
+      <span class="quick-number">06</span>
+      <h3>Нәтиже аналитикасы</h3>
+      <p>5 бөлім бойынша балл енгізіп, прогресті бақылау.</p>
     </a>
 
   </div>
