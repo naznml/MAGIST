@@ -3894,6 +3894,19 @@ body.magist-workspace-open #courseModal .modal-content{
 }
 </style>
 
+
+<style>
+/* TOP TELEGRAM PROMO */
+.magist-tg-top{padding:18px 0 0}
+.magist-tg-top-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:22px;align-items:center;padding:20px 22px;border:1px solid rgba(108,92,255,.16);border-radius:22px;background:linear-gradient(135deg,rgba(255,255,255,.94),rgba(243,240,255,.94));box-shadow:0 14px 38px rgba(55,45,120,.08)}
+.magist-tg-top-kicker{display:inline-flex;margin-bottom:9px;padding:6px 9px;border-radius:999px;background:#ece8ff;color:#6554f6;font-size:9px;font-weight:950;letter-spacing:.08em}
+.magist-tg-top-card h2{font-size:21px;letter-spacing:-.5px;margin:0 0 9px}
+.magist-tg-top-list{display:flex;flex-wrap:wrap;gap:7px 14px;color:#666d79;font-size:12px;line-height:1.45}
+.magist-tg-top-list span:before{content:'•';color:#6c5cff;font-weight:900;margin-right:6px}
+.magist-tg-top-button{min-width:190px;min-height:48px;white-space:nowrap}
+@media(max-width:700px){.magist-tg-top{padding:12px 0 0}.magist-tg-top-card{grid-template-columns:1fr;padding:17px;gap:15px}.magist-tg-top-card h2{font-size:18px}.magist-tg-top-list{display:grid;gap:6px;font-size:11px}.magist-tg-top-button{width:100%;min-width:0}}
+</style>
+
 </head>
 
 <body>
@@ -3947,6 +3960,26 @@ body.magist-workspace-open #courseModal .modal-content{
     </div>
   </div>
 </header>
+
+<section class="magist-tg-top" aria-label="Telegram">
+  <div class="container">
+    <div class="magist-tg-top-card">
+      <div>
+        <span class="magist-tg-top-kicker" id="topTgKicker">TELEGRAM · MAGIST</span>
+        <h2 id="topTgTitle">Telegram каналымызға қосылыңыз!</h2>
+        <div class="magist-tg-top-list">
+          <span id="topTgItem1">Магистратураға қатысты барлық ақпарат пен жаңалықтар</span>
+          <span id="topTgItem2">Гранттар, КТ және маңызды хабарламалар</span>
+          <span id="topTgItem3">Осы жазғы КТ-да келген сұрақтар сайт форматында</span>
+          <span id="topTgItem4">Ақылы дайындық сайттарының видеообзорлары</span>
+        </div>
+      </div>
+      <a class="button button-purple magist-tg-top-button" href="https://t.me/+8SolEPgN4Is0MTMy" target="_blank" rel="noopener noreferrer" id="topTgBtn">Telegram каналға өту →</a>
+    </div>
+  </div>
+</section>
+
+
 
 
 <div class="hero">
@@ -4995,6 +5028,13 @@ body.magist-workspace-open #courseModal .modal-content{
       grantCalcBtn: "Есептеу",
       grantInitial: "2026 статистикасы бойынша ең төмен грант балы, сіздің айырмашылығыңыз және сәйкес ЖОО көрсетіледі.",
       telegramTitle: "Telegram-канал",
+      topTgKicker: "TELEGRAM · MAGIST",
+      topTgTitle: "Telegram каналымызға қосылыңыз!",
+      topTgItem1: "Магистратураға қатысты барлық ақпарат пен жаңалықтар",
+      topTgItem2: "Гранттар, КТ және маңызды хабарламалар",
+      topTgItem3: "Осы жазғы КТ-да келген сұрақтар сайт форматында",
+      topTgItem4: "Ақылы дайындық сайттарының видеообзорлары",
+      topTgBtn: "Telegram каналға өту →",
       telegramDesc: "Магистратура, КТ, грант және жаңа материалдар туралы барлық жаңалықтарды Telegram-каналда жариялаймыз.",
       telegramBtnText: "Telegram-каналға өту",
       contactQuestionTitle: "Сұрақтарыңыз бар ма?",
@@ -5148,6 +5188,13 @@ body.magist-workspace-open #courseModal .modal-content{
       grantCalcBtn: "Рассчитать",
       grantInitial: "По статистике 2026 года здесь показаны минимальный балл на грант, разница с вашим баллом и подходящие вузы.",
       telegramTitle: "Telegram-канал",
+      topTgKicker: "TELEGRAM · MAGIST",
+      topTgTitle: "Присоединяйтесь к нашему Telegram-каналу!",
+      topTgItem1: "Вся информация и новости о магистратуре",
+      topTgItem2: "Гранты, КТ и важные объявления",
+      topTgItem3: "Вопросы, которые были на летнем КТ, в формате сайта",
+      topTgItem4: "Видеообзоры платных сайтов подготовки",
+      topTgBtn: "Перейти в Telegram-канал →",
       telegramDesc: "Все новости о магистратуре, КТ, грантах и новых материалах публикуются в Telegram-канале.",
       telegramBtnText: "Перейти в Telegram-канал",
       contactQuestionTitle: "Есть вопросы?",
@@ -5232,7 +5279,7 @@ body.magist-workspace-open #courseModal .modal-content{
       "ktListeningType","ktReadingType","ktGrammarType",
       "ktCritical","ktCriticalQ","ktAnalytical","ktAnalyticalQ",
       "grantAllUni","grantAlmaty","grantAstana","grantOtherCity",
-      "grantCalcBtn","telegramTitle","telegramDesc","telegramBtnText",
+      "grantCalcBtn","topTgKicker","topTgTitle","topTgItem1","topTgItem2","topTgItem3","topTgItem4","topTgBtn","telegramTitle","telegramDesc","telegramBtnText",
       "contactQuestionTitle","contactQuestionDesc","contactBtnText","footerText"
     ].forEach(id => setText(id,id));
 
